@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Location {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(100)
+  address String? @db.VarChar(255)
+  website String? @db.VarChar(255)
+  events Event[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id Int @id @default(autoincrement())
+  eventId Int @unique @default(autoincrement()) // foreign key to event id
+  name String @db.VarChar(100)
+  description String? 
+  cost Int
+  minAge Int
+  maxAge Int
+  location Location @relation(fields: [locationId], references: [id])
+  locationId Int @unique // foreign key to location id
+  day Day 
+  startTime String @db.VarChar(4)
+  endTime String @db.VarChar(4)
+  termTime Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  website String? @db.VarChar(255)
+  phone String? @db.VarChar(20)
+  email String? @db.VarChar(100)
+  // organizer Organizer? @relation(fields: [organizerId], references: [id])
+  // organizerId Int // foreign key to organizer id
+  tags Tag[] // Many-to-many relationship with Tags model
+}
+
+// model Organizer {
+//   id Int @id @default(autoincrement())
+//   organizerId Int @unique
+//   name String @db.VarChar(100)
+//   email String @db.VarChar(100)
+//   phoneNumber String? @db.VarChar(20)
+//   events Event[]
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+
+model Tag {
+  id Int @id @default(autoincrement())
+  tagId Int @unique
+  name String @db.VarChar(20)
+  description String?
+  events Event[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Day {
+  Sunday
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+}
+
+// model User {
+//   id        Int      @id @default(autoincrement())
+//   userId    Int      @unique // foreign key to user id
+//   createdAt DateTime @default(now())
+//   email     String   @unique
+//   userName  String   @unique
+//   name      String
+//   role      Role     @default(USER)
+//   locationsCreated Location[]
+//   eventsCreated    Event[]
+// }
+
+// enum Role {
+//   USER
+//   ADMIN
+// }
