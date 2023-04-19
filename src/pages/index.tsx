@@ -6,7 +6,6 @@ import { Event } from '@prismatypes';
 import EventCard from '@/components/EventCard';
 import Layout from '@/components/Layout';
 import Image from 'next/image';
-import { CldImage } from 'next-cloudinary';
 import type { NextPageWithLayout } from './_app';
 import pic from '../images/hero_playing_crop.webp';
 export const getStaticProps: GetStaticProps = async () => {

@@ -1,6 +1,29 @@
 .head {
-    border: red 1px solid;
-    background: #faa;
-    width: 100vw;
-    min-height: 50px;
+	background: #faa;
+	width: 100vw;
+	min-height: 50px;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.head > h1 {
+    padding: 1rem;
+}
+
+
+.navBar {
+	list-style: none;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-items: flex-end;    
+}
+
+.navItem {
+    padding: 1rem;
+    background: #fbb;
+    border-radius: 5px;
+    border: 1px solid red;
 }
