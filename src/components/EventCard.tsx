@@ -4,7 +4,7 @@ import Router from 'next/router';
 import { Event } from '@prismatypes';
 
 export default function EventCard({ event }: { event: Event }) {
-
+	console.log(event);
 	const {name, description, id} = event;
 	return (
 		<div className="card">
@@ -17,6 +17,7 @@ export default function EventCard({ event }: { event: Event }) {
                     <p>{id}</p>
 				</div>
 			</div>
+
 			<footer className="card-footer">
 				<a
 					href="#"

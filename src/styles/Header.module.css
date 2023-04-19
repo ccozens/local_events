@@ -1,0 +1,6 @@
+.head {
+    border: red 1px solid;
+    background: #faa;
+    width: 100vw;
+    min-height: 50px;
+}

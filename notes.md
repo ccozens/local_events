@@ -44,4 +44,5 @@ mkdir pages p
       7. Create PrismaClient instance that can be imported wherever necessary: mkdir lib && touch lib/prisma.ts
 
 
-Favicon: [svg from freeSVG](https://freesvg.org/cartoon-kids-playing) and converted to .ico at [convertio](https://convertio.co/svg-ico/).
+Favicon: [svg from freeSVG](https://freesvg.org/cartoon-kids-playing) and converted/generated scripts at [Real Favicon Generator](realfavicongenerator.net).
+Hero image by [Artem Kniza, shared on unsplash](https://unsplash.com/photos/DqgMHzeio7g).

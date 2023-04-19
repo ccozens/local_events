@@ -7,7 +7,29 @@
   min-height: 100vh;
 }
 
-.description {
+
+/* hero styling */
+.hero {
+  width: 100vw;
+  height: 10vh;
+  border: 1px solid red;
+}
+
+.heroImage {
+  width: 10%;
+  height: 10%;
+}
+
+
+/* events grid styling */
+.eventsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+}
+
+
+/* .description {
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
@@ -16,5 +38,4 @@
   width: 100%;
   z-index: 2;
   font-family: var(--font-mono);
-}
-
+} */

@@ -616,7 +616,7 @@ export const EventUncheckedUpdateManyInputSchema: z.ZodType<Prisma.EventUnchecke
 }).strict();
 
 export const TagCreateInputSchema: z.ZodType<Prisma.TagCreateInput> = z.object({
-  tagId: z.number().int(),
+  tagId: z.number().int().optional(),
   name: z.string(),
   description: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -626,7 +626,7 @@ export const TagCreateInputSchema: z.ZodType<Prisma.TagCreateInput> = z.object({
 
 export const TagUncheckedCreateInputSchema: z.ZodType<Prisma.TagUncheckedCreateInput> = z.object({
   id: z.number().int().optional(),
-  tagId: z.number().int(),
+  tagId: z.number().int().optional(),
   name: z.string(),
   description: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -635,7 +635,6 @@ export const TagUncheckedCreateInputSchema: z.ZodType<Prisma.TagUncheckedCreateI
 }).strict();
 
 export const TagUpdateInputSchema: z.ZodType<Prisma.TagUpdateInput> = z.object({
-  tagId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   description: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -655,7 +654,7 @@ export const TagUncheckedUpdateInputSchema: z.ZodType<Prisma.TagUncheckedUpdateI
 
 export const TagCreateManyInputSchema: z.ZodType<Prisma.TagCreateManyInput> = z.object({
   id: z.number().int().optional(),
-  tagId: z.number().int(),
+  tagId: z.number().int().optional(),
   name: z.string(),
   description: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -663,7 +662,6 @@ export const TagCreateManyInputSchema: z.ZodType<Prisma.TagCreateManyInput> = z.
 }).strict();
 
 export const TagUpdateManyMutationInputSchema: z.ZodType<Prisma.TagUpdateManyMutationInput> = z.object({
-  tagId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   description: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -1439,7 +1437,7 @@ export const LocationCreateOrConnectWithoutEventsInputSchema: z.ZodType<Prisma.L
 }).strict();
 
 export const TagCreateWithoutEventsInputSchema: z.ZodType<Prisma.TagCreateWithoutEventsInput> = z.object({
-  tagId: z.number(),
+  tagId: z.number().optional(),
   name: z.string(),
   description: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -1448,7 +1446,7 @@ export const TagCreateWithoutEventsInputSchema: z.ZodType<Prisma.TagCreateWithou
 
 export const TagUncheckedCreateWithoutEventsInputSchema: z.ZodType<Prisma.TagUncheckedCreateWithoutEventsInput> = z.object({
   id: z.number().optional(),
-  tagId: z.number(),
+  tagId: z.number().optional(),
   name: z.string(),
   description: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -1551,29 +1549,8 @@ export const EventUncheckedCreateWithoutTagsInputSchema: z.ZodType<Prisma.EventU
 
 export const EventCreateOrConnectWithoutTagsInputSchema: z.ZodType<Prisma.EventCreateOrConnectWithoutTagsInput> = z.object({
   where: z.lazy(() => EventWhereUniqueInputSchema),
-  create: z.union([
-    z.lazy(() => z.object({
-      eventId: z.number().optional(),
-      name: z.string(),
-      description: z.string().optional().nullable(),
-      cost: z.number(),
-      minAge: z.number(),
-      maxAge: z.number(),
-      location: LocationCreateNestedOneWithoutEventsInputSchema,
-      day: z.lazy(() => DaySchema),
-      startTime: z.string(),
-      endTime: z.string(),
-      termTime: z.boolean().optional(),
-      createdAt: z.coerce.date().optional(),
-      updatedAt: z.coerce.date().optional(),
-      website: z.string().optional().nullable(),
-      phone: z.string().optional().nullable(),
-      email: z.string().optional().nullable(),
-    })),
-    EventUncheckedCreateWithoutTagsInputSchema
-  ])
+  create: z.union([ z.lazy(() => EventCreateWithoutTagsInputSchema),z.lazy(() => EventUncheckedCreateWithoutTagsInputSchema) ]),
 }).strict();
-
 
 export const EventUpsertWithWhereUniqueWithoutTagsInputSchema: z.ZodType<Prisma.EventUpsertWithWhereUniqueWithoutTagsInput> = z.object({
   where: z.lazy(() => EventWhereUniqueInputSchema),
@@ -1668,7 +1645,6 @@ export const EventUncheckedUpdateManyWithoutEventsInputSchema: z.ZodType<Prisma.
 }).strict();
 
 export const TagUpdateWithoutEventsInputSchema: z.ZodType<Prisma.TagUpdateWithoutEventsInput> = z.object({
-  tagId: z.union([ z.number(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   description: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),

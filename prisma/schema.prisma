@@ -43,9 +43,9 @@ model Event {
   website String? @db.VarChar(255)
   phone String? @db.VarChar(20)
   email String? @db.VarChar(100)
+  tags Tag[] // Many-to-many relationship with Tags model
   // organizer Organizer? @relation(fields: [organizerId], references: [id])
   // organizerId Int // foreign key to organizer id
-  tags Tag[] // Many-to-many relationship with Tags model
 }
 
 // model Organizer {
@@ -62,7 +62,7 @@ model Event {
 
 model Tag {
   id Int @id @default(autoincrement())
-  tagId Int @unique
+  tagId Int @unique @default(autoincrement())
   name String @db.VarChar(20)
   description String?
   events Event[]
