@@ -42,3 +42,6 @@ mkdir pages p
       5. add dummy data 
       6. npx prisma generate to tailed client to my Prisma schema: reminder to self that need to re-run every time update schema -> this step generates `@prisma/client`
       7. Create PrismaClient instance that can be imported wherever necessary: mkdir lib && touch lib/prisma.ts
+
+
+Favicon: [svg from freeSVG](https://freesvg.org/cartoon-kids-playing) and converted to .ico at [convertio](https://convertio.co/svg-ico/).

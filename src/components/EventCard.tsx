@@ -6,8 +6,6 @@ import { Event } from '@prismatypes';
 export default function EventCard({ event }: { event: Event }) {
 
 	const {name, description, id} = event;
-
-	console.log(`id ${id}`);
 	return (
 		<div className="card">
 			<div className="card-header">
