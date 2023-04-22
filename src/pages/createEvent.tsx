@@ -12,8 +12,14 @@ export default function CreateEvent() {
 		type EventFormTarget = {
 			[K in keyof Event]: { value: string };
 		};
+		
+		// extend EventFormTarget to include location parameter
+		type EventFormTargetWithLocation = EventFormTarget & {
+			location: { value: string };
+		};
+
 		//  type assertion for form elements
-		const target = event.target as unknown as EventFormTarget;
+		const target = event.target as unknown as EventFormTargetWithLocation;
 
 		// get data from form
 		const data = {
@@ -24,7 +30,7 @@ export default function CreateEvent() {
 			termTime: target.termTime.value,
 			minAge: target.minAge.value,
 			maxAge: target.maxAge.value,
-			// location: target.location.value,
+			location: target.location.value,
 			website: target.website?.value,
 			phone: target.phone?.value,
 			email: target.email?.value,
@@ -54,11 +60,13 @@ export default function CreateEvent() {
 				<label htmlFor="name">Event:</label>
 				<input type="text" id="name" name="name" required/>
 				<label htmlFor="description">Description:</label>
+				<input type="text" id="location" name="location" required/>
+				<label htmlFor="location">Location:</label>
 				<input type="text" id="description" name="description" />
 				<label htmlFor="cost">Cost:</label>
 				<input type="number" id="cost" name="cost" required/>
 				<label htmlFor="termTime">Term Time:</label>
-				<input type="radio" id="termTime" name="termTime" required/>
+				<input type="checkbox" id="termTime" name="termTime" required/>
 				<label htmlFor="minAge">Min Age:</label>
 				<input type="number" id="minAge" name="minAge" required/>
 				<label htmlFor="maxAge">Max Age:</label>
