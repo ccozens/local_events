@@ -17,7 +17,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@prismaclient": ["./lib/prisma"],
-      "@prismatypes": ["./prisma/generated/zod/index"]
+      "@prismatypes": ["./lib/prismaTypes"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

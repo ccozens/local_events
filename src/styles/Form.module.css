@@ -1,3 +1,11 @@
 .createEvent > label {
 	display: block;
 }
+
+.dayOptions {
+	display: flex;
+}
+
+.dayOptions > legend {
+	color: yellow;
+}

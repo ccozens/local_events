@@ -5,10 +5,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator zod {
-  provider       = "zod-prisma-types"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -34,7 +30,7 @@ model Event {
   maxAge Int
   location Location @relation(fields: [locationId], references: [id])
   locationId Int @unique // foreign key to location id
-  day Day 
+  day String[]
   startTime String @db.VarChar(4)
   endTime String @db.VarChar(4)
   termTime Boolean @default(false)
@@ -47,17 +43,6 @@ model Event {
   // organizer Organizer? @relation(fields: [organizerId], references: [id])
   // organizerId Int // foreign key to organizer id
 }
-
-// model Organizer {
-//   id Int @id @default(autoincrement())
-//   organizerId Int @unique
-//   name String @db.VarChar(100)
-//   email String @db.VarChar(100)
-//   phoneNumber String? @db.VarChar(20)
-//   events Event[]
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
 
 
 model Tag {
@@ -79,6 +64,19 @@ enum Day {
   Friday
   Saturday
 }
+
+
+
+// model Organizer {
+//   id Int @id @default(autoincrement())
+//   organizerId Int @unique
+//   name String @db.VarChar(100)
+//   email String @db.VarChar(100)
+//   phoneNumber String? @db.VarChar(20)
+//   events Event[]
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
 
 // model User {
 //   id        Int      @id @default(autoincrement())

@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@prismaclient';
-import { Event, Day } from '@prisma/client';
+import { Event } from '@prismatypes';
 
 export default async function handler(
 	req: NextApiRequest,
@@ -11,9 +11,6 @@ export default async function handler(
 	const body = req.body;
 	console.log('endpoint hit');
 
-	type EventWithLocation = Event & {
-		location: string;
-	};
 
 	const {
 		name,
@@ -30,21 +27,22 @@ export default async function handler(
 		email,
 	} = req.body;
 
+	
 	// create new event object
-	const newEvent: Event = {
+	const newEvent = {
 		name: name,
 		cost: cost,
 		minAge: minAge,
 		maxAge: maxAge,
 		day: day,
-		// location: location,
+		location: location,
 		startTime: startTime,
 		endTime: endTime,
 		termTime: termTime,
 		website: website,
 		phone: phone,
 		email: email,
-	};
+	}
 
 	try {
 		// send data to prisma
