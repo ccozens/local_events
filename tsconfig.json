@@ -16,7 +16,7 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@lib": ["./lib/*"],
+      "@prismaclient": ["./lib/prisma"],
       "@prismatypes": ["./prisma/generated/zod/index"]
     }
   },

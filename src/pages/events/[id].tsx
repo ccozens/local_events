@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import prisma from '../../../lib/prisma';
+import prisma from '@prismaclient';
 import { Event } from '@prismatypes';
 import Layout from '@/components/Layout';
 

@@ -22,7 +22,7 @@ export default function EventCard({ event }: { event: Event }) {
 				<a
 					href="#"
 					className="card-footer-item"
-					onClick={() => Router.push("/p/[id]", `/p/${event.id}`)}>
+					onClick={() => Router.push("/events/[id]", `/events/${event.id}`)}>
 					View
 				</a>
 			</footer>
