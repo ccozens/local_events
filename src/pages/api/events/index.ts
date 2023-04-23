@@ -8,9 +8,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	// get submitted data from request body
-	const body = req.body;
 	console.log('endpoint hit');
-
 
 	const {
 		name,
@@ -27,7 +25,6 @@ export default async function handler(
 		email,
 	} = req.body;
 
-	
 	// create new event object
 	const newEvent = {
 		name: name,
@@ -42,11 +39,11 @@ export default async function handler(
 		website: website,
 		phone: phone,
 		email: email,
-	}
+	};
 
 	try {
 		// send data to prisma
-		const event = await prisma.event.create({
+		await prisma.event.create({
 			data: newEvent,
 		});
 		res.status(200).redirect('/events');

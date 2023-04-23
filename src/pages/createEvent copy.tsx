@@ -1,7 +1,7 @@
 import { Event } from '@prismatypes';
 import styles from '@/styles/Form.module.css';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 export default function CreateEvent() {
 	// Define a Zod schema for form data

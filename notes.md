@@ -28,7 +28,7 @@ export default defineConfig({
 4. Create folder structure and files:
     
 ```bash
-mkdir pages p
+mkdir pages events
 
 ```
 

@@ -2,9 +2,17 @@ import { Event } from '@prismatypes';
 import styles from '@/styles/Form.module.css';
 import { z } from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { DevTool } from '@hookform/devtools';
 
 export default function CreateEvent() {
+	const {
+		control,
+		register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+	} = useForm<Event>();
+
 	// Define a Zod schema for form data
 	const eventSchema = z.object({
 		name: z.string().nonempty().max(100),
@@ -18,9 +26,9 @@ export default function CreateEvent() {
 			'Sunday',
 		]),
 		description: z.string().optional(),
-		cost: z.number(),
+		cost: z.number().min(0),
 		termTime: z.boolean().default(false),
-		minAge: z.number().min(0),
+		minAge: z.number().min(0).default(0),
 		maxAge: z.number().min(0),
 		location: z.string().nonempty(),
 		website: z.string().url().optional(),
@@ -30,82 +38,155 @@ export default function CreateEvent() {
 		endTime: z.string().nonempty().max(4),
 	});
 
-	const {
-		register,
-		handleSubmit,
-		watch,
-		formState: { errors },
-	} = useForm<Event>({
-		resolver: zodResolver(eventSchema),
-	});
+	const onSubmit: SubmitHandler<Event> = (data) => {
+		console.log(data);
+	};
 
-	const onSubmit: SubmitHandler<Event> = (data) => console.log(data);
-	const watchAllFields = watch();
-	console.log(watchAllFields.day);
+	// map form elements to their types from Event type
+	type EventFormTarget = {
+		[K in keyof Event]: { value: string };
+	};
 
 	return (
 		<div>
-			<form
-				onSubmit={handleSubmit(onSubmit)}
-				className={styles.createEvent}>
-				<label htmlFor="name">Event name:</label>
-				<input type="text" {...register('name')} />
-				{errors.name && <p>{errors.name.message}</p>}
-				<fieldset className={styles.dayOptions}>
-				<legend >Day:</legend>
-				<label htmlFor="day" >Monday</label>
-				<input type="checkbox" value="Monday" {...register('day')} />
-				<label htmlFor="day" >Tuesday</label>
-				<input type="checkbox" value="Tuesday" {...register('day')} />
-				<label htmlFor="day" >Wednesday</label>
-				<input
-					type="checkbox"
-					value="Wednesday"
-					{...register('day')}
-				/>
-				<label htmlFor="day" >Thursday</label>
-				<input
-					type="checkbox"
-					value="Thursday"
-					{...register('day')}
-				/>
-				<label htmlFor="day" >Friday</label>
-				<input type="checkbox" value="Friday" {...register('day')} />
-				<label htmlFor="day" >Saturday</label>
-				<input
-					type="checkbox"
-					value="Saturday"
-					{...register('day')}
-				/>
-				<label htmlFor="day" >Sunday</label>
-				</fieldset>
-				<input type="checkbox" value="Sunday" {...register('day')} />
-				<label htmlFor="description">Description:</label>
-				<input type="text" {...register('description')} />
-				<label htmlFor="cost">Cost:</label>
-				<input type="number" {...register('cost')} />
-				<label htmlFor="termTime">Term Time:</label>
-				<input type="checkbox" {...register('termTime')} />
-				<label htmlFor="minAge">Min Age:</label>
-				<input type="number" {...register('minAge')} />
-				<label htmlFor="maxAge">Max Age:</label>
-				<input type="number" {...register('maxAge')} />
-				<label htmlFor="location">Location:</label>
-				<input type="text" {...register('location')} />
-				<label htmlFor="website">Website:</label>
-				<input type="text" {...register('website')} />
-				<label htmlFor="phone">Phone:</label>
-				<input type="text" {...register('phone')} />
-				<label htmlFor="email">Email:</label>
-				<input type="email" {...register('email')} />
-				{errors.email && <p>{errors.email.message}</p>}
-				<label htmlFor="startTime">Start Time:</label>
-				<input type="text" {...register('startTime')} />
-				<label htmlFor="endTime">End Time:</label>
-				<input type="text" {...register('endTime')} />
+			<DevTool control={control} placement="top-right" />
 
-				<input type="submit" />
+			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+				<label htmlFor="day" className={styles.label}>
+					Day:
+				</label>
+				<select
+					className={styles.input}
+					{...register('day', {
+						required: 'Please choose at least one day.',
+					})}>
+					<option value="Monday">Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday">Friday</option>
+					<option value="Saturday">Saturday</option>
+					<option value="Sunday">Sunday</option>
+				</select>
+				<p className={styles.error}>{errors.day?.message}</p>
+				<label htmlFor="name" className={styles.label}>
+					Event name:
+				</label>
+				<input
+					className={styles.input}
+					type="text"
+					placeholder="name"
+					{...register('name')}
+				/>
+				<label htmlFor="description" className={styles.label}>
+					Event description
+				</label>
+				<input
+					className={styles.input}
+					type="text"
+					placeholder="description"
+					{...register('description')}
+				/>
+				<label htmlFor="cost" className={styles.label}>
+					Cost:
+				</label>
+				<input
+					className={styles.input}
+					type="number"
+					placeholder="cost"
+					{...(register('cost'), { valueAsNumber: true })}
+				/>
+				<label htmlFor="termTime" className={styles.label}>
+					Term time:
+				</label>
+				<input
+					className={styles.input}
+					type="checkbox"
+					{...register('termTime')}
+				/>
+				<label htmlFor="minAge" className={styles.label}>
+					Minimum age:
+				</label>
+				<input
+					className={styles.input}
+					type="number"
+					placeholder="minAge"
+					{...(register('minAge'), { valueAsNumber: true })}
+				/>
+				<label htmlFor="maxAge" className={styles.label}>
+					Maximum age:
+				</label>
+				<input
+					className={styles.input}
+					type="number"
+					placeholder="maxAge"
+					{...(register('maxAge'), { valueAsNumber: true })}
+				/>
+				<label htmlFor="location" className={styles.label}>
+					Location:
+				</label>
+				<p>dropdown from api</p>
+				<input
+					className={styles.input}
+					// type=""
+					placeholder="location"
+					{...register('location')}
+				/>
+				<label htmlFor="website" className={styles.label}>
+					Website:
+				</label>
+				<input
+					className={styles.input}
+					type="url"
+					placeholder="website"
+					{...register('website')}
+				/>
+				<label htmlFor="phone" className={styles.label}>
+					Phone:
+				</label>
+				<input
+					className={styles.input}
+					placeholder="phone"
+					{...register('phone')}
+				/>
+				<label htmlFor="email" className={styles.label}>
+					Email:
+				</label>
+				<input
+					className={styles.input}
+					type="email"
+					placeholder="email"
+					{...register('email')}
+				/>
+				<label htmlFor="startTime" className={styles.label}>
+					Start time:
+				</label>
+				<input
+					className={styles.input}
+					placeholder="startTime"
+					type="time"
+					{...register('startTime')}
+				/>
+				<label htmlFor="endTime" className={styles.label}>
+					End time:
+				</label>
+				<input
+					className={styles.input}
+					placeholder="endTime"
+					type="time"
+					{...register('endTime')}
+				/>
+
+				<input className={styles.input} type="submit" />
 			</form>
+
+			<p>Rules</p>
+			<p>
+				Only enter 1 event at a time - if your event has muktiple
+				days, or muktiple times, pelase enter indivudally and the
+				database will store as a single event. This simplifies the
+				data processing.
+			</p>
 		</div>
 	);
 }

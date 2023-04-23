@@ -28,8 +28,7 @@ model Event {
   cost Int
   minAge Int
   maxAge Int
-  location Location @relation(fields: [locationId], references: [id])
-  locationId Int @unique // foreign key to location id
+  location Location[] // Many-to-many relationship with Location model
   day String[]
   startTime String @db.VarChar(4)
   endTime String @db.VarChar(4)
