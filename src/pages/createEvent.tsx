@@ -1,74 +1,50 @@
-import { Event } from '@prismatypes';
+import { Event, Location } from '@prismatypes';
 import styles from '@/styles/Form.module.css';
-import { z } from 'zod';
+import prisma from '@prismaclient';
+import { GetStaticProps } from 'next';
+import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
 
-export default function CreateEvent() {
+
+export const getStaticProps: GetStaticProps = async () => {
+	const locations = await prisma.location.findMany({
+		select: {
+			name: true,
+		},
+	});
+	return {
+		props: { locations: JSON.parse(JSON.stringify(locations)) },
+		revalidate: 10,
+	};
+};
+
+type Locations = { name: string }[];
+
+export default function CreateEvent(props: { locations: Locations }) {
 	const {
 		control,
 		register,
 		handleSubmit,
-		watch,
 		formState: { errors },
 	} = useForm<Event>();
-
-	// Define a Zod schema for form data
-	const eventSchema = z.object({
-		name: z.string().nonempty().max(100),
-		day: z.enum([
-			'Monday',
-			'Tuesday',
-			'Wednesday',
-			'Thursday',
-			'Friday',
-			'Saturday',
-			'Sunday',
-		]),
-		description: z.string().optional(),
-		cost: z.number().min(0),
-		termTime: z.boolean().default(false),
-		minAge: z.number().min(0).default(0),
-		maxAge: z.number().min(0),
-		location: z.string().nonempty(),
-		website: z.string().url().optional(),
-		phone: z.string().optional(),
-		email: z.string().email().optional(),
-		startTime: z.string().nonempty().max(4),
-		endTime: z.string().nonempty().max(4),
-	});
 
 	const onSubmit: SubmitHandler<Event> = (data) => {
 		console.log(data);
 	};
 
-	// map form elements to their types from Event type
-	type EventFormTarget = {
-		[K in keyof Event]: { value: string };
-	};
+	const daysOfWeek = [
+		'Monday',
+		'Tuesday',
+		'Wednesday',
+		'Thursday',
+		'Friday',
+		'Saturday',
+		'Sunday',
+	];
 
 	return (
 		<div>
-			<DevTool control={control} placement="top-right" />
-
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-				<label htmlFor="day" className={styles.label}>
-					Day:
-				</label>
-				<select
-					className={styles.input}
-					{...register('day', {
-						required: 'Please choose at least one day.',
-					})}>
-					<option value="Monday">Monday</option>
-					<option value="Tuesday">Tuesday</option>
-					<option value="Wednesday">Wednesday</option>
-					<option value="Thursday">Thursday</option>
-					<option value="Friday">Friday</option>
-					<option value="Saturday">Saturday</option>
-					<option value="Sunday">Sunday</option>
-				</select>
-				<p className={styles.error}>{errors.day?.message}</p>
 				<label htmlFor="name" className={styles.label}>
 					Event name:
 				</label>
@@ -78,6 +54,7 @@ export default function CreateEvent() {
 					placeholder="name"
 					{...register('name')}
 				/>
+				<p className={styles.error}>{errors.name?.message}</p>
 				<label htmlFor="description" className={styles.label}>
 					Event description
 				</label>
@@ -87,6 +64,24 @@ export default function CreateEvent() {
 					placeholder="description"
 					{...register('description')}
 				/>
+				<p className={styles.error}>{errors.description?.message}</p>
+				<label htmlFor="day" className={styles.label}>
+					Day:
+				</label>
+				<select
+					className={styles.input}
+					{...register('day', {
+						required: '⚠ Please choose at least one day.',
+					})}>
+					{daysOfWeek.map((day, index) => {
+						return (
+							<option key={index} value={day}>
+								{day}
+							</option>
+						);
+					})}
+				</select>
+				<p className={styles.error}>{errors.day?.message}</p>
 				<label htmlFor="cost" className={styles.label}>
 					Cost:
 				</label>
@@ -94,16 +89,18 @@ export default function CreateEvent() {
 					className={styles.input}
 					type="number"
 					placeholder="cost"
-					{...(register('cost'), { valueAsNumber: true })}
+					{...register('cost', { valueAsNumber: true })}
 				/>
+				<p className={styles.error}>{errors.cost?.message}</p>
 				<label htmlFor="termTime" className={styles.label}>
-					Term time:
+					Is the event term time only?
 				</label>
 				<input
 					className={styles.input}
 					type="checkbox"
 					{...register('termTime')}
 				/>
+				<p className={styles.error}>{errors.termTime?.message}</p>
 				<label htmlFor="minAge" className={styles.label}>
 					Minimum age:
 				</label>
@@ -111,8 +108,9 @@ export default function CreateEvent() {
 					className={styles.input}
 					type="number"
 					placeholder="minAge"
-					{...(register('minAge'), { valueAsNumber: true })}
+					{...register('minAge', { valueAsNumber: true })}
 				/>
+				<p className={styles.error}>{errors.minAge?.message}</p>
 				<label htmlFor="maxAge" className={styles.label}>
 					Maximum age:
 				</label>
@@ -120,18 +118,32 @@ export default function CreateEvent() {
 					className={styles.input}
 					type="number"
 					placeholder="maxAge"
-					{...(register('maxAge'), { valueAsNumber: true })}
+					{...register('maxAge', { valueAsNumber: true })}
 				/>
+				<p className={styles.error}>{errors.maxAge?.message}</p>
 				<label htmlFor="location" className={styles.label}>
 					Location:
 				</label>
-				<p>dropdown from api</p>
-				<input
+				<select
 					className={styles.input}
-					// type=""
-					placeholder="location"
-					{...register('location')}
-				/>
+					{...register('location', {
+						required: '⚠ Please choose at least one location.',
+					})}>
+					{props.locations.map((location, index) => {
+						return (
+							<option key={index} value={location.name}>
+								{location.name}
+							</option>
+						);
+					})}
+				</select>
+				<p className={styles.error}>{errors.location?.message}</p>
+				<p className={styles.helper}>
+					{' '}
+					Location not listed? {''}
+					<Link href="/createLocation">Add new location</Link>
+				</p>
+				<p className={styles.error}>{errors.location?.message}</p>
 				<label htmlFor="website" className={styles.label}>
 					Website:
 				</label>
@@ -141,6 +153,7 @@ export default function CreateEvent() {
 					placeholder="website"
 					{...register('website')}
 				/>
+				<p className={styles.error}>{errors.website?.message}</p>
 				<label htmlFor="phone" className={styles.label}>
 					Phone:
 				</label>
@@ -167,6 +180,7 @@ export default function CreateEvent() {
 					type="time"
 					{...register('startTime')}
 				/>
+				<p className={styles.error}>{errors.startTime?.message}</p>
 				<label htmlFor="endTime" className={styles.label}>
 					End time:
 				</label>
@@ -176,14 +190,15 @@ export default function CreateEvent() {
 					type="time"
 					{...register('endTime')}
 				/>
+				<p className={styles.error}>{errors.endTime?.message}</p>
 
 				<input className={styles.input} type="submit" />
 			</form>
 
 			<p>Rules</p>
 			<p>
-				Only enter 1 event at a time - if your event has muktiple
-				days, or muktiple times, pelase enter indivudally and the
+				Only enter 1 event at a time - if your event has multiple
+				days, or multiple times, please enter indivudally and the
 				database will store as a single event. This simplifies the
 				data processing.
 			</p>

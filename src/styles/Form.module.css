@@ -28,6 +28,11 @@
     font-weight: 400;
   }
 
-  .error::before {
-    content: "⚠ ";
-  }
+.input:focus {
+    outline: none;
+    border: 1px solid #000;
+}
+
+.helper {
+    margin-top: -1rem;
+}
