@@ -1,4 +1,4 @@
-import { Event, Location, Tag, TagsOnEvents } from '@prismatypes';
+import { Event, Location } from '@prismatypes';
 import styles from '@/styles/Form.module.css';
 import prisma from '@prismaclient';
 import { GetStaticProps } from 'next';
@@ -8,25 +8,20 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
 	const locations = await prisma.location.findMany({});
-	const tags = await prisma.tag.findMany({});
 	return {
 		props: {
-			locations: JSON.parse(JSON.stringify(locations)),
-			tags: JSON.parse(JSON.stringify(tags)),
+			locations: JSON.parse(JSON.stringify(locations))
 		},
 		revalidate: 10,
 	};
 };
 
 type Locations = Location[];
-type Tags = Tag[];
 
 export default function CreateEvent(props: {
 	locations: Locations;
-	tags: Tags;
 }) {
 	const {
-		control,
 		register,
 		handleSubmit,
 		formState: { errors },
@@ -206,29 +201,7 @@ export default function CreateEvent(props: {
 				/>
 				<p className={styles.error}>{errors.endTime?.message}</p>
 
-				<label htmlFor="tags" className={styles.label}>
-					Tags:
-				</label>
-				{/* render tags as checkboxes from testTags */}
-				{props.tags.map((tag, index) => {
-					return (
-						<div key={index}>
-							<input
-								className={styles.input}
-								type="checkbox"
-								{...register('tags')}
-								value={tag.id}
-							/>
-							{tag.name}
-						</div>
-					);
-				})}
-
-				{/* <p className={styles.helper}>
-					{' '}
-					Tag not listed? {''}
-					<Link href="/createTag">Add new tag</Link>
-				</p> */}
+				
 				<input className={styles.input} type="submit" />
 			</form>
 

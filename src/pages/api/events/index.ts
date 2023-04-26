@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@prismaclient';
-import { Event } from '@prismatypes';
 
 export default async function handler(
 	req: NextApiRequest,
@@ -24,26 +23,8 @@ export default async function handler(
 		website,
 		phone,
 		email,
-		tags,
 	} = req.body;
 
-	// // create new event object
-	// const newEvent = {
-	// 	name: name,
-	// 	description: description,
-	// 	cost: cost,
-	// 	minAge: minAge,
-	// 	maxAge: maxAge,
-	// 	day: day,
-	// 	location: location,
-	// 	startTime: startTime,
-	// 	endTime: endTime,
-	// 	termTime: termTime,
-	// 	website: website,
-	// 	phone: phone,
-	// 	email: email,
-	// 	tag: tags,
-	// };
 
 	try {
 		// send data to prisma
@@ -63,9 +44,6 @@ export default async function handler(
 				website: website,
 				phone: phone,
 				email: email,
-				/* tags: {
-					connect: tags.map((tag: string) => ({ name: tag })),
-				}, */
 			},
 		});
 		res.status(200).redirect('/events');
@@ -74,15 +52,3 @@ export default async function handler(
 		res.status(500).json({ error: 'Failed to create event' });
 	}
 }
-
-
-/* 
-model User {
-  id           Int    @id
-  profileViews Int
-  userName     String @unique
-  email        String
-
-  @@unique([id, profileViews])
-}
- */

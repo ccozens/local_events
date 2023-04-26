@@ -26,9 +26,7 @@ export default function EventCard({ event }: { event: Event }) {
 					onClick={() => Router.push("/events/[id]", `/events/${event.id}`)}>
 					View
 				</a>
-				<div>
-					tag cloud from tagsonevents?
-				</div>
+
 			</footer>
 		</div>
 	);
