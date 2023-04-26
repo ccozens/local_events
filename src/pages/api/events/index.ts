@@ -46,7 +46,7 @@ export default async function handler(
 				email: email,
 			},
 		});
-		res.status(200).redirect('/events');
+		res.status(200);
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: 'Failed to create event' });

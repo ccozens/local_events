@@ -4,6 +4,7 @@ import prisma from '@prismaclient';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import Router from 'next/router';
 
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
@@ -36,6 +37,7 @@ export default function CreateEvent(props: {
 				},
 				body: JSON.stringify(data),
 			});
+			Router.push('/events');
 		} catch (error) {
 			console.error(error);
 		}

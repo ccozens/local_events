@@ -1,17 +1,21 @@
-import Header from "./Header";
+import Header from './Header';
 import Footer from './Footer';
-import { ReactNode } from "react";
-import Head from "next/head";
+import { ReactNode } from 'react';
+import Head from 'next/head';
+import { Inter } from '@next/font/google';
 
+const inter = Inter({
+	subsets: ['latin'],
+});
 interface Children {
-    children?: ReactNode
-    // any props that come into the component
+	children?: ReactNode;
+	// any props that come into the component
 }
 
-export default function Layout ( { children }: Children) {
-    return (
-        <div>
-            			<Head>
+export default function Layout({ children }: Children) {
+	return (
+		<div>
+			<Head>
 				<title>Local events</title>
 				<meta
 					name="description"
@@ -47,9 +51,11 @@ export default function Layout ( { children }: Children) {
 				<meta name="msapplication-TileColor" content="#fff4c3" />
 				<meta name="theme-color" content="#fff4c3" />
 			</Head>
-            <Header />
-            <main> { children } </main>
-            <Footer />
-        </div>
-    )
+			<body className={inter.className}>
+				<Header />
+				<main> {children} </main>
+				<Footer />
+			</body>
+		</div>
+	);
 }
