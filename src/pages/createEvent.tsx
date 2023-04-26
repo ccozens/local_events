@@ -1,26 +1,30 @@
-import { Event, Location } from '@prismatypes';
+import { Event, Location, Tag, TagsOnEvents } from '@prismatypes';
 import styles from '@/styles/Form.module.css';
 import prisma from '@prismaclient';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-
+// api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
-	const locations = await prisma.location.findMany({
-		select: {
-			name: true,
-		},
-	});
+	const locations = await prisma.location.findMany({});
+	const tags = await prisma.tag.findMany({});
 	return {
-		props: { locations: JSON.parse(JSON.stringify(locations)) },
+		props: {
+			locations: JSON.parse(JSON.stringify(locations)),
+			tags: JSON.parse(JSON.stringify(tags)),
+		},
 		revalidate: 10,
 	};
 };
 
-type Locations = { name: string }[];
+type Locations = Location[];
+type Tags = Tag[];
 
-export default function CreateEvent(props: { locations: Locations }) {
+export default function CreateEvent(props: {
+	locations: Locations;
+	tags: Tags;
+}) {
 	const {
 		control,
 		register,
@@ -28,8 +32,18 @@ export default function CreateEvent(props: { locations: Locations }) {
 		formState: { errors },
 	} = useForm<Event>();
 
-	const onSubmit: SubmitHandler<Event> = (data) => {
-		console.log(data);
+	const onSubmit: SubmitHandler<Event> = async (data) => {
+		try {
+			await fetch('/api/events', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			});
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const daysOfWeek = [
@@ -126,24 +140,24 @@ export default function CreateEvent(props: { locations: Locations }) {
 				</label>
 				<select
 					className={styles.input}
-					{...register('location', {
+					{...register('locationId', {
 						required: '⚠ Please choose at least one location.',
+						valueAsNumber: true,
 					})}>
 					{props.locations.map((location, index) => {
 						return (
-							<option key={index} value={location.name}>
+							<option key={index} value={location.id}>
 								{location.name}
 							</option>
 						);
 					})}
 				</select>
-				<p className={styles.error}>{errors.location?.message}</p>
+				<p className={styles.error}>{errors.locationId?.message}</p>
 				<p className={styles.helper}>
 					{' '}
 					Location not listed? {''}
 					<Link href="/createLocation">Add new location</Link>
 				</p>
-				<p className={styles.error}>{errors.location?.message}</p>
 				<label htmlFor="website" className={styles.label}>
 					Website:
 				</label>
@@ -192,6 +206,29 @@ export default function CreateEvent(props: { locations: Locations }) {
 				/>
 				<p className={styles.error}>{errors.endTime?.message}</p>
 
+				<label htmlFor="tags" className={styles.label}>
+					Tags:
+				</label>
+				{/* render tags as checkboxes from testTags */}
+				{props.tags.map((tag, index) => {
+					return (
+						<div key={index}>
+							<input
+								className={styles.input}
+								type="checkbox"
+								{...register('tags')}
+								value={tag.id}
+							/>
+							{tag.name}
+						</div>
+					);
+				})}
+
+				{/* <p className={styles.helper}>
+					{' '}
+					Tag not listed? {''}
+					<Link href="/createTag">Add new tag</Link>
+				</p> */}
 				<input className={styles.input} type="submit" />
 			</form>
 

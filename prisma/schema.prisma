@@ -5,6 +5,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -15,6 +16,7 @@ model Location {
   name String @unique @db.VarChar(100)
   address String? @db.VarChar(255)
   website String? @db.VarChar(255)
+  // a location may have many events, so many to one relation
   events Event[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -28,30 +30,37 @@ model Event {
   cost Int
   minAge Int
   maxAge Int
-  location Location[] // Many-to-many relationship with Location model
+  // one event has one location, so one to many relation
+  location Location @relation(fields: [locationId], references: [id])
+  locationId Int // foreign key to location id
   day String[]
-  startTime String @db.VarChar(4)
-  endTime String @db.VarChar(4)
+  startTime String
+  endTime String
+  // startTime String @db.VarChar(4)
+  // endTime String @db.VarChar(4)
   termTime Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   website String? @db.VarChar(255)
   phone String? @db.VarChar(20)
   email String? @db.VarChar(100)
-  tags Tag[] // Many-to-many relationship with Tags model
-  // organizer Organizer? @relation(fields: [organizerId], references: [id])
-  // organizerId Int // foreign key to organizer id
+  // tags many to many relation to Tag model
+  tags TagsOnEvents[]
 }
 
-
-model Tag {
-  id Int @id @default(autoincrement())
-  tagId Int @unique @default(autoincrement())
-  name String @db.VarChar(20)
-  description String?
-  events Event[]
+model TagsOnEvents {
+  tag Tag @relation(fields: [tagId], references: [id])
+  tagId Int
+  event Event @relation(fields: [eventId], references: [id])
+  eventId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  @@id([tagId, eventId]) // composite primary key
+}
+model Tag {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(20)
+  tags TagsOnEvents[]
 }
 
 enum Day {

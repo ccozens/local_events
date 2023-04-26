@@ -1,10 +1,7 @@
-import React from 'react';
 import Router from 'next/router';
-// import ReactMarkdown from 'react-markdown';
 import { Event } from '@prismatypes';
 
 export default function EventCard({ event }: { event: Event }) {
-	console.log(event);
 	const {name, description, id} = event;
 	return (
 		<div className="card">
@@ -15,6 +12,10 @@ export default function EventCard({ event }: { event: Event }) {
 				<div className="content">
                     <p>{description? description : ''}</p>
                     <p>{id}</p>
+					<p>Start</p>
+					<p>End</p>
+					<p>last edited (time and person)</p>
+					<p>click to update</p>
 				</div>
 			</div>
 
@@ -25,6 +26,9 @@ export default function EventCard({ event }: { event: Event }) {
 					onClick={() => Router.push("/events/[id]", `/events/${event.id}`)}>
 					View
 				</a>
+				<div>
+					tag cloud from tagsonevents?
+				</div>
 			</footer>
 		</div>
 	);
