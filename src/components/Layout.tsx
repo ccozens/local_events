@@ -50,12 +50,13 @@ export default function Layout({ children }: Children) {
 				/>
 				<meta name="msapplication-TileColor" content="#fff4c3" />
 				<meta name="theme-color" content="#fff4c3" />
+				
 			</Head>
-			<body className={inter.className}>
+			<div className={inter.className}>
 				<Header />
 				<main> {children} </main>
 				<Footer />
-			</body>
+			</div>
 		</div>
 	);
 }
