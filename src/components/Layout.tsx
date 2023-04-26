@@ -2,7 +2,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { ReactNode } from 'react';
 import Head from 'next/head';
-import { Inter } from '@next/font/google';
+import { Inter } from 'next/font/google';
 
 const inter = Inter({
 	subsets: ['latin'],
