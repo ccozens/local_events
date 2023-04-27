@@ -6,16 +6,20 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
+	// get submitted data from request body
+	const { name, address, website } =
+		req.body;
 	try {
-		const location = await prisma.location.findUnique({
-			where: {
-				name: req.body.name,
+		await prisma.location.create({
+			data: {
+				name: name,
+				address: address,
+				website: website,
 			},
 		});
-        const locationJSON = JSON.stringify(location);
-        res.status(200).json(location);
+        res.status(200).json({message: 'Location created'});
 	} catch (error) {
 		console.error(error);
-		res.status(500).json({ error: 'Could not find location' });
+		res.status(500).json({ error: 'Failed to create location' });
 	}
 }

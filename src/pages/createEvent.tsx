@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState } from 'react';
+import { ReactNode } from 'react';
 
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
@@ -27,8 +28,9 @@ export default function CreateEvent(props: { locations: Locations }) {
 		formState: { errors },
 	} = useForm<Event>();
 
-	const [successMessage, setSuccessMessage] = useState<string>('');
+	const [successMessage, setSuccessMessage] = useState<ReactNode>('');
 	const [showForm, setShowForm] = useState<boolean>(true);
+	const [error, setError] = useState<string>('');
 
 	const onSubmit: SubmitHandler<Event> = async (data) => {
 		const response = await fetch('/api/createEvent', {
@@ -40,20 +42,25 @@ export default function CreateEvent(props: { locations: Locations }) {
 		});
 		if (response.ok) {
 			setTimeout(() => {
-				Router.push('/events');
-			}, 2000);
+				Router.push('/');
+			}, 5000);
 			// send success status and message to the frontend
+			setSuccessMessage(
+				<p className={styles.successMessage}>
+					🎉 Event created successfully 🎉 <br /> Redirecting to home
+					page...
+				</p>
+			),
+				setShowForm(false);
 			return {
-				setSuccessMessage:
-					'🎉 Event created successfully 🎉 <br /> Redirecting to home page...',
+				status: 'success',
 			};
-			setShowForm(false);
 		} else {
 			console.error(response.statusText);
+			setError(`Failed to create event: ${response.statusText}`);
 			// send error status and message to the frontend
 			return {
 				status: 'error',
-				message: `Failed to create event: ${response.statusText}`,
 			};
 		}
 	};
@@ -67,35 +74,38 @@ export default function CreateEvent(props: { locations: Locations }) {
 		'Saturday',
 		'Sunday',
 	];
-	console.log();
+
 	return (
 		<div>
-			<div className={styles.caveats}>
-				<h3>Thanks for adding an event!</h3>
-				<p>A few caveats before you do:</p>
-				<ul>
-					<li>
-						This form can only accept 1 event at a time - if your
-						event has multiple days, or multiple times, please enter
-						indivudally and the database will store as a single event.
-					</li>
-					<li>
-						The only date format you can enter is a day - I set this
-						up thinking of events that run every week.
-					</li>
-				</ul>
-				<p>
-					{' '}
-					These all simplify data processing and make the database
-					more user friendly. Please{' '}
-					<span className={styles.contactLink}>
-						<Link href="/about">get in touch</Link>
-					</span>{' '}
-					if you&apos;d like more features (eg, set specific dates for
-					events) and I&apos;ll know there&apos;s interest to work on
-					them.
-				</p>
-			</div>
+			{showForm && (
+				<div className={styles.caveats}>
+					<h3>Thanks for adding an event!</h3>
+					<p>A few caveats before you do:</p>
+					<ul>
+						<li>
+							This form can only accept 1 event at a time - if your
+							event has multiple days, or multiple times, please enter
+							indivudally and the database will store as a single
+							event.
+						</li>
+						<li>
+							The only date format you can enter is a day - I set this
+							up thinking of events that run every week.
+						</li>
+					</ul>
+					<p>
+						{' '}
+						These all simplify data processing and make the database
+						more user friendly. Please{' '}
+						<span className={styles.contactLink}>
+							<Link href="/about">get in touch</Link>
+						</span>{' '}
+						if you&apos;d like more features (eg, set specific dates
+						for events) and I&apos;ll know there&apos;s interest to
+						work on them.
+					</p>
+				</div>
+			)}
 			{showForm && (
 				<form
 					onSubmit={handleSubmit(onSubmit)}
@@ -269,9 +279,8 @@ export default function CreateEvent(props: { locations: Locations }) {
 				</form>
 			)}
 
-			{successMessage && (
-				<p className={styles.successMessage}>{successMessage}</p>
-			)}
+			{successMessage}
+			{error && <div className={styles.successMessage}>{error}</div>}
 		</div>
 	);
 }

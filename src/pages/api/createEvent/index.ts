@@ -7,8 +7,6 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	// get submitted data from request body
-	console.log('create event endpoint hit');
-
 	const {
 		name,
 		description,

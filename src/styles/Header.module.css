@@ -11,8 +11,8 @@
 	padding: 1rem;
 }
 
-/* mobile first hide navButton and show at screen min-width 600px */
-@media (min-width: 600px) {
+/* mobile first hide navButton and show at screen min-width 1250px */
+@media (min-width: 1250px) {
 	.navButton {
 		display: none;
 	}
@@ -49,8 +49,8 @@
 	}
 }
 
-/* under 600px */
-@media (max-width: 600px) {
+/* under 1250px */
+@media (max-width: 1250px) {
 	.navButton {
 		display: block;
 		background: hsla(45, 94%, 55%, 1);
@@ -109,5 +109,15 @@
 		background-color: hsla(45, 84%, 55%, 1);
 		box-shadow: 0 5px hsla(0, 0, 0, 0.5);
 		transform: translateY(4px);
+	}
+}
+
+/* reduce header font size below 1400px */
+@media (max-width: 1400px) {
+	.head > h1 {
+		font-size: 2rem;
+	}
+	.navItem {
+		font-size: 1rem;
 	}
 }

@@ -1,5 +1,6 @@
 .caveats {
 	padding: 1rem;
+	max-width: 80%;
 }
 .caveats > ul,
 .caveats > ul > li {
@@ -26,13 +27,17 @@
 .form,
 .successMessage {
 	background-color: hsla(273, 56%, 50%, 1);
+	border: 1px solid hsla(45, 84%, 75%, 1);
 	margin: 2rem auto;
 	border-radius: 5px;
-	border: 1px solid hsla(45, 84%, 75%, 1);
 }
 
 .form {
 	padding: 2rem;
+}
+.form,
+.successMessage {
+	max-width: 70%;
 }
 
 .label {
@@ -46,7 +51,7 @@
 	background-color: hsla(45, 84%, 75%, 1);
 	padding: 10px 15px;
 	margin-bottom: 10px;
-	font-size: 14px;
+	font-size: 1rem;
 }
 
 .input:focus {
@@ -54,11 +59,15 @@
 	background-color: hsla(45, 84%, 65%, 1);
 }
 
+/* style for helper text */
+.helper {
+}
+
 .submit {
 	margin: 0 auto;
 	font-size: 1.5rem;
 	font-weight: 600;
-    max-width: 50%;
+	max-width: 50%;
 }
 
 .submit:hover {
@@ -86,13 +95,6 @@
 }
 
 @media screen and (min-width: 768px) {
-	.caveats {
-		max-width: 80%;
-	}
-	.form,
-	.successMessage {
-		max-width: 70%;
-	}
 	.alignCheckbox {
 		display: flex;
 		justify-content: center;
