@@ -5,7 +5,6 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
-
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
 	const locations = await prisma.location.findMany({});

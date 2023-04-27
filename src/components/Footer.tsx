@@ -4,7 +4,9 @@ export default function Footer () {
 
     return (
         <div>
-            <div className={styles.foot}></div>
+            <div className={styles.foot}>
+                footer
+            </div>
         </div>
     )
 }

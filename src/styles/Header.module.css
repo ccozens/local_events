@@ -12,7 +12,6 @@
 }
 
 
-
 /* mobile first hide navButton and show at screen min-width 600px */
 @media (min-width: 600px) {
 	.navButton {
