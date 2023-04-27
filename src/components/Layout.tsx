@@ -1,5 +1,4 @@
 import Header from './Header';
-import Footer from './Footer';
 import { ReactNode } from 'react';
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
@@ -68,7 +67,6 @@ export default function Layout({ children }: Children) {
 				/>
 			</section>
 				<main> {children} </main>
-				<Footer />
 			</div>
 		</div>
 	);
