@@ -1,13 +1,21 @@
 import styles from '@/styles/Header.module.css';
 import Link from 'next/link';
 import { useRef } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function NavBar() {
 	const navList = [
-		{ title: 'Add an event', link: '/createEvent' },
-		{ title: 'Contact me', link: '/contact' },
+		{ title: 'Create an event', link: '/createEvent' },
+		{ title: 'Create a location', link: '/createLocation' },
 		{ title: 'About this site', link: '/about' },
+		{ title: 'Contact me', link: '/contact' },
 	];
+	
+	// add /home link to navList if not on home page
+	const pathname = usePathname();
+	if (pathname !== '/') {
+		navList.unshift({ title: 'Home', link: '/' });
+	}
 
 	// useRef to access DOM elements
 	const navBarRef = useRef<HTMLUListElement>(null);

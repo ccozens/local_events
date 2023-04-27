@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 import prisma from '@prismaclient';
 import { Event } from '@prismatypes';
 import EventCard from '@/components/EventCard';
-import Layout from '@/components/Layout';
+
 import Image from 'next/image';
 import pic from '../images/hero_playing_crop.webp';
 
@@ -36,10 +36,6 @@ export default function Home(props: {
 			</section>
 			<main className={styles.main}>
 				<div>
-					<h1>
-						currently styles not applying from global and do not have
-						layouts/nestedlayouts setup right. Form layout??
-					</h1>
 					<h1>Events</h1>
 					<div className={styles.eventsGrid}>
 						{props.events.map((event: Event) => (
@@ -54,7 +50,3 @@ export default function Home(props: {
 	);
 }
 
-// apply Layout to page using getLayout
-Home.getLayout = function getLayout(page: ReactElement) {
-	return { page };
-};
