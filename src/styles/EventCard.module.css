@@ -21,31 +21,13 @@
 		padding: 1rem 2rem;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5em;
+		gap: 1em;
 		justify-items: flex-end;
 	}
 	.navItem {
-		padding: 0.5rem 1rem;
-		background: hsla(45, 94%, 55%, 1);
-		color: hsla(265, 80%, 35%, 1);
-		font-weight: bold;
-		font-size: 1.2rem;
+		padding: 1rem;
+		background: #fbb;
 		border-radius: 5px;
-		border: 1px solid hsla(45, 94%, 65%, 1);
-		box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.4);
-	}
-	.navItem > a {
-		color: hsla(265, 80%, 35%, 1);
-		font-weight: bold;
-	}
-	.navItem:hover {
-		background: hsla(45, 85%, 85%, 1);
-		cursor: pointer;
-	}
-	.navItem:active {
-		background-color: hsla(45, 84%, 55%, 1);
-		box-shadow: 0 5px hsla(0, 0, 0, 0.5);
-		transform: translateY(4px);
 	}
 }
 
@@ -60,12 +42,12 @@
 		color: hsla(265, 80%, 35%, 1);
 		font-weight: bold;
 		font-size: 1.2rem;
-		line-height: 0.7rem;
-		cursor: pointer;
+        line-height: 0.7rem;
+        cursor: pointer;
 	}
-	.navButton:hover {
-		background: hsla(45, 94%, 45%, 1);
-	}
+    .navButton:hover {
+        background: hsla(45, 94%, 45%, 1);
+    }
 	.navBar {
 		display: none;
 	}
@@ -78,7 +60,7 @@
 		padding: 0.5rem;
 		font-size: 1.2rem;
 		border-radius: 5px;
-		shadow: 2px 2px 20px rgba(0, 0, 0, 1);
+        shadow: 2px 2px 20px rgba(0, 0, 0, 1);
 	}
 	.navBarActive {
 		display: flex;
@@ -101,13 +83,9 @@
 		color: hsla(265, 80%, 35%, 1);
 		font-weight: bold;
 	}
-	.navItemActive:hover {
-		background: hsla(45, 85%, 85%, 1);
-		cursor: pointer;
-	}
-	.navItemActive:active {
-		background-color: hsla(45, 84%, 55%, 1);
-		box-shadow: 0 5px hsla(0, 0, 0, 0.5);
-		transform: translateY(4px);
-	}
+    .navItemActive:hover {
+        background: hsla(45, 85%, 85%, 1);
+        cursor: pointer;
+    }
 }
+

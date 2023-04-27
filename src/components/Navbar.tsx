@@ -10,7 +10,7 @@ export default function NavBar() {
 		{ title: 'About this site', link: '/about' },
 		{ title: 'Contact me', link: '/contact' },
 	];
-	
+
 	// add /home link to navList if not on home page
 	const pathname = usePathname();
 	if (pathname !== '/') {
@@ -35,7 +35,6 @@ export default function NavBar() {
 		</ul>
 	);
 
-
 	const navButtonClickHandler = () => {
 		// navBar styles
 		const navBar = navBarRef.current;
@@ -54,7 +53,15 @@ export default function NavBar() {
 			<button
 				className={styles.navButton}
 				onClick={navButtonClickHandler}>
-				<span className="material-symbols-outlined">menu</span>
+				<span
+					style={{
+						fontSize: '2.5rem',
+						fontWeight: 'bold',
+						lineHeight: '1.5rem',
+					}}
+					className="material-symbols-outlined">
+					menu
+				</span>
 				<p>Menu</p>
 			</button>
 
@@ -62,5 +69,3 @@ export default function NavBar() {
 		</div>
 	);
 }
-
-

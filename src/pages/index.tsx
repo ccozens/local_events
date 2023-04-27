@@ -5,8 +5,6 @@ import prisma from '@prismaclient';
 import { Event } from '@prismatypes';
 import EventCard from '@/components/EventCard';
 
-import Image from 'next/image';
-import pic from '../images/hero_playing_crop.webp';
 
 export const getStaticProps: GetStaticProps = async () => {
 	const events = await prisma.event.findMany({
@@ -23,17 +21,6 @@ export default function Home(props: {
 }): ReactElement {
 	return (
 		<div>
-			<section className="styles.hero">
-				<div className="styles.heroContent"></div>
-				<Image
-					src={pic}
-					alt="children playing with parachute in sunshine"
-					style={{
-						maxWidth: '100%',
-						height: 'auto',
-					}}
-				/>
-			</section>
 			<main className={styles.main}>
 				<div>
 					<h1>Events</h1>

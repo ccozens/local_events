@@ -3,6 +3,8 @@ import Footer from './Footer';
 import { ReactNode } from 'react';
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
+import Image from 'next/image';
+import pic from '../images/hero_playing_crop.webp';
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -54,6 +56,17 @@ export default function Layout({ children }: Children) {
 			</Head>
 			<div className={inter.className}>
 				<Header />
+				<section className="styles.hero">
+				<div className="styles.heroContent"></div>
+				<Image
+					src={pic}
+					alt="children playing with parachute in sunshine"
+					style={{
+						maxWidth: '100%',
+						height: 'auto',
+					}}
+				/>
+			</section>
 				<main> {children} </main>
 				<Footer />
 			</div>

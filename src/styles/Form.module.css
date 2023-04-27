@@ -1,38 +1,111 @@
-.form {
-    max-width: 500px;
-    margin: 0 auto;
+.caveats {
+	padding: 1rem;
+}
+.caveats > ul,
+.caveats > ul > li {
+	padding: 0.5rem;
 }
 
-.input {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid gray;
-    background-color: lightgray;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    font-size: 14px;
+.caveats > h3 {
+	margin: 0.5rem 0;
+}
+
+.contactLink {
+	color: hsla(45, 84%, 75%, 1);
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.contactLink:hover {
+	color: hsla(45, 84%, 65%, 1);
+}
+.contactLink:active {
+	color: hsla(45, 84%, 55%, 1);
+}
+.caveats,
+.form,
+.successMessage {
+	background-color: hsla(273, 56%, 50%, 1);
+	margin: 2rem auto;
+	border-radius: 5px;
+	border: 1px solid hsla(45, 84%, 75%, 1);
+}
+
+.form {
+	padding: 2rem;
 }
 
 .label {
-    text-align: left;
-    color: black;
-    font-size: 14px;
-    font-weight: 200;
-  }
-
-  .error {
-    color: red;
-    font-size: 14px;
-    font-weight: 400;
-  }
-
-.input:focus {
-    outline: none;
-    border: 1px solid #000;
+	text-align: left;
 }
 
-.helper {
-    margin-top: -1rem;
+.input {
+	display: block;
+	width: 100%;
+	border-radius: 5px;
+	background-color: hsla(45, 84%, 75%, 1);
+	padding: 10px 15px;
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+
+.input:focus {
+	outline: none;
+	background-color: hsla(45, 84%, 65%, 1);
+}
+
+.submit {
+	margin: 0 auto;
+	font-size: 1.5rem;
+	font-weight: 600;
+    max-width: 50%;
+}
+
+.submit:hover {
+	background-color: hsla(45, 84%, 65%, 1);
+	cursor: pointer;
+}
+
+.submit:active {
+	background-color: hsla(45, 84%, 55%, 1);
+	box-shadow: 0 5px hsla(0, 0, 0, 0.5);
+	transform: translateY(4px);
+}
+
+.checkbox {
+	display: inline-block;
+	margin: 1rem;
+}
+
+.successMessage {
+	color: hsla(45, 94%, 55%, 1);
+	text-align: center;
+	padding: 1rem;
+	font-size: 1.5rem;
+	font-weight: 400;
+}
+
+@media screen and (min-width: 768px) {
+	.caveats {
+		max-width: 80%;
+	}
+	.form,
+	.successMessage {
+		max-width: 70%;
+	}
+	.alignCheckbox {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.caveats {
+		max-width: 65%;
+	}
+	.form,
+	.successMessage {
+		max-width: 50%;
+	}
 }

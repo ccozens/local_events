@@ -1,5 +1,6 @@
 import Router from 'next/router';
 import { Event } from '@prismatypes';
+import styles from '@/styles/EventCard.module.css';
 
 export default function EventCard({ event }: { event: Event }) {
 	const {name, description, id} = event;
