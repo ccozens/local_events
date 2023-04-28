@@ -2,6 +2,8 @@ import { GetServerSideProps } from 'next';
 import prisma from '@prismaclient';
 import { Event } from '@prismatypes';
 import styles from '@/styles/EventPage.module.css';
+import EventMap from '@/components/EventMap';
+import GeoLocation from '@/components/GeoLocation';
 
 export const getServerSideProps: GetServerSideProps = async (
 	context
@@ -34,6 +36,8 @@ export default function EventPage({ event }: { event: Event }) {
 				{termTime ? 'Term time only' : 'All year'}
 				{cost ? `£${cost}` : 'Free'}
 			</div>
+			{/* <GeoLocation /> */}
+			<EventMap />
 
 				<div>Details Location Website</div>
 			</div>
