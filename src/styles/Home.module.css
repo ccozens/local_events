@@ -22,11 +22,21 @@
 
 
 /* events grid styling */
-@media (min-width: 600px) {
+.eventsGrid {
+  display: grid;
+  gap: 1rem;
+  grid-auto-rows: 180px;
+  }
+
+@media (min-width: 700px) {
   .eventsGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .eventsGrid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

@@ -1,10 +1,10 @@
 .card {
-	cursor: pointer;
+	/* cursor: pointer;
 	background-color: hsla(273, 56%, 50%, 1);
 	border: 1px solid hsla(45, 84%, 75%, 1);
 	border-radius: 5px;
 	padding: 1rem;
-	max-width: 300px;
+	 */
 }
 
 .cardTitle {

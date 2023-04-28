@@ -18,7 +18,6 @@ export default function EventCard({ event }: { event: EventWithLocation }) {
 		else {
 			return `${durationCalc.hours.toFixed(2)} hours`;
 		}
-		// durationCalc.hours.toFixed(2);
 	}
 	return (
 		<div
