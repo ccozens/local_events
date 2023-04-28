@@ -18,7 +18,8 @@
 			"@/*": ["./src/*"],
 			"@prismaclient": ["./lib/prisma"],
 			"@prismatypes": ["./node_modules/.prisma/client/index.d.ts"]
-		}
+		},
+		"types": ["node"]
 	},
 	"include": [
 		"next-env.d.ts",

@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@prismaclient';
 
+
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
@@ -23,7 +24,6 @@ export default async function handler(
 		email,
 	} = req.body;
 
-
 	try {
 		// send data to prisma
 		await prisma.event.create({
@@ -35,7 +35,8 @@ export default async function handler(
 				maxAge: maxAge,
 				day: day,
 				location: {
-					connect: {id: locationId}},
+					connect: { id: locationId },
+				},
 				startTime: startTime,
 				endTime: endTime,
 				termTime: termTime,

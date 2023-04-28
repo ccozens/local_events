@@ -1,91 +1,17 @@
-.head {
-	background: hsla(263, 95%, 35%, 1);
-	width: 100vw;
-	min-height: 50px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.head > h1 {
+.card {
+	cursor: pointer;
+	background-color: hsla(273, 56%, 50%, 1);
+	border: 1px solid hsla(45, 84%, 75%, 1);
+	border-radius: 5px;
 	padding: 1rem;
+	max-width: 300px;
 }
 
-/* mobile first hide navButton and show at screen min-width 600px */
-@media (min-width: 600px) {
-	.navButton {
-		display: none;
-	}
-	.navBar {
-		list-style: none;
-		padding: 1rem 2rem;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1em;
-		justify-items: flex-end;
-	}
-	.navItem {
-		padding: 1rem;
-		background: #fbb;
-		border-radius: 5px;
-	}
+.cardTitle {
+
 }
 
-/* under 600px */
-@media (max-width: 600px) {
-	.navButton {
-		display: block;
-		background: hsla(45, 94%, 55%, 1);
-		padding: 1rem;
-		border-radius: 5px;
-		margin: 1rem;
-		color: hsla(265, 80%, 35%, 1);
-		font-weight: bold;
-		font-size: 1.2rem;
-        line-height: 0.7rem;
-        cursor: pointer;
-	}
-    .navButton:hover {
-        background: hsla(45, 94%, 45%, 1);
-    }
-	.navBar {
-		display: none;
-	}
-	.navItemActive {
-		background: hsla(45, 75%, 65%, 1);
-		display: block;
-		width: 90%;
-		margin: 0.5rem 0;
-		text-align: center;
-		padding: 0.5rem;
-		font-size: 1.2rem;
-		border-radius: 5px;
-        shadow: 2px 2px 20px rgba(0, 0, 0, 1);
-	}
-	.navBarActive {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-		margin-top: 0;
-		padding: 1rem 0;
-		width: 60vw;
-		height: auto;
-		margin-bottom: 10vh;
-		background: hsla(45, 75%, 55%, 1);
-		position: absolute;
-		left: 40vw;
-		z-index: 1;
-		border-radius: 5px;
-	}
-	.navItemActive > a {
-		color: hsla(265, 80%, 35%, 1);
-		font-weight: bold;
-	}
-    .navItemActive:hover {
-        background: hsla(45, 85%, 85%, 1);
-        cursor: pointer;
-    }
+.cardContent {
+
 }
 

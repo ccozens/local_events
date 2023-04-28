@@ -1,0 +1,15 @@
+/* swagger styling, copied from swagger css */
+.swaggerContainer {
+	/* Override default layout styles to fit SwaggerUI */
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	overflow: hidden;
+
+	/* Apply SwaggerUI styles */
+	background-color: #fafafa;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #4d4d4d;
+	font-family: 'Roboto', sans-serif;
+}

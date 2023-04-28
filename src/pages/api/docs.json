@@ -1,0 +1,158 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Event API",
+		"version": "1.0.0"
+	},
+	"paths": {
+		"/api/createEvent": {
+			"post": {
+				"tags": ["Events"],
+				"summary": "Create a new event",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"description": {
+										"type": "string"
+									},
+									"cost": {
+										"type": "number"
+									},
+									"minAge": {
+										"type": "number"
+									},
+									"maxAge": {
+										"type": "number"
+									},
+									"locationId": {
+										"type": "number"
+									},
+									"day": {
+										"type": "string"
+									},
+									"startTime": {
+										"type": "string",
+										"format": "time"
+									},
+									"endTime": {
+										"type": "string",
+										"format": "time"
+									},
+									"termTime": {
+										"type": "boolean"
+									},
+									"website": {
+										"type": "string"
+									},
+									"phone": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string",
+										"format": "email"
+									}
+								},
+								"required": [
+									"name",
+									"description",
+									"cost",
+									"minAge",
+									"maxAge",
+									"locationId",
+									"day",
+									"startTime",
+									"endTime",
+									"termTime",
+									"website",
+									"phone",
+									"email"
+								]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Event created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"required": ["message"]
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Failed to create event",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"error": {
+											"type": "string"
+										}
+									},
+									"required": ["error"]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/api/createLocation": {
+			"post": {
+				"tags": ["Locations"],
+				"summary": "Create a new location",
+				"description": "Create a new location in the system",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string",
+										"description": "The name of the location"
+									},
+									"address": {
+										"type": "string",
+										"description": "The address of the location"
+									},
+									"website": {
+										"type": "string",
+										"description": "The website URL of the location"
+									}
+								},
+								"required": ["name", "address", "website"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Location created successfully"
+					},
+					"500": {
+						"description": "Failed to create location"
+					}
+				}
+			}
+		}
+	}
+}

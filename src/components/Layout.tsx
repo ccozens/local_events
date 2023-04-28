@@ -64,6 +64,7 @@ export default function Layout({ children }: Children) {
 						maxWidth: '100%',
 						height: 'auto',
 					}}
+					priority
 				/>
 			</section>
 				<main> {children} </main>
