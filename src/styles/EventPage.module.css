@@ -8,17 +8,10 @@
 }
 
 .cardTitle {
-	text-transform: capitalize;
+
 }
 
 .cardContent {
-	margin: 0.5rem;
-}
 
-.times {
-	margin: 0.2rem;
-	display: grid;
-	grid-template-columns: repeat(2, auto);
-	
 }
 

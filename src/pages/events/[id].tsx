@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import prisma from '@prismaclient';
 import { Event } from '@prismatypes';
-import Layout from '@/components/Layout';
+import styles from '@/styles/EventPage.module.css';
 
 export const getServerSideProps: GetServerSideProps = async (
 	context
@@ -24,8 +24,9 @@ export default function EventPage({ event }: { event: Event }) {
 	const ageRange = `${event.minAge} - ${event.maxAge}`;
 
 	return (
-		<Layout>
-			<div>
+		<div>
+
+			<div className={styles.eventSummary}>
 				{name}
 				{description}
 				{ageRange}
@@ -34,7 +35,7 @@ export default function EventPage({ event }: { event: Event }) {
 				{cost ? `£${cost}` : 'Free'}
 			</div>
 
-			<div>Details Location Website</div>
-		</Layout>
+				<div>Details Location Website</div>
+			</div>
 	);
 }
