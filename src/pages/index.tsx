@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next';
 import styles from '@/styles/Home.module.css';
 import type { ReactElement } from 'react';
-import { useState, useEffect } from 'react';
 import prisma from '@prismaclient';
 import EventCard from '@/components/EventCard';
 import type { EventWithLocation } from '@/types/EventWithLocation';
