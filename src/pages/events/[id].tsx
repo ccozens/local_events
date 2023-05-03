@@ -43,8 +43,7 @@ export default function EventPage({ event }: { event: EventWithLocation }) {
 	const location:Location = event.location;
 	const locationName = location.name;
 	const locationAddress = location.address;
-	console.log(`locationAddress ${locationAddress}`);
-	geocodingRequest(locationAddress);
+	if (locationAddress) geocodingRequest(locationAddress);
 
 	return (
 		<div className={styles.event}>

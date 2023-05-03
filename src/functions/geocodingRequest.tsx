@@ -2,7 +2,7 @@ import { Client } from '@googlemaps/google-maps-services-js';
 
 const client = new Client({});
 
-export async function geocodingRequest (locationAddress) {
+export async function geocodingRequest (locationAddress: string): Promise<{lat: number, lng: number} | undefined> {
     const response = await client.geocode({
         params: {
             address: locationAddress,
@@ -10,7 +10,6 @@ export async function geocodingRequest (locationAddress) {
         },
         timeout: 1000, // milliseconds
     });
-    console.log(response.data.results[0].geometry.location);
     return response.data.results[0].geometry.location;
 
 }
