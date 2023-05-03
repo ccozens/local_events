@@ -1,7 +1,7 @@
-import { DaysOfWeekLinks } from '@/components/DaysOfWeekMap';
-import Link from 'next/link';
+import { daysOfWeekGrid } from '@/components/DaysOfWeekMap';
 
-export default function DaysOfWeekGrid() {
+
+export default function DaysOfWeekGrid( ) {
 	/* day grid styling */
 	const dayGrid = {
 		display: 'grid',
@@ -15,7 +15,7 @@ export default function DaysOfWeekGrid() {
 	return (
 		<div>
 			<div style={dayGrid}>
-				{DaysOfWeekLinks}
+				{daysOfWeekGrid}
 			</div>
 		</div>
 	);

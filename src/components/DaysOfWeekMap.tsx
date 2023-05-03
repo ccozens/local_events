@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { useDayStore } from '@/store/dayStore';
 
 const daysOfWeek = [
 	'All',
@@ -21,6 +21,7 @@ export const DaysOfWeekOptions = daysOfWeek.map((day, index) => {
 
 const dayLink = {
 	cursor: 'pointer',
+	color: 'hsla(45, 84%, 75%, 1)',
 	backgroundColor: 'hsla(273, 56%, 50%, 1)',
 	border: '1px solid hsla(45, 84%, 75%, 1)',
 	borderRadius: '5px',
@@ -28,10 +29,22 @@ const dayLink = {
 	textAlign: 'center' as 'center',
 };
 
-export const DaysOfWeekLinks = daysOfWeek.map((day, index) => {
+const dayClickHandler = (
+	event: React.MouseEvent<HTMLButtonElement>
+) => {
+	// update day store on click
+	const day = event.currentTarget.dataset.day;
+	useDayStore.setState({ day: day });
+};
+
+export const daysOfWeekGrid = daysOfWeek.map((day, index) => {
 	return (
-		<Link style={dayLink} key={index} href={`/events/${day}`}>
+		<button
+			style={dayLink}
+			key={index}
+			data-day={day}
+			onClick={dayClickHandler}>
 			{day.slice(0, 3)}
-		</Link>
+		</button>
 	);
 });

@@ -4,22 +4,23 @@ import styles from '@/styles/EventCard.module.css';
 import getTimeDuration from '@/functions/getTimeDuration';
 import type { EventWithLocation } from '@/types/EventWithLocation';
 
-
-
-
-export default function EventCard({ event }: { event: EventWithLocation }) {
-	const { name, description, startTime, endTime } = event;
+export default function EventCard({
+	event,
+}: {
+	event: EventWithLocation;
+}) {
+	const { name, description, day, startTime, endTime } = event;
 	const location: Location = event.location;
 
 	const durationCalc = getTimeDuration(startTime, endTime);
 	function durationDisplay() {
 		if (durationCalc.hours < 0) return 'Invalid time';
 		if (durationCalc.hours === 1) return `${durationCalc.hours} hour`;
-		if (durationCalc.hours < 1) return `${durationCalc.minutes} minutes`;
+		if (durationCalc.hours < 1)
+			return `${durationCalc.minutes} minutes`;
 		if (durationCalc.hours > 1 && durationCalc.minutes === 0) {
 			return `${durationCalc.hours} hours`;
-		}
-		else {
+		} else {
 			return `${durationCalc.hours.toFixed(2)} hours`;
 		}
 	}
@@ -33,15 +34,21 @@ export default function EventCard({ event }: { event: EventWithLocation }) {
 			<div className={styles.cardContent}>
 				<p>{description ? description : ''}</p>
 				<div className={styles.times}>
+					<p>Day: </p>
+					<p>{day}</p>
 
-				<p>Start time:</p><p> {startTime}</p>
-				<p>End time: </p><p>{endTime}</p>
-				<p>Length: </p><p>{durationDisplay()}</p>
-				<p>Venue:
-				<br />					 
-					 {location.name}</p>
+					<p>Start time:</p>
+					<p> {startTime}</p>
+					<p>End time: </p>
+					<p>{endTime}</p>
+					<p>Length: </p>
+					<p>{durationDisplay()}</p>
+					<p>
+						Venue:
+						<br />
+						{location.name}
+					</p>
 				</div>
-				
 			</div>
 		</div>
 	);
