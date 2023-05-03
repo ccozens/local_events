@@ -7,6 +7,10 @@
   min-height: 100vh;
 }
 
+.home {
+  width: 90vw;
+  max-width: 1500px;
+}
 
 /* hero styling */
 .hero {
@@ -22,13 +26,13 @@
   gap: 1rem;
   }
 
-@media (min-width: 700px) {
+@media (min-width: 500px) {
   .eventsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 850px) {
   .main {
     padding: 2rem;
   }
@@ -43,6 +47,7 @@
   }
   .eventsGrid {
     grid-template-columns: repeat(4, 1fr);
+
   }
 }
 

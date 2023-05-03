@@ -40,12 +40,13 @@ export default function Home(props: {
 			}
 		});
 
-		console.log(eventListFiltered('Tuesday').length);
+	const title = clickedDay === 'All' ? `${clickedDay} events` : `Events on ${clickedDay}s`;
+
 	return (
 		<div>
 			<main className={styles.main}>
-				<div>
-					<h1>Events</h1>
+				<div className={styles.home}>
+					<h1>{title}</h1>
 					<DaysOfWeekGrid />
 					<div className={styles.eventsGrid}>
 						{eventListFiltered(clickedDay).length === 0 ? (
