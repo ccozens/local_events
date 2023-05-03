@@ -4,6 +4,7 @@ import { Event, Location } from '@prismatypes';
 import styles from '@/styles/EventPage.module.css';
 import EventMap from '@/components/EventMap';
 import { geocodingRequest } from '@/functions/geocodingRequest';
+import type { EventWithLocation } from '@/types/EventWithLocation';
 
 export const getServerSideProps: GetServerSideProps = async (
 	context
@@ -22,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (
 };
 
 
-export default function EventPage({ event }: { event: Event }) {
+export default function EventPage({ event }: { event: EventWithLocation }) {
 	const {
 		name,
 		description,

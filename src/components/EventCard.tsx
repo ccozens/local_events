@@ -12,9 +12,13 @@ export default function EventCard({ event }: { event: EventWithLocation }) {
 	const location: Location = event.location;
 
 	const durationCalc = getTimeDuration(startTime, endTime);
-	// display duration to 2 decimal places
 	function durationDisplay() {
+		if (durationCalc.hours < 0) return 'Invalid time';
 		if (durationCalc.hours === 1) return `${durationCalc.hours} hour`;
+		if (durationCalc.hours < 1) return `${durationCalc.minutes} minutes`;
+		if (durationCalc.hours > 1 && durationCalc.minutes === 0) {
+			return `${durationCalc.hours} hours`;
+		}
 		else {
 			return `${durationCalc.hours.toFixed(2)} hours`;
 		}
@@ -33,7 +37,9 @@ export default function EventCard({ event }: { event: EventWithLocation }) {
 				<p>Start time:</p><p> {startTime}</p>
 				<p>End time: </p><p>{endTime}</p>
 				<p>Length: </p><p>{durationDisplay()}</p>
-				<p>Venue: {location.name}</p>
+				<p>Venue:
+				<br />					 
+					 {location.name}</p>
 				</div>
 				
 			</div>

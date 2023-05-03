@@ -25,7 +25,6 @@
 .eventsGrid {
   display: grid;
   gap: 1rem;
-  grid-auto-rows: 180px;
   }
 
 @media (min-width: 700px) {
