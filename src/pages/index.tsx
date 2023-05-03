@@ -4,6 +4,7 @@ import type { ReactElement } from 'react';
 import prisma from '@prismaclient';
 import EventCard from '@/components/EventCard';
 import type { EventWithLocation } from '@/types/EventWithLocation';
+import DaysOfWeekGrid from '@/components/DaysOfWeekGrid';
 
 export const getStaticProps: GetStaticProps = async () => {
 	const events = await prisma.event.findMany({
@@ -26,6 +27,7 @@ export default function Home(props: {
 			<main className={styles.main}>
 				<div>
 					<h1>Events</h1>
+					<DaysOfWeekGrid />
 					<div className={styles.eventsGrid}>
 						{props.events.map((event: EventWithLocation) => (
 							<div key={event.id}>

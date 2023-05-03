@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState } from 'react';
 import { ReactNode } from 'react';
+import { DaysOfWeekOptions } from '@/components/DaysOfWeekMap';
 
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
@@ -65,15 +66,6 @@ export default function CreateEvent(props: { locations: Locations }) {
 		}
 	};
 
-	const daysOfWeek = [
-		'Monday',
-		'Tuesday',
-		'Wednesday',
-		'Thursday',
-		'Friday',
-		'Saturday',
-		'Sunday',
-	];
 
 	return (
 		<div>
@@ -138,13 +130,7 @@ export default function CreateEvent(props: { locations: Locations }) {
 						Day:
 					</label>
 					<select className={styles.input} {...register('day')}>
-						{daysOfWeek.map((day, index) => {
-							return (
-								<option key={index} value={day}>
-									{day}
-								</option>
-							);
-						})}
+						{DaysOfWeekOptions}
 					</select>
 					<p className={styles.error}>{errors.day?.message}</p>
 					<label htmlFor="cost" className={styles.label}>
