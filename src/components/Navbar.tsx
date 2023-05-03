@@ -44,7 +44,12 @@ export default function NavBar() {
 		// dynamically assign ref to each navItem based on their status as childNodes of navBar, rather than using a static ref
 		navItems?.forEach((item) => {
 			const itemRef = item as HTMLLIElement;
-			itemRef.classList.toggle(styles.navItemActive);
+			itemRef.classList.add(styles.navItemActive);
+			// remove active navBar and navItem styles after navItem clicked, with 50ms delay to allow for animation
+			itemRef.addEventListener('click', () => {
+				setTimeout(() => navBar?.classList.remove(styles.navBarActive), 50);
+				// itemRef.classList.toggle(styles.navItemActive);
+			});
 		});
 	};
 

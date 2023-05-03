@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	GoogleMap,
 	LoadScript,
 	MarkerF,
 } from '@react-google-maps/api';
+import { Location } from '@prismatypes';
+
 const containerStyle = {
 	width: '300px',
 	minWidth: '232px',
@@ -13,21 +15,18 @@ const containerStyle = {
 	margin: '1rem auto',
 };
 
-type LocationProps = {
-	label: string;
-	lat: number;
-	lng: number;
-};
-
-function EventMap({ location }: { location: LocationProps }) {
+function EventMap({ location }: {location: Location}) {
 	const localGoogleMapsApiKey =
 		process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
+	
 	// open google maps window if short click (ie not id user panning around by click and drag)
 	const [clickTime, setClickTime] = React.useState(0);
 	const onMapMouseDown = () => {
 		setClickTime(Date.now());
 	};
+
+	const locationName = location.name;
 
 	const onMapClick = React.useCallback(
 		(e: React.SyntheticEvent) => {
@@ -37,7 +36,7 @@ function EventMap({ location }: { location: LocationProps }) {
 			const duration = Date.now() - clickTime;
 			if (duration < 100) {
 				window.open(
-					`https://maps.google.com?q=${location.label}`,
+					`https://maps.google.com?q=${location}`,
 					'_blank'
 				);
 			}
@@ -45,17 +44,21 @@ function EventMap({ location }: { location: LocationProps }) {
 		[clickTime, location]
 	);
 
+	const onMapError = () => {
+		<div>Map cannot be loaded right now, sorry.</div>;
+	};
 	return (
 		<div
 			className="eventMap"
 			onMouseDown={onMapMouseDown}
-			onMouseUp={onMapClick}>
+			onMouseUp={onMapClick}
+			onError={onMapError}>
 			<LoadScript googleMapsApiKey={localGoogleMapsApiKey}>
 				<GoogleMap
 					mapContainerStyle={containerStyle}
-					center={location}
+					center={locationName}
 					zoom={14}>
-					<MarkerF position={location} />
+					<MarkerF position={locationName} />
 				</GoogleMap>
 			</LoadScript>
 		</div>

@@ -1,10 +1,9 @@
 import { GetServerSideProps } from 'next';
 import prisma from '@prismaclient';
-import { Event } from '@prismatypes';
+import { Event, Location } from '@prismatypes';
 import styles from '@/styles/EventPage.module.css';
 import EventMap from '@/components/EventMap';
-import GeoLocation from '@/components/GeoLocation';
-import { useState } from 'react';
+import { geocodingRequest } from '@/functions/geocodingRequest';
 
 export const getServerSideProps: GetServerSideProps = async (
 	context
@@ -12,9 +11,9 @@ export const getServerSideProps: GetServerSideProps = async (
 	const eventId = context.params?.id;
 	const event = await prisma.event.findUnique({
 		where: { id: Number(eventId) },
-		// include: {
-		//
-		// },
+		include: {
+			location: true,
+		},
 	});
 
 	return {
@@ -22,11 +21,6 @@ export const getServerSideProps: GetServerSideProps = async (
 	};
 };
 
-type LocationProps = {
-	label: string;
-	lat: number;
-	lng: number;
-};
 
 export default function EventPage({ event }: { event: Event }) {
 	const {
@@ -44,19 +38,12 @@ export default function EventPage({ event }: { event: Event }) {
 		'en-GB'
 	);
 
-	const braunstoneLeisureCentre = {
-		label: 'Braunstone Leisure Centre',
-		lat: 52.631370843015894,
-		lng: -1.17763457645657,
-	};
-
-	const dmuPool = {
-		label: 'Queen Elizabeth II Diamond Jubilee Leisure Centre',
-		lat: 52.629,
-		lng: -1.14,
-	};
-
-	const [location, setLocation] = useState(dmuPool);
+	// location is a linked table and accessed via the nested prisma query above
+	const location:Location = event.location;
+	const locationName = location.name;
+	const locationAddress = location.address;
+	console.log(`locationAddress ${locationAddress}`);
+	geocodingRequest(locationAddress);
 
 	return (
 		<div className={styles.event}>
@@ -65,7 +52,6 @@ export default function EventPage({ event }: { event: Event }) {
 					<div className={styles.eventHead}>
 						<p className={styles.eventTitle}>{name}</p>
 						<p className={styles.eventText}>{description}</p>
-						{/* <p className={styles.eventText}> {location}</p> */}
 						<p className={styles.eventText}>
 							{termTime ? 'Term time only' : 'Runs all year'}
 						</p>
@@ -92,7 +78,7 @@ export default function EventPage({ event }: { event: Event }) {
 					</div>
 				</div>
 				<div className={styles.eventSummary}>
-					<p className={styles.eventHead}>{location.label}</p>
+					<p className={styles.eventHead}>Event venue: {locationName}</p>
 					<EventMap location={location} />
 				</div>
 			</div>

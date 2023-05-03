@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState } from 'react';
 import { ReactNode } from 'react';
+import { InputNumber } from 'primereact/inputnumber';
 
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
