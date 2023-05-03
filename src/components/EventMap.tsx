@@ -7,14 +7,6 @@ import {
 import { Location } from '@prismatypes';
 import { geocodingRequest } from '@/functions/geocodingRequest';
 
-const containerStyle = {
-	width: '300px',
-	minWidth: '232px',
-	aspectRatio: '1/1',
-	borderRadius: '8px',
-	border: '1px solid #F7E1A1',
-	margin: '1rem auto',
-};
 
 function EventMap({ location }: { location: Location }) {
 	const localGoogleMapsApiKey =
@@ -70,7 +62,13 @@ function EventMap({ location }: { location: Location }) {
 			<LoadScript googleMapsApiKey={localGoogleMapsApiKey}>
 				{locationDetails.latlng.lat !== 0 && (
 					<GoogleMap
-						mapContainerStyle={containerStyle}
+						mapContainerStyle={{
+							width: 'clamp(232px, 100%, 400px)',
+							aspectRatio: '1/1',
+							borderRadius: '8px',
+							border: '1px solid #F7E1A1',
+							margin: '1rem auto',
+						}}
 						center={locationDetails.latlng}
 						zoom={14}>
 						<MarkerF position={locationDetails.latlng} />

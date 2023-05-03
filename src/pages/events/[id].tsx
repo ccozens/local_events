@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import prisma from '@prismaclient';
-import { Event, Location } from '@prismatypes';
+import { Location } from '@prismatypes';
 import styles from '@/styles/EventPage.module.css';
 import EventMap from '@/components/EventMap';
 import { geocodingRequest } from '@/functions/geocodingRequest';
@@ -22,8 +22,11 @@ export const getServerSideProps: GetServerSideProps = async (
 	};
 };
 
-
-export default function EventPage({ event }: { event: EventWithLocation }) {
+export default function EventPage({
+	event,
+}: {
+	event: EventWithLocation;
+}) {
 	const {
 		name,
 		description,
@@ -40,7 +43,7 @@ export default function EventPage({ event }: { event: EventWithLocation }) {
 	);
 
 	// location is a linked table and accessed via the nested prisma query above
-	const location:Location = event.location;
+	const location: Location = event.location;
 	const locationName = location.name;
 	const locationAddress = location.address;
 	if (locationAddress) geocodingRequest(locationAddress);
@@ -78,8 +81,12 @@ export default function EventPage({ event }: { event: EventWithLocation }) {
 					</div>
 				</div>
 				<div className={styles.eventSummary}>
-					<p className={styles.eventHead}>Event venue: {locationName}</p>
-					<EventMap location={location} />
+					<p className={styles.eventHead}>
+						Event venue: {locationName}
+					</p>
+					<div className={styles.mapContainer}>
+						<EventMap location={location} />
+					</div>
 				</div>
 			</div>
 			<div className={styles.eventFooter}>
