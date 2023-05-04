@@ -3,14 +3,19 @@ import {
 	GoogleMap,
 	LoadScript,
 	MarkerF,
+	useJsApiLoader,
 } from '@react-google-maps/api';
 import { Location } from '@prismatypes';
 import { geocodingRequest } from '@/functions/geocodingRequest';
 
-
 function EventMap({ location }: { location: Location }) {
 	const localGoogleMapsApiKey =
 		process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
+
+	const { isLoaded, loadError } = useJsApiLoader({
+		id: 'google-map-script',
+		googleMapsApiKey: localGoogleMapsApiKey,
+	});
 
 	//  set initial state fot locationDetails
 	const [locationDetails, setLocationDetails] = useState({
@@ -59,22 +64,21 @@ function EventMap({ location }: { location: Location }) {
 			onMouseDown={onMapMouseDown}
 			onMouseUp={onMapClick}
 			onError={onMapError}>
-			<LoadScript googleMapsApiKey={localGoogleMapsApiKey}>
-				{locationDetails.latlng.lat !== 0 && (
-					<GoogleMap
-						mapContainerStyle={{
-							width: 'clamp(232px, 100%, 400px)',
-							aspectRatio: '1/1',
-							borderRadius: '8px',
-							border: '1px solid #F7E1A1',
-							margin: '1rem auto',
-						}}
-						center={locationDetails.latlng}
-						zoom={14}>
-						<MarkerF position={locationDetails.latlng} />
-					</GoogleMap>
-				)}
-			</LoadScript>
+			{isLoaded && locationDetails.latlng.lat !== 0 && (
+				<GoogleMap
+					mapContainerStyle={{
+						width: 'clamp(232px, 100%, 400px)',
+						aspectRatio: '1/1',
+						borderRadius: '8px',
+						border: '1px solid #F7E1A1',
+						margin: '1rem auto',
+					}}
+					center={locationDetails.latlng}
+					zoom={14}>
+					<MarkerF position={locationDetails.latlng} />
+				</GoogleMap>
+			)}
+			{loadError && <div>Map cannot be loaded right now, sorry.</div>}
 		</div>
 	);
 }
