@@ -7,6 +7,7 @@ import { DaysOfWeekOptions } from '@/components/DaysOfWeekMap';
 type Locations = Location[];
 
 export default function EventForm(props: {
+	eventData?: Event;
 	handleSubmitForm: SubmitHandler<Event>;
 	locations: Locations;
 }) {
@@ -14,7 +15,10 @@ export default function EventForm(props: {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<Event>();
+
+	} = useForm<Event>({
+		defaultValues: props.eventData
+	});
 
 	const onSubmit = props.handleSubmitForm;
 

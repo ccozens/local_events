@@ -63,23 +63,7 @@ export default function EventPage({
 	const editEvent = (event: EventWithLocation) => {
 		// update event store with event details
 		useEventStore.setState({
-			id: event.id,
-			name: event.name,
-			description: event.description,
-			cost: event.cost,
-			minAge: event.minAge,
-			maxAge: event.maxAge,
-			location: event.location,
-			locationId: event.locationId,
-			day: event.day,
-			startTime: event.startTime,
-			endTime: event.endTime,
-			termTime: event.termTime,
-			createdAt: event.createdAt,
-			updatedAt: event.updatedAt,
-			website: event.website,
-			phone: event.phone,
-			email: event.email,
+			event: event,
 		});
 		// push to edit event page
 		Router.push(`/events/${event.id}/edit`);

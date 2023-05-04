@@ -1,15 +1,24 @@
-import { Event, Location } from '@prismatypes';
+import EventForm from '@/components/EventForm';
 import styles from '@/styles/Form.module.css';
 import moreStyles from '@/styles/Custom.module.css';
-import prisma from '@prismaclient';
-import { GetStaticProps } from 'next';
-import Link from 'next/link';
+import { useEventStore } from '@/store/eventStore';
 import { SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
-import EventForm from '@/components/EventForm';
+import prisma from '@prismaclient';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { Event, Location } from '@prismatypes';
 
-// api call to get locations for dropdown
+export const getStaticPaths: GetStaticPaths = async () => {
+	const paths = Array.from({ length: 10 }, (_, i) => ({
+		params: { id: (i + 1).toString() },
+	}));
+	return {
+		paths: paths,
+		fallback: false,
+	};
+};
+
 export const getStaticProps: GetStaticProps = async () => {
 	const locations = await prisma.location.findMany({});
 	return {
@@ -22,7 +31,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
 type Locations = Location[];
 
-export default function Events(props: { locations: Locations }) {
+export default function Edit(props: { locations: Locations }) {
+	const eventData = useEventStore((state) => state.event);
 	const [successMessage, setSuccessMessage] = useState<ReactNode>('');
 	const [showForm, setShowForm] = useState<boolean>(true);
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
@@ -37,13 +47,12 @@ export default function Events(props: { locations: Locations }) {
 		});
 		if (response.ok) {
 			setTimeout(() => {
-				Router.push('/');
+				Router.push(`/events/${eventData.id}`);
 			}, 500);
 			// send success status and message to the frontend
 			setSuccessMessage(
 				<p className={moreStyles.successMessage}>
-					🎉 Event created successfully 🎉 <br /> Redirecting to home
-					page...
+					🎉 Event updated successfully 🎉
 				</p>
 			),
 				setShowForm(false);
@@ -65,39 +74,11 @@ export default function Events(props: { locations: Locations }) {
 	};
 
 	return (
-		<div>
-			{showForm && (
-				<div className={styles.caveats}>
-					<h3>Thanks for adding an event!</h3>
-					<p>A few caveats before you do:</p>
-					<ul>
-						<li>
-							This form can only accept 1 event at a time - if your
-							event has multiple days, or multiple times, please enter
-							indivudally and the database will store as a single
-							event.
-						</li>
-						<li>
-							The only date format you can enter is a day - I set this
-							up thinking of events that run every week.
-						</li>
-					</ul>
-					<p>
-						{' '}
-						These all simplify data processing and make the database
-						more user friendly. Please{' '}
-						<span className={styles.contactLink}>
-							<Link href="/about">get in touch</Link>
-						</span>{' '}
-						if you&apos;d like more features (eg, set specific dates
-						for events) and I&apos;ll know there&apos;s interest to
-						work on them.
-					</p>
-				</div>
-			)}
+		<div className={styles.form}>
+			<h1>Editing {eventData.name}</h1>
 			{showForm && (
 				<EventForm
-					eventData={undefined}
+					eventData={eventData}
 					handleSubmitForm={onSubmit}
 					locations={props.locations}
 				/>
