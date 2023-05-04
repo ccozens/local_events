@@ -1,4 +1,4 @@
-export default function funcName () {
+export default function Contact () {
 
     return (
         <div>

@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 
 export default function NavBar() {
 	const navList = [
-		{ title: 'Create an event', link: '/createEvent' },
-		{ title: 'Create a location', link: '/createLocation' },
+		{ title: 'Create an event', link: '/events' },
+		{ title: 'Create a location', link: '/locations' },
 		{ title: 'About this site', link: '/about' },
 		{ title: 'Contact me', link: '/contact' },
 	];
@@ -47,7 +47,10 @@ export default function NavBar() {
 			itemRef.classList.add(styles.navItemActive);
 			// remove active navBar and navItem styles after navItem clicked, with 50ms delay to allow for animation
 			itemRef.addEventListener('click', () => {
-				setTimeout(() => navBar?.classList.remove(styles.navBarActive), 50);
+				setTimeout(
+					() => navBar?.classList.remove(styles.navBarActive),
+					50
+				);
 				// itemRef.classList.toggle(styles.navItemActive);
 			});
 		});

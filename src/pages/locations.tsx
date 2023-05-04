@@ -18,9 +18,7 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 type Locations = Location[];
 
-export default function CreateLocation(props: {
-	locations: Locations;
-}) {
+export default function Locations(props: { locations: Locations }) {
 	const {
 		register,
 		handleSubmit,
@@ -31,7 +29,7 @@ export default function CreateLocation(props: {
 	const [error, setError] = useState<string>('');
 
 	const onSubmit: SubmitHandler<Location> = async (data) => {
-		const response = await fetch('/api/createLocation', {
+		const response = await fetch('/api/locations', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

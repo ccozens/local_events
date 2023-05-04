@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 type Locations = Location[];
 
-export default function CreateEvent(props: { locations: Locations }) {
+export default function Events(props: { locations: Locations }) {
 	const {
 		register,
 		handleSubmit,
@@ -34,7 +34,7 @@ export default function CreateEvent(props: { locations: Locations }) {
 	const [error, setError] = useState<string>('');
 
 	const onSubmit: SubmitHandler<Event> = async (data) => {
-		const response = await fetch('/api/createEvent', {
+		const response = await fetch('/api/events', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -65,7 +65,6 @@ export default function CreateEvent(props: { locations: Locations }) {
 			};
 		}
 	};
-
 
 	return (
 		<div>
@@ -195,7 +194,7 @@ export default function CreateEvent(props: { locations: Locations }) {
 					<p className={styles.helper}>
 						{' '}
 						Location not listed? {''}
-						<Link href="/createLocation">Add new location</Link>
+						<Link href="/locations">Add new location</Link>
 					</p>
 					<label htmlFor="website" className={styles.label}>
 						Website:
