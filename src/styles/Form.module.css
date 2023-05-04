@@ -24,8 +24,7 @@
 	color: hsla(45, 84%, 55%, 1);
 }
 .caveats,
-.form,
-.successMessage {
+.form {
 	background-color: hsla(273, 56%, 50%, 1);
 	border: 1px solid hsla(45, 84%, 75%, 1);
 	margin: 2rem auto;
@@ -34,9 +33,6 @@
 
 .form {
 	padding: 2rem;
-}
-.form,
-.successMessage {
 	max-width: 70%;
 }
 
@@ -86,14 +82,6 @@
 	margin: 1rem;
 }
 
-.successMessage {
-	color: hsla(45, 94%, 55%, 1);
-	text-align: center;
-	padding: 1rem;
-	font-size: 1.5rem;
-	font-weight: 400;
-}
-
 @media screen and (min-width: 768px) {
 	.alignCheckbox {
 		display: flex;
@@ -106,8 +94,7 @@
 	.caveats {
 		max-width: 65%;
 	}
-	.form,
-	.successMessage {
+	.form {
 		max-width: 50%;
 	}
 }

@@ -55,6 +55,7 @@
 	background-color: hsla(273, 56%, 40%, 1);
 	cursor: pointer;
 	padding: 0.4rem;
+	color: inherit;
 }
 
 .footerButtons:hover {

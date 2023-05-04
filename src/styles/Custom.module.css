@@ -1,0 +1,17 @@
+.successMessage {
+	background-color: hsla(273, 56%, 50%, 1);
+	border: 1px solid hsla(45, 84%, 75%, 1);
+	margin: 2rem auto;
+	border-radius: 5px;
+	max-width: 70%;
+	text-align: center;
+	padding: 1rem;
+	font-size: 1.5rem;
+	font-weight: 400;
+}
+
+@media screen and (min-width: 1024px) {
+	.successMessage {
+		max-width: 50%;
+	}
+}

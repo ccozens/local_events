@@ -1,13 +1,13 @@
 import { Event, Location } from '@prismatypes';
 import styles from '@/styles/Form.module.css';
+import moreStyles from '@/styles/Custom.module.css';
 import prisma from '@prismaclient';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
-import { useState } from 'react';
-import { ReactNode } from 'react';
-import { DaysOfWeekOptions } from '@/components/DaysOfWeekMap';
+import { useState, ReactNode } from 'react';
+import EventForm from '@/components/EventForm';
 
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
@@ -23,15 +23,9 @@ export const getStaticProps: GetStaticProps = async () => {
 type Locations = Location[];
 
 export default function Events(props: { locations: Locations }) {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<Event>();
-
 	const [successMessage, setSuccessMessage] = useState<ReactNode>('');
 	const [showForm, setShowForm] = useState<boolean>(true);
-	const [error, setError] = useState<string>('');
+	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
 
 	const onSubmit: SubmitHandler<Event> = async (data) => {
 		const response = await fetch('/api/events', {
@@ -44,10 +38,10 @@ export default function Events(props: { locations: Locations }) {
 		if (response.ok) {
 			setTimeout(() => {
 				Router.push('/');
-			}, 5000);
+			}, 500);
 			// send success status and message to the frontend
 			setSuccessMessage(
-				<p className={styles.successMessage}>
+				<p className={moreStyles.successMessage}>
 					🎉 Event created successfully 🎉 <br /> Redirecting to home
 					page...
 				</p>
@@ -58,7 +52,11 @@ export default function Events(props: { locations: Locations }) {
 			};
 		} else {
 			console.error(response.statusText);
-			setError(`Failed to create event: ${response.statusText}`);
+			setErrorMessage(
+				<p className={moreStyles.successMessage}>
+					Failed to create event: {response.statusText}
+				</p>
+			);
 			// send error status and message to the frontend
 			return {
 				status: 'error',
@@ -98,174 +96,13 @@ export default function Events(props: { locations: Locations }) {
 				</div>
 			)}
 			{showForm && (
-				<form
-					onSubmit={handleSubmit(onSubmit)}
-					className={styles.form}>
-					<label htmlFor="name" className={styles.label}>
-						Event name:
-					</label>
-					<input
-						className={styles.input}
-						type="text"
-						placeholder="Event name"
-						{...register('name', {
-							required: '⚠ Please enter an event name.',
-						})}
-					/>
-					<p className={styles.error}>{errors.name?.message}</p>
-					<label htmlFor="description" className={styles.label}>
-						Event description
-					</label>
-					<input
-						className={styles.input}
-						type="text"
-						placeholder="Event description (optional)"
-						{...register('description')}
-					/>
-					<p className={styles.error}>
-						{errors.description?.message}
-					</p>
-					<label htmlFor="day" className={styles.label}>
-						Day:
-					</label>
-					<select className={styles.input} {...register('day')}>
-						{DaysOfWeekOptions}
-					</select>
-					<p className={styles.error}>{errors.day?.message}</p>
-					<label htmlFor="cost" className={styles.label}>
-						Cost:
-					</label>
-					<input
-						className={styles.input}
-						type="number"
-						placeholder="Cost (enter 0 if free)"
-						{...register('cost', {
-							valueAsNumber: true,
-							required: '⚠ Please enter the cost, or 0 if free.',
-						})}
-					/>
-					<p className={styles.error}>{errors.cost?.message}</p>
-
-					<p className={styles.error}>{errors.termTime?.message}</p>
-					<label htmlFor="minAge" className={styles.label}>
-						Minimum age:
-					</label>
-					<input
-						className={styles.input}
-						type="number"
-						placeholder="minAge"
-						{...register('minAge', {
-							valueAsNumber: true,
-							required: '⚠ Please enter a minimum age.',
-						})}
-					/>
-					<p className={styles.error}>{errors.minAge?.message}</p>
-					<label htmlFor="maxAge" className={styles.label}>
-						Maximum age:
-					</label>
-					<input
-						className={styles.input}
-						type="number"
-						placeholder="maxAge"
-						{...register('maxAge', {
-							valueAsNumber: true,
-							required: '⚠ Please enter a maximum age.',
-						})}
-					/>
-					<p className={styles.error}>{errors.maxAge?.message}</p>
-					<label htmlFor="location" className={styles.label}>
-						Location:
-					</label>
-					<select
-						className={styles.input}
-						{...register('locationId', {
-							required: '⚠ Please choose at least one location.',
-							valueAsNumber: true,
-						})}>
-						{props.locations.map((location, index) => {
-							return (
-								<option key={index} value={location.id}>
-									{location.name}
-								</option>
-							);
-						})}
-					</select>
-					<p className={styles.error}>{errors.locationId?.message}</p>
-					<p className={styles.helper}>
-						{' '}
-						Location not listed? {''}
-						<Link href="/locations">Add new location</Link>
-					</p>
-					<label htmlFor="website" className={styles.label}>
-						Website:
-					</label>
-					<input
-						className={styles.input}
-						type="url"
-						placeholder="Event website (optional)"
-						{...register('website')}
-					/>
-					<p className={styles.error}>{errors.website?.message}</p>
-					<label htmlFor="phone" className={styles.label}>
-						Phone:
-					</label>
-					<input
-						className={styles.input}
-						placeholder="Organiser's phone number (optional)"
-						{...register('phone')}
-					/>
-					<label htmlFor="email" className={styles.label}>
-						Email:
-					</label>
-					<input
-						className={styles.input}
-						type="email"
-						placeholder="Organiser's email address (optional)"
-						{...register('email')}
-					/>
-					<label htmlFor="startTime" className={styles.label}>
-						Start time:
-					</label>
-					<input
-						className={styles.input}
-						placeholder="Event start time (24 hour)"
-						type="time"
-						{...register('startTime', {
-							required: '⚠ Please enter event start time',
-						})}
-					/>
-					<p className={styles.error}>{errors.startTime?.message}</p>
-					<label htmlFor="endTime" className={styles.label}>
-						End time:
-					</label>
-					<input
-						className={styles.input}
-						placeholder="Event end time (24 hour)"
-						type="time"
-						{...register('endTime', {
-							required: '⚠ Please enter event start time',
-						})}
-					/>
-					<p className={styles.error}>{errors.endTime?.message}</p>
-					<div className={styles.alignCheckbox}>
-						<label htmlFor="termTime" className={styles.label}>
-							Is the event term time only?
-						</label>
-						<input
-							className={styles.checkbox}
-							type="checkbox"
-							{...register('termTime')}
-						/>
-					</div>
-					<input
-						className={`${styles.input} ${styles.submit}`}
-						type="submit"
-					/>
-				</form>
+				<EventForm
+					handleSubmitForm={onSubmit}
+					locations={props.locations}
+				/>
 			)}
-
 			{successMessage}
-			{error && <div className={styles.successMessage}>{error}</div>}
+			{errorMessage}
 		</div>
 	);
 }
