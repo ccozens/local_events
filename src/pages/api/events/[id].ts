@@ -16,8 +16,4 @@ export default async function handler(
 		});
 		res.status(200).json({ message: 'Event deleted' });
 	}
-	// update handler
-	if (req.method === 'PUT') {
-		res.status(200).json({ message: 'Event updated' });
-	}
 }

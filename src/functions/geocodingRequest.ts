@@ -7,6 +7,7 @@ export async function geocodingRequest (locationAddress: string): Promise<{lat: 
         params: {
             address: locationAddress,
             key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
+
         },
         timeout: 1000, // milliseconds
     });

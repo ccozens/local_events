@@ -7,8 +7,9 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	// get submitted data from request body
-	const { name, address, website } =
+	const { id, name, address, website } =
 		req.body;
+	if (req.method === 'POST') 
 	try {
 		await prisma.location.create({
 			data: {
@@ -21,5 +22,19 @@ export default async function handler(
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: 'Failed to create location' });
+	}
+	// update handler
+	if (req.method === 'PUT') {
+		await prisma.location.update({
+			where: {
+				id: Number(id),
+			},
+			data: {
+				name: req.body.name,
+				address: req.body.address,
+				website: req.body.website,
+			},
+		});
+		res.status(200).json({ message: 'Location updated' });
 	}
 }

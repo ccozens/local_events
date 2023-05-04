@@ -10,7 +10,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { Event, Location } from '@prismatypes';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const paths = Array.from({ length: 10 }, (_, i) => ({
+	const paths = Array.from({ length: 20 }, (_, i) => ({
 		params: { id: (i + 1).toString() },
 	}));
 	return {
@@ -39,7 +39,7 @@ export default function Edit(props: { locations: Locations }) {
 
 	const onSubmit: SubmitHandler<Event> = async (data) => {
 		const response = await fetch('/api/events', {
-			method: 'POST',
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
 			},
