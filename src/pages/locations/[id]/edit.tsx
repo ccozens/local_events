@@ -1,4 +1,4 @@
-import LocationForm from '@/components/LocationForm';
+import LocationForm from '@/components/forms/LocationForm';
 import styles from '@/styles/Form.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import { useLocationStore } from '@/store/locationStore';

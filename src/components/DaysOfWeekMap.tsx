@@ -12,11 +12,13 @@ const daysOfWeek = [
 ];
 
 export const DaysOfWeekOptions = daysOfWeek.map((day, index) => {
-	return (
-		<option key={index} value={day}>
-			{day}
-		</option>
-	);
+	if (day !== 'All') {
+		return (
+			<option key={index} value={day}>
+				{day}
+			</option>
+		);
+	} else return null;
 });
 
 const dayLink = {

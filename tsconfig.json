@@ -23,8 +23,7 @@
 	},
 	"include": [
 		"next-env.d.ts",
-		"**/*.ts",
-		"**/*.tsx",
+		"src/**/*",
 		"prisma/seed.ts"
 	],
 	"exclude": ["node_modules"]

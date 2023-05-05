@@ -1,4 +1,4 @@
-import EventForm from '@/components/EventForm';
+import EventForm from '@/components/forms/EventForm';
 import styles from '@/styles/Form.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import { useEventStore } from '@/store/eventStore';

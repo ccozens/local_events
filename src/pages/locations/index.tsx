@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { ReactNode } from 'react';
 import { GetStaticProps } from 'next';
 import prisma from '@prismaclient';
-import LocationForm from '@/components/LocationForm';
+import LocationForm from '@/components/forms/LocationForm';
 import Link from 'next/link';
 
 // list locations
@@ -38,7 +38,7 @@ export default function Locations(props: { locations: Locations }) {
 			// send success status and message to the frontend
 			setSuccessMessage(
 				<p className={moreStyles.successMessage}>
-					🎉 Location created successfully 🎉 
+					🎉 Location created successfully 🎉
 				</p>
 			),
 				setShowForm(false);

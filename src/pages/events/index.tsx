@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
-import EventForm from '@/components/EventForm';
+import EventForm from '@/components/forms/EventForm';
 
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
