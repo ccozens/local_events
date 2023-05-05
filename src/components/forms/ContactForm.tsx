@@ -1,57 +1,58 @@
 import styles from '@/styles/Form.module.css';
-import { Location } from '@prismatypes';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { ContactMessage } from '@/types/ContactMessage';
 
 export default function Contact(props: {
-	locationData?: Location;
-	handleSubmitForm: SubmitHandler<Location>;
+	handleSubmitForm: SubmitHandler<ContactMessage>;
 }) {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<Location>({
-		defaultValues: props.locationData,
-	});
+	} = useForm<ContactMessage>();
 
 	const onSubmit = props.handleSubmitForm;
 
 	return (
 		<div>
-			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-				<label htmlFor="name">Location name:</label>
+			<form className={`${styles.form} ${styles.contact}`} onSubmit={handleSubmit(onSubmit)}>
+				<label htmlFor="name">Name:</label>
 				<input
-					className={styles.input}
+					className={`${styles.input} ${styles.contactInput}`}
 					type="text"
-					placeholder="Location name"
+					placeholder="Please enter your name"
 					{...register('name', {
-						required: '⚠ Please enter a location name.',
+						required: '⚠ Please enter your name.',
 					})}
 				/>
 				{errors.name && (
 					<p className={styles.error}>{errors.name.message}</p>
 				)}
-				<label htmlFor="address">Address:</label>
+				<label htmlFor="email">Email:</label>
 				<input
-					className={styles.input}
+					className={`${styles.input} ${styles.contactInput}`}
 					type="text"
-					placeholder="Address"
-					{...register('address', {
-						required: '⚠ Please enter an address.',
+					placeholder="Please enter your email address"
+					{...register('email', {
+						required: '⚠ Please enter your email address.',
 					})}
 				/>
-				{errors.address && (
-					<p className={styles.error}>{errors.address.message}</p>
+				{errors.email && (
+					<p className={styles.error}>{errors.email.message}</p>
 				)}
-				<label htmlFor="website">Website:</label>
+				<label htmlFor="message">Message:</label>
 				<input
-					className={styles.input}
+					className={`${styles.input} ${styles.message}`}
 					type="text"
-					placeholder="Website (optional)"
-					{...register('website')}
+					placeholder="Enter message here"
+					{...register('message', {
+						required:
+							'⚠ Please enter a message, max 10000 characters.',
+						maxLength: 10000,
+					})}
 				/>
-				{errors.website && (
-					<p className={styles.error}>{errors.website.message}</p>
+				{errors.message && (
+					<p className={styles.error}>{errors.message.message}</p>
 				)}
 				<input
 					type="submit"

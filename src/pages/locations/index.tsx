@@ -1,7 +1,7 @@
 import styles from '@/styles/Form.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import { Location } from '@prismatypes';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { ReactNode } from 'react';
 import { GetStaticProps } from 'next';
@@ -62,7 +62,7 @@ export default function Locations(props: { locations: Locations }) {
 			<h1>Create a location</h1>
 			{showForm && <LocationForm handleSubmitForm={onSubmit} />}
 			{successMessage}
-			{error && <p className={styles.error}>{error}</p>}
+			{error}
 			<div>
 				<h1>Locations</h1>
 				<div className={styles.eventsGrid}>

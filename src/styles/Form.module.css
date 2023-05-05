@@ -40,6 +40,15 @@
 	text-align: left;
 }
 
+.contact {
+	width: 90%;
+}
+
+.message {
+	height: 20rem;
+	width: 100%;
+}
+
 .input {
 	display: block;
 	width: 100%;
