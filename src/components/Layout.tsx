@@ -1,13 +1,9 @@
 import Header from './Header';
 import { ReactNode } from 'react';
 import Head from 'next/head';
-import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import pic from '../images/hero_playing_crop.webp';
 
-const inter = Inter({
-	subsets: ['latin'],
-});
 interface Children {
 	children?: ReactNode;
 	// any props that come into the component
@@ -51,11 +47,9 @@ export default function Layout({ children }: Children) {
 				/>
 				<meta name="msapplication-TileColor" content="#fff4c3" />
 				<meta name="theme-color" content="#fff4c3" />
-				
 			</Head>
-			<div className={inter.className}>
-				<Header />
-				<section className="styles.hero">
+			<Header />
+			<section className="styles.hero">
 				<div className="styles.heroContent"></div>
 				<Image
 					src={pic}
@@ -67,8 +61,7 @@ export default function Layout({ children }: Children) {
 					priority
 				/>
 			</section>
-				<main> {children} </main>
-			</div>
+			<main> {children} </main>
 		</div>
 	);
 }
