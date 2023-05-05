@@ -17,7 +17,8 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"@prismaclient": ["./lib/prisma"],
-			"@prismatypes": ["./node_modules/.prisma/client/index.d.ts"]
+			"@prismatypes": ["./node_modules/.prisma/client/index.d.ts"],
+			"@nodemailer": ["./lib/nodemailer"]
 		},
 		"types": ["node"]
 	},

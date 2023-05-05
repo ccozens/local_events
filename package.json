@@ -26,6 +26,7 @@
 		"nanostores": "^0.8.1",
 		"next": "13.3.0",
 		"next-swagger-doc": "^0.3.6",
+		"nodemailer": "^6.9.1",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-geolocated": "^4.0.3",
@@ -39,6 +40,7 @@
 	"devDependencies": {
 		"@testing-library/react": "^14.0.0",
 		"@types/google.maps": "^3.52.6",
+		"@types/nodemailer": "^6.4.7",
 		"@vitejs/plugin-react": "^3.1.0",
 		"jsdom": "^21.1.1",
 		"prisma": "^4.13.0",
