@@ -26,9 +26,9 @@ export default function App({
 
 	return (
 		<div className={inter.className}>
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
+		<Layout>
+			<Component {...pageProps} />
+		</Layout>
 		</div>
 	);
 }

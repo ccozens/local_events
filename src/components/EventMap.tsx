@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
 	GoogleMap,
-	LoadScript,
 	MarkerF,
 	useJsApiLoader,
 } from '@react-google-maps/api';
