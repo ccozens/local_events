@@ -2,7 +2,7 @@ import styles from '@/styles/Form.module.css';
 import { Location } from '@prismatypes';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-export default function Locations(props: {
+export default function LocationEditForm(props: {
 	locationData?: Location;
 	handleSubmitForm: SubmitHandler<Location>;
 }) {
@@ -52,6 +52,16 @@ export default function Locations(props: {
 				/>
 				{errors.website && (
 					<p className={styles.error}>{errors.website.message}</p>
+				)}
+				<label htmlFor="phone">Phone:</label>
+				<input
+					className={styles.input}
+					type="text"
+					placeholder="Phone (optional)"
+					{...register('phone')}
+				/>
+				{errors.phone && (
+					<p className={styles.error}>{errors.phone.message}</p>
 				)}
 				<input
 					type="submit"

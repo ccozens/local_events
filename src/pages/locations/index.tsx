@@ -14,9 +14,11 @@ import type { LocationForForm } from '@/types/LocationForForm';
 export const getStaticProps: GetStaticProps = async () => {
 	const locations = await prisma.location.findMany({
 		// no args = return all
-		orderBy: [{
-			name: 'asc',
-		}]
+		orderBy: [
+			{
+				name: 'asc',
+			},
+		],
 	});
 	return {
 		props: { locations: JSON.parse(JSON.stringify(locations)) },
@@ -99,13 +101,17 @@ export default function Locations(props: { locations: Locations }) {
 			{error}
 			<div>
 				<h2>Current locations</h2>
-				{locationList.map((location: Location) => (
-					<div key={location.id}>
-						<Link className={`${styles.listedLocation} ${styles.suggestion}`} href={`locations/${location.id}`}>
-							{location.name}
-						</Link>
-					</div>
-				))}
+				<div className={styles.locationContainer}>
+					{locationList.map((location: Location) => (
+						<div key={location.id}>
+							<Link
+								className={`${styles.listedLocation} ${styles.suggestion}`}
+								href={`locations/${location.id}`}>
+								{location.name}
+							</Link>
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	);

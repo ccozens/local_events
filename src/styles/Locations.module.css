@@ -1,7 +1,7 @@
 .locationButton {
 	padding: 2rem;
 	max-width: 70%;
-    margin: 1rem  auto;
+	margin: 1rem auto;
 }
 .input {
 	display: block;
@@ -30,6 +30,7 @@
 	border: 1px solid hsla(45, 84%, 75%, 0.5);
 	margin: 5px -5px;
 	padding: 3px;
+	font-size: 1.2rem;
 }
 
 .suggestion:hover {
@@ -48,14 +49,37 @@
 }
 
 .suggestionLink:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .listedLocation {
-    display: flex;
-    width: 80%;
-    gap: 80px;
-    background-color: hsla(273, 56%, 50%, 0.7);
+	display: flex;
+	width: 80%;
+	gap: 80px;
+	background-color: hsla(273, 56%, 50%, 0.7);
 	border: 1px solid hsla(45, 84%, 75%, 1);
-    margin: 0.5rem auto;
+	margin: 0.5rem auto;
+	font-size: 1.3rem;
+	padding: 0.5rem;
+	border-radius: 5px;
+}
+
+@media (min-width: 768px) {
+	.suggestion,
+	.input {
+		font-size: 1.5rem;
+	}
+	.locationButton,
+	.listedLocation {
+		max-width: 600px;
+		font-size: 1.5rem;
+	}
+}
+
+@media (min-width: 1200px) {
+	.locationContainer,
+	.locationFooter {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
 }

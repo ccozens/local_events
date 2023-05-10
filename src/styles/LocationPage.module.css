@@ -63,9 +63,6 @@
 }
 
 @media (min-width: 600px) {
-	.location {
-		/* flex-direction: row; */
-	}
 	.locationContainer {
 		display: flex;
 		margin: 0 1rem;
@@ -79,6 +76,5 @@
 		flex-basis: auto;
 		line-height: 2rem;
 	}
-	
-
 };
+

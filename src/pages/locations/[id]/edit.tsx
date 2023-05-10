@@ -1,4 +1,4 @@
-import LocationForm from '@/components/forms/LocationForm';
+import LocationEditForm from '@/components/forms/LocationEditForm';
 import styles from '@/styles/Form.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import { useLocationStore } from '@/store/locationStore';
@@ -54,7 +54,7 @@ export default function Edit() {
 		<div className={styles.form}>
 			<h1> Editing {locationData.name}</h1>
 			{showForm && (
-				<LocationForm
+				<LocationEditForm
 					locationData={locationData}
 					handleSubmitForm={onSubmit}
 				/>

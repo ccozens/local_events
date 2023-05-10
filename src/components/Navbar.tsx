@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 export default function NavBar() {
 	const navList = [
 		{ title: 'Create an event', link: '/events' },
-		{ title: 'Create a location', link: '/locations' },
+		{ title: 'Locations', link: '/locations' },
 		{ title: 'About this site', link: '/about' },
 		{ title: 'Contact me', link: '/contact' },
 	];
