@@ -8,6 +8,8 @@ import { Location } from '@prismatypes';
 import { geocodingRequest } from '@/functions/geocodingRequest';
 
 function EventMap({ location }: { location: Location }) {
+
+
 	const localGoogleMapsApiKey =
 		process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 

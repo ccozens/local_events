@@ -16,6 +16,7 @@ model Location {
   name String @unique @db.VarChar(100)
   address String? @db.VarChar(255)
   website String? @db.VarChar(255)
+  phone String? @db.VarChar(20)
   // a location may have many events, so many to one relation
   events Event[]
   createdAt DateTime @default(now())

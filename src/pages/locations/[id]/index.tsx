@@ -4,7 +4,6 @@ import { Location } from '@prismatypes';
 import styles from '@/styles/EventPage.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import EventMap from '@/components/EventMap';
-import { geocodingRequest } from '@/functions/geocodingRequest';
 import { useLocationStore } from '@/store/locationStore';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
@@ -39,7 +38,6 @@ export default function LocationPage({
 
 	// location is a linked table and accessed via the nested prisma query above
 
-	if (address) geocodingRequest(address);
 
 	// state flag for delete message
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');

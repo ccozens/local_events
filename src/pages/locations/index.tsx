@@ -1,14 +1,14 @@
-import styles from '@/styles/Form.module.css';
+import styles from '@/styles/Locations.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import { Location } from '@prismatypes';
-import { SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { ReactNode } from 'react';
 import { GetStaticProps } from 'next';
 import prisma from '@prismaclient';
 import LocationForm from '@/components/forms/LocationForm';
 import Link from 'next/link';
-
+import { useLocationForFormStore } from '@/store/locationForFormStore';
+import type { LocationForForm } from '@/types/LocationForForm';
 // list locations
 export const getStaticProps: GetStaticProps = async () => {
 	const locations = await prisma.location.findMany({
@@ -23,10 +23,18 @@ type Locations = Location[];
 
 export default function Locations(props: { locations: Locations }) {
 	const [successMessage, setSuccessMessage] = useState<ReactNode>('');
-	const [showForm, setShowForm] = useState<boolean>(true);
 	const [error, setError] = useState<ReactNode>('');
+	const [showForm, setShowForm] = useState<boolean>(false);
 
-	const onSubmit: SubmitHandler<Location> = async (data) => {
+	const locationList = props.locations;
+
+	// get the location data from the form store
+	const data = useLocationForFormStore(
+		(savedLocation) => savedLocation.locationForForm
+	);
+
+	// send location data to API
+	const submitNewLocation = async (data: LocationForForm) => {
 		const response = await fetch('/api/locations', {
 			method: 'POST',
 			headers: {
@@ -35,45 +43,65 @@ export default function Locations(props: { locations: Locations }) {
 			body: JSON.stringify(data),
 		});
 		if (response.ok) {
-			// send success status and message to the frontend
-			setSuccessMessage(
-				<p className={moreStyles.successMessage}>
-					🎉 Location created successfully 🎉
-				</p>
-			),
-				setShowForm(false);
 			return {
 				status: 'success',
 			};
 		} else {
 			console.error(response.statusText);
-			setError(
-				<p className={moreStyles.successMessage}>
-					Failed to create location: {response.statusText}
-				</p>
-			);
+			return {
+				status: 'error',
+			};
 		}
 	};
 
-	const locationList = props.locations;
+	// fire off the submitNewLocation function when the button is clicked
+	const onClick = async (
+		event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+	) => {
+		event.preventDefault();
+		const response = await submitNewLocation(data);
+		if (response.status === 'success') {
+			setSuccessMessage(
+				<p className={moreStyles.successMessage}>
+					🎉 Location created successfully 🎉
+				</p>
+			);
+		} else {
+			setError(
+				<p className={moreStyles.errorMessage}>
+					⚠ Error creating location. Please try again.
+				</p>
+			);
+		}
+		setShowForm(false);
+	};
 
 	return (
 		<div>
-			<h1>Create a location</h1>
-			{showForm && <LocationForm handleSubmitForm={onSubmit} />}
+			<h1>Locations</h1>
+			{showForm ? (
+				<div>
+					<h2>Create a location</h2>
+					<LocationForm onClick={onClick} showForm={showForm} />
+				</div>
+			) : (
+				<button
+					className={`${styles.input} ${styles.submit} ${styles.locationButton}`}
+					onClick={() => setShowForm(true)}>
+					Add Location
+				</button>
+			)}
 			{successMessage}
 			{error}
 			<div>
-				<h1>Locations</h1>
-				<div className={styles.eventsGrid}>
-					{locationList.map((location: Location) => (
-						<div key={location.id}>
-							<Link href={`locations/${location.id}`}>
-								{location.name}
-							</Link>
-						</div>
-					))}
-				</div>
+				<h2>Current locations</h2>
+				{locationList.map((location: Location) => (
+					<div key={location.id}>
+						<Link className={`${styles.listedLocation} ${styles.suggestion}`} href={`locations/${location.id}`}>
+							{location.name}
+						</Link>
+					</div>
+				))}
 			</div>
 		</div>
 	);

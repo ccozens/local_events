@@ -1,0 +1,61 @@
+.locationButton {
+	padding: 2rem;
+	max-width: 70%;
+    margin: 1rem  auto;
+}
+.input {
+	display: block;
+	width: 100%;
+	border-radius: 5px;
+	background-color: hsla(45, 84%, 75%, 1);
+	padding: 10px 15px;
+	margin-bottom: 10px;
+	font-size: 1rem;
+}
+
+.label {
+	display: block;
+	margin-bottom: 5px;
+	font-size: 1.3rem;
+}
+
+.output {
+	color: black;
+}
+
+.suggestion {
+	list-style-type: none;
+	background-color: hsla(265, 80%, 35%, 0.2);
+	border-radius: 5px;
+	border: 1px solid hsla(45, 84%, 75%, 0.5);
+	margin: 5px -5px;
+	padding: 3px;
+}
+
+.suggestion:hover {
+	background-color: hsla(265, 80%, 35%, 0.5);
+	cursor: pointer;
+}
+
+.suggestion:active {
+	background-color: hsla(265, 80%, 35%, 0.8);
+}
+
+.suggestionLink {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.suggestionLink:hover {
+    text-decoration: underline;
+}
+
+.listedLocation {
+    display: flex;
+    width: 80%;
+    gap: 80px;
+    background-color: hsla(273, 56%, 50%, 0.7);
+	border: 1px solid hsla(45, 84%, 75%, 1);
+    margin: 0.5rem auto;
+}
