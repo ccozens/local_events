@@ -12,7 +12,6 @@ interface EventMapsProps {
 
 function EventMap({ latlng, name }: EventMapsProps) {
 
-	console.log('EventMap', latlng);
 	const localGoogleMapsApiKey =
 		process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 

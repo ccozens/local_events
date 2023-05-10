@@ -22,7 +22,6 @@ body {
 		var(--background-start) 0%,
 		var(--background-end) 100%
 	);
-
 	letter-spacing: 0.01em;
 }
 

@@ -9,6 +9,19 @@ import { useDayStore } from '@/store/dayStore';
 
 export const getStaticProps: GetStaticProps = async () => {
 	const events = await prisma.event.findMany({
+		// sort by day, start time, name
+		orderBy: [
+			{
+				// this will sort alphabeitcally, but want to sort by day of week. Amend when have implemented day of week. Maybe https://fymmot.github.io/inclusive-dates/
+				day: 'asc',
+			},
+			{
+				startTime: 'asc',
+			},
+			{
+				name: 'asc',
+			},
+		],
 		// include linked location
 		include: {
 			location: true,

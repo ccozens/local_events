@@ -14,6 +14,9 @@ import type { LocationForForm } from '@/types/LocationForForm';
 export const getStaticProps: GetStaticProps = async () => {
 	const locations = await prisma.location.findMany({
 		// no args = return all
+		orderBy: [{
+			name: 'asc',
+		}]
 	});
 	return {
 		props: { locations: JSON.parse(JSON.stringify(locations)) },

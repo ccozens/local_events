@@ -10,7 +10,6 @@ export default async function handler(
 	const { name, email, message } = req.body;
 	if (req.method === 'POST')
 		try {
-			console.log(name, email, message);
 			// send email
 			await transporter.sendMail({
 				...mailOptions,

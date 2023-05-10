@@ -4,7 +4,6 @@ import { Location } from '@prismatypes';
 import styles from '@/styles/EventPage.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import EventMap from '@/components/EventMap';
-import { geocodingRequest } from '@/functions/geocodingRequest';
 import type { EventWithLocation } from '@/types/EventWithLocation';
 import { useEventStore } from '@/store/eventStore';
 import Router from 'next/router';
@@ -51,8 +50,7 @@ export default function EventPage({
 	// location is a linked table and accessed via the nested prisma query above
 	const location: Location = event.location;
 	const locationName = location.name;
-	const locationAddress = location.address;
-	if (locationAddress) geocodingRequest(locationAddress);
+	const locationLatLng = { lat: location.lat, lng: location.lng } as google.maps.LatLngLiteral;
 
 	// state flag for delete message
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');
@@ -93,7 +91,6 @@ export default function EventPage({
 			);
 		}
 	};
-
 	return (
 		<div>
 			{showEvent && (
@@ -101,7 +98,7 @@ export default function EventPage({
 					<div className={styles.eventContainer}>
 						<div className={styles.eventSummary}>
 							<div className={styles.eventHead}>
-								<p className={styles.eventTitle}>{name}</p>
+								<h2 className={styles.eventTitle}>{name}</h2>
 								<p className={styles.eventText}>{description}</p>
 								<p className={styles.eventText}>
 									{termTime ? 'Term time only' : 'Runs all year'}
@@ -129,11 +126,13 @@ export default function EventPage({
 							</div>
 						</div>
 						<div className={styles.eventSummary}>
-							<p className={styles.eventHead}>
-								Event venue: {locationName}
-							</p>
+							<h3 className={styles.eventHead}>
+								Venue:
+								{'  '} 
+								{locationName}
+							</h3>
 							<div className={styles.mapContainer}>
-								<EventMap location={location} />
+								<EventMap name={location.name} latlng={locationLatLng} />
 							</div>
 						</div>
 					</div>

@@ -1,12 +1,13 @@
 import { GetServerSideProps } from 'next';
 import prisma from '@prismaclient';
 import { Location } from '@prismatypes';
-import styles from '@/styles/EventPage.module.css';
+import styles from '@/styles/LocationPage.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import EventMap from '@/components/EventMap';
 import { useLocationStore } from '@/store/locationStore';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
+import Link from 'next/link';
 
 export const getServerSideProps: GetServerSideProps = async (
 	context
@@ -26,21 +27,13 @@ export default function LocationPage({
 }: {
 	location: Location;
 }) {
-	const {
-		name,
-		address,
-		website,
-		phone,
-        updatedAt,
-		lat,
-		lng
-	} = location;
+	const { name, address, website, phone, updatedAt, lat, lng } =
+		location;
 	const locationUpdated = new Date(updatedAt).toLocaleDateString(
 		'en-GB'
 	);
 
-	const latlng = {lat: lat, lng: lng} as google.maps.LatLngLiteral;
-
+	const latlng = { lat: lat, lng: lng } as google.maps.LatLngLiteral;
 
 	// state flag for delete message
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');
@@ -85,40 +78,41 @@ export default function LocationPage({
 	return (
 		<div>
 			{showLocation && (
-				<div className={styles.event}>
-					<div className={styles.eventContainer}>
-						<div className={styles.eventSummary}>
-							<div className={styles.eventHead}>
-								<p className={styles.eventTitle}>{name}</p>
-								
-							</div>
-							<div className={styles.eventGrid}>
-								<p className={styles.eventText}>Address: </p>
-								<p className={styles.eventText}>{address}</p>
-								<p className={styles.eventText}>Website: </p>
-								<p className={styles.eventText}>
-									{website}
+				<div className={styles.location}>
+					<div className={styles.locationContainer}>
+						<div className={styles.locationSummary}>
+								<div className={styles.locationTitle}>{name}</div>
+							<div >
+								<p className={styles.locationTextLabel}>Address: </p>
+								<p className={styles.locationText}>
+									{address ? address : 'No address available'}
 								</p>
-								<p className={styles.eventText}>Phone: </p>
-								<p className={styles.eventText}>
-									{phone}
-								</p>
-								<p className={styles.eventText}>Website: </p>
-								<p className={styles.eventText}>
-									{website}
+								<p className={styles.locationTextLabel}>Website: </p>
+								{website ? (
+									<Link
+										href={website}
+										target="_blank"
+										className={styles.locationText}>
+										{website}
+									</Link>
+								) : (
+									<p className={styles.locationText}>
+										No website available
+									</p>
+								)}
+								<p className={styles.locationTextLabel}>Phone: </p>
+								<p className={styles.locationText}>
+									{phone ? phone : 'No phone available'}
 								</p>
 							</div>
 						</div>
-						<div className={styles.eventSummary}>
-							<p className={styles.eventHead}>
-								Event venue: {name}
-							</p>
+						<div className={styles.locationSummary}>
 							<div className={styles.mapContainer}>
 								<EventMap name={name} latlng={latlng} />
 							</div>
 						</div>
 					</div>
-					<div className={styles.eventFooter}>
+					<div className={styles.locationFooter}>
 						<p className={styles.footerText}>
 							Event last updated: {locationUpdated}
 						</p>
