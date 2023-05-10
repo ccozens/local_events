@@ -1,38 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
 	GoogleMap,
 	MarkerF,
 	useJsApiLoader,
 } from '@react-google-maps/api';
-import { Location } from '@prismatypes';
-import { geocodingRequest } from '@/functions/geocodingRequest';
 
-function EventMap({ location }: { location: Location }) {
+interface EventMapsProps {
+	name: string;
+	latlng: google.maps.LatLngLiteral
+}
 
+function EventMap({ latlng, name }: EventMapsProps) {
 
+	console.log('EventMap', latlng);
 	const localGoogleMapsApiKey =
 		process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
 	const { isLoaded, loadError } = useJsApiLoader({
 		id: 'google-map-script',
 		googleMapsApiKey: localGoogleMapsApiKey,
+		libraries: ['places']
 	});
-
-	//  set initial state fot locationDetails
-	const [locationDetails, setLocationDetails] = useState({
-		name: location.name,
-		latlng: { lat: 0, lng: 0 },
-	});
-
-	// update locationDetails once get latlng for location promise resolves
-	useEffect(() => {
-		geocodingRequest(locationDetails.name).then((location) => {
-			setLocationDetails((prevLocationDetails) => ({
-				...prevLocationDetails,
-				latlng: location || { lat: 0, lng: 0 },
-			}));
-		});
-	}, [locationDetails.name]);
+	
 
 	// open google maps window if short click (ie not id user panning around by click and drag)
 	const [clickTime, setClickTime] = React.useState(0);
@@ -48,12 +37,12 @@ function EventMap({ location }: { location: Location }) {
 			const duration = Date.now() - clickTime;
 			if (duration < 100) {
 				window.open(
-					`https://maps.google.com?q=${location}`,
+					`https://maps.google.com?q=${name}`,
 					'_blank'
 				);
 			}
 		},
-		[clickTime, location]
+		[clickTime, name]
 	);
 
 	const onMapError = () => {
@@ -65,7 +54,7 @@ function EventMap({ location }: { location: Location }) {
 			onMouseDown={onMapMouseDown}
 			onMouseUp={onMapClick}
 			onError={onMapError}>
-			{isLoaded && locationDetails.latlng.lat !== 0 && (
+			{isLoaded && latlng.lat && (
 				<GoogleMap
 					mapContainerStyle={{
 						width: 'clamp(232px, 100%, 400px)',
@@ -74,9 +63,9 @@ function EventMap({ location }: { location: Location }) {
 						border: '1px solid #F7E1A1',
 						margin: '1rem auto',
 					}}
-					center={locationDetails.latlng}
+					center={latlng}
 					zoom={14}>
-					<MarkerF position={locationDetails.latlng} />
+					<MarkerF position={latlng} />
 				</GoogleMap>
 			)}
 			{loadError && <div>Map cannot be loaded right now, sorry.</div>}

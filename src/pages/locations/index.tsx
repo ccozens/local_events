@@ -9,6 +9,7 @@ import LocationForm from '@/components/forms/LocationForm';
 import Link from 'next/link';
 import { useLocationForFormStore } from '@/store/locationForFormStore';
 import type { LocationForForm } from '@/types/LocationForForm';
+
 // list locations
 export const getStaticProps: GetStaticProps = async () => {
 	const locations = await prisma.location.findMany({

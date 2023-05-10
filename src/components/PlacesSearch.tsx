@@ -32,18 +32,16 @@ const PlacesAutocomplete = ({
 			placeId,
 		})) as google.maps.places.PlaceResult;
 		// Get latitude and longitude via utility functions
-		const latlng = await getGeocode({ address }).then((results) => {
-			const { lat, lng } = getLatLng(results[0]);
-			return { lat, lng };
-		});
+		const geocode = await getGeocode({ address });
+		const { lat, lng } = getLatLng(geocode[0]);
 
 		setSelected({
 			name: results.name,
 			address: results.formatted_address,
 			website: results.website,
 			phone: results.formatted_phone_number,
-			lat: latlng.lat,
-			lng: latlng.lng,
+			lat: lat,
+			lng: lng,
 		});
 	};
 
@@ -73,7 +71,6 @@ const PlacesAutocomplete = ({
 	);
 };
 
-
 export default function PlacesSearch() {
 	const localGoogleMapsApiKey =
 		process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
@@ -98,11 +95,6 @@ export default function PlacesSearch() {
 	];
 
 	if (!isLoaded) return <div>Loading...</div>;
-
-	const listStyle = {
-		listStyleType: 'none',
-		color: 'white',
-	};
 
 	return (
 		<div className="places-container">

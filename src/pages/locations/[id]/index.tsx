@@ -30,13 +30,16 @@ export default function LocationPage({
 		name,
 		address,
 		website,
-        updatedAt
+		phone,
+        updatedAt,
+		lat,
+		lng
 	} = location;
 	const locationUpdated = new Date(updatedAt).toLocaleDateString(
 		'en-GB'
 	);
 
-	// location is a linked table and accessed via the nested prisma query above
+	const latlng = {lat: lat, lng: lng} as google.maps.LatLngLiteral;
 
 
 	// state flag for delete message
@@ -96,6 +99,14 @@ export default function LocationPage({
 								<p className={styles.eventText}>
 									{website}
 								</p>
+								<p className={styles.eventText}>Phone: </p>
+								<p className={styles.eventText}>
+									{phone}
+								</p>
+								<p className={styles.eventText}>Website: </p>
+								<p className={styles.eventText}>
+									{website}
+								</p>
 							</div>
 						</div>
 						<div className={styles.eventSummary}>
@@ -103,7 +114,7 @@ export default function LocationPage({
 								Event venue: {name}
 							</p>
 							<div className={styles.mapContainer}>
-								<EventMap location={location} />
+								<EventMap name={name} latlng={latlng} />
 							</div>
 						</div>
 					</div>
