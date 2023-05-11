@@ -5,8 +5,8 @@ interface ModalProps {
 	toggleModal: () => void;
 	name: string;
 	id: number;
-	deleteLocation: (id: number) => Promise<void>;
-	// deleteEvent: (id: number) => Promise<void>;
+	deleteLocation?: (id: number) => Promise<void>;
+	deleteEvent?: (id: number) => Promise<void>;
 }
 
 export default function Modal({
@@ -15,6 +15,7 @@ export default function Modal({
 	name,
 	id,
 	deleteLocation,
+	deleteEvent,
 }: ModalProps) {
 	return (
 		<div>
@@ -24,6 +25,7 @@ export default function Modal({
 					name={name}
 					id={id}
 					deleteLocation={deleteLocation}
+					deleteEvent={deleteEvent}
 				/>
 			)}
 		</div>

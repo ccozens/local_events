@@ -8,6 +8,7 @@ import type { EventWithLocation } from '@/types/EventWithLocation';
 import { useEventStore } from '@/store/eventStore';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
+import Modal from '@/components/confirmation/Modal';
 
 export const getStaticProps: GetStaticProps = async (
 	context
@@ -66,6 +67,8 @@ export default function EventPage({
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
 	const [showEvent, setShowEvent] = useState<boolean>(true);
+	const [showModal, setShowModal] = useState<boolean>(false);
+    const toggleModal = () => setShowModal(!showModal);
 
 	// store event details in zustand store and push to edit event page
 	const editEvent = (event: EventWithLocation) => {
@@ -156,12 +159,21 @@ export default function EventPage({
 							Edit event
 						</button>
 						<button
-							onClick={() => deleteEvent(event.id)}
+							onClick={toggleModal}
 							className={styles.footerButtons}>
 							Delete event
 						</button>
 					</div>
 				</div>
+			)}
+			{showModal && (
+				<Modal
+					showModal={showModal}
+					toggleModal={toggleModal}
+					name={event.name}
+					id={event.id}
+					deleteEvent={deleteEvent}
+				/>
 			)}
 			{deleteMessage}
 			{errorMessage}
