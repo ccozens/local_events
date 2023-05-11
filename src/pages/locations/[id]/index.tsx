@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import prisma from '@prismaclient';
 import { Location } from '@prismatypes';
 import styles from '@/styles/LocationPage.module.css';
@@ -9,7 +9,7 @@ import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import Link from 'next/link';
 
-export const getServerSideProps: GetServerSideProps = async (
+export const getStaticProps: GetStaticProps = async (
 	context
 ) => {
 	const locationId = context.params?.id;
@@ -21,6 +21,18 @@ export const getServerSideProps: GetServerSideProps = async (
 		props: { location: JSON.parse(JSON.stringify(location)) },
 	};
 };
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const events = await prisma.location.findMany({
+	});
+	const paths = events.map((event) => ({
+		params: { id: event.id.toString() },
+	}));
+	return { paths, fallback: 'blocking' // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
+	 };
+};
+
+
 
 export default function LocationPage({
 	location,

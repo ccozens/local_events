@@ -36,8 +36,6 @@ export default function Header() {
 		title = navList[4].title.split(' ')[0];
 	}
 
-	console.log(pathname == '/events');
-
 	return (
 		<div className={styles.head}>
 			<h1> {title} </h1>
