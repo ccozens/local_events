@@ -8,6 +8,7 @@ import { useLocationStore } from '@/store/locationStore';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import Link from 'next/link';
+import Modal from '@/components/confirmation/Modal';
 
 export const getStaticProps: GetStaticProps = async (
 	context
@@ -51,7 +52,9 @@ export default function LocationPage({
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
 	const [showLocation, setShowLocation] = useState<boolean>(true);
-
+	const [showModal, setShowModal] = useState<boolean>(false);
+    const toggleModal = () => setShowModal(!showModal);
+    
 	// store location details in zustand store and push to edit location page
 	const editLocation = (location: Location) => {
 		// update location store with location details
@@ -134,12 +137,21 @@ export default function LocationPage({
 							Edit location
 						</button>
 						<button
-							onClick={() => deleteLocation(location.id)}
+							onClick={toggleModal}
 							className={styles.footerButtons}>
 							Delete location
 						</button>
 					</div>
 				</div>
+			)}
+			{showModal && (
+				<Modal
+					showModal={showModal}
+					toggleModal={toggleModal}
+					name={location.name}
+					id={location.id}
+					deleteLocation={deleteLocation}
+				/>
 			)}
 			{deleteMessage}
 			{errorMessage}

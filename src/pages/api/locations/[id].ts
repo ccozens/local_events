@@ -6,7 +6,9 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
+	console.log(`hit endpoint`);
 	const locationId = req.query.id;
+	console.log(locationId);
 	// delete location in prisma by id
 	if (req.method === 'DELETE') {
 		await prisma.location.delete({
@@ -16,5 +18,4 @@ export default async function handler(
 		});
 		res.status(200).json({ message: 'Location deleted' });
 	}
-	
 }

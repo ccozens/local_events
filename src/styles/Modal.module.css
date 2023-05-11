@@ -1,0 +1,46 @@
+
+.modal {
+	width: 40vw;
+	height: 40vh;
+	background-color: hsla(45, 84%, 75%, 1);
+	border: 4px solid hsla(357, 84%, 15%, 1);
+	color: hsla(357, 84%, 15%, 1);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 4;
+	font-weight: bold;
+	font-size: 1.5rem;
+	flex-direction: column;
+	border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+    position: fixed;
+    top: 30vh;
+    left: 30vw;
+}
+
+.modalButtonContainer {
+	display: flex;
+	justify-content: space-around;
+	width: 80%;
+	margin-top: 2rem;
+}
+
+.modalButtons {
+	border-radius: 5px;
+	border: 1px solid hsla(45, 84%, 25%, 1);
+	background-color: hsla(45, 84%, 55%, 1);
+	cursor: pointer;
+	padding: 1rem;
+	color: inherit;
+    font-weight: inherit;
+}
+
+.modalButtons:hover {
+    background-color: hsla(45, 84%, 45%, 1);
+}
+
+.modalButtons:active {
+    background-color: hsla(45, 84%, 85%, 1);
+}
