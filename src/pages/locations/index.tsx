@@ -49,22 +49,36 @@ export default function Locations(props: { locations: Locations }) {
 			body: JSON.stringify(data),
 		});
 		if (response.ok) {
+			// show user success message for 5 seconds
+			setTimeout(() => {
+				setSuccessMessage('');
+
+			}, 5000);
+			// reset store using reset function
+			useLocationForFormStore.getState().reset();
+
 			return {
 				status: 'success',
 			};
 		} else {
 			console.error(response.statusText);
+			setTimeout(() => {
+				setError('');
+			}, 5000);
 			return {
 				status: 'error',
 			};
 		}
 	};
-
+	
 	// fire off the submitNewLocation function when the button is clicked
 	const onClick = async (
 		event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-	) => {
-		event.preventDefault();
+		) => {
+			event.preventDefault();
+			// define timer to clear success/error messages
+
+		// send data to API
 		const response = await submitNewLocation(data);
 		if (response.status === 'success') {
 			setSuccessMessage(

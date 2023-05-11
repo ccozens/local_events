@@ -52,13 +52,13 @@ export default function Home(props: {
 			}
 		});
 
-	const title = clickedDay === 'All' ? `${clickedDay} events` : `Events on ${clickedDay}s`;
+	const heading = clickedDay === 'All' ? `${clickedDay} events` : `Events on ${clickedDay}s`;
 
 	return (
 		<div>
 			<main className={styles.main}>
 				<div className={styles.home}>
-					<h1>{title}</h1>
+					<h1>{heading}</h1>
 					<DaysOfWeekGrid />
 					<div className={styles.eventsGrid}>
 						{eventListFiltered(clickedDay).length === 0 ? (

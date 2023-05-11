@@ -4,6 +4,7 @@ import type { LocationForForm } from '@/types/LocationForForm';
 interface LocationForFormState {
     locationForForm: LocationForForm;
     setLocationForForm: (locationForForm: LocationForForm) => void;
+    reset: () => void;
 };
 
 const mockLocationForForm: LocationForForm = {
@@ -21,4 +22,5 @@ const mockLocationForForm: LocationForForm = {
 export const useLocationForFormStore = create<LocationForFormState>((set) => ({
     locationForForm: mockLocationForForm,
     setLocationForForm: (locationForForm ) => set({ locationForForm }),
+    reset: () => set({ locationForForm: mockLocationForForm })
 }))
