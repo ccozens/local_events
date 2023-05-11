@@ -2,15 +2,12 @@ import styles from '@/styles/Header.module.css';
 import Link from 'next/link';
 import { useRef } from 'react';
 
-export default function NavBar() {
-	const navList = [
-		{ title: 'Home', link: '/' },
-		{ title: 'Create an event', link: '/events' },
-		{ title: 'Locations', link: '/locations' },
-		{ title: 'About this site', link: '/about' },
-		{ title: 'Contact me', link: '/contact' },
-	];
+interface navBarProps {
+	navList: { title: string; link: string }[];
+}
 
+export default function NavBar(props: navBarProps) {
+	const { navList } = props;
 
 	// useRef to access DOM elements
 	const navBarRef = useRef<HTMLUListElement>(null);

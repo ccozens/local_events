@@ -10,10 +10,11 @@ interface Children {
 }
 
 export default function Layout({ children }: Children) {
+	const title = 'Family Events';
 	return (
 		<div>
 			<Head>
-				<title>Local events</title>
+				<title>{title}</title>
 				<meta
 					name="description"
 					content="Local events for families"

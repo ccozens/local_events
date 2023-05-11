@@ -98,7 +98,6 @@ export default function Locations(props: { locations: Locations }) {
 
 	return (
 		<div>
-			<h1>Locations</h1>
 			{showForm ? (
 				<div>
 					<h2>Create a location</h2>
