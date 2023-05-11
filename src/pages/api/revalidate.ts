@@ -7,13 +7,12 @@ export default async function handler(
   res: NextApiResponse
 ) {
     // check for secret
-    if (req.query.secret !== process.env.REVALIDATE_SECRET) {
+    if (req.query.secret !== process.env.NEXT_REVALIDATION_SECRET) {
         return res.status(401).send('Unauthorized');
     }
     try {
-        console.log('Revalidating...');
-    
-        await res.revalidate();
+        const path = req.query.path;
+        await res.revalidate(path as string);
         return res.json({ revalidated: true })
 }
 catch(err) {
