@@ -42,7 +42,28 @@ export default function LocationPage({
 }) {
 	const { name, address, website, phone, updatedAt, lat, lng } =
 		location;
-	const locationUpdated = new Date(updatedAt).toLocaleDateString(
+		const websitePresent = website ? (
+			<Link
+				className={`${styles.locationText} ${styles.locationLink}`}
+				href={website}
+				target="_blank"
+				rel="noreferrer">
+				{website}
+			</Link>
+		) : (
+			<p className={styles.locationText}>unknown</p>
+		);
+		const phonePresent = phone ? (
+			<Link
+				className={`${styles.locationText} ${styles.locationLink}`}
+				href={`tel:${phone}`}>
+				{phone}
+			</Link>
+		) : (
+			<p className={styles.locationText}>unknown</p>
+		);
+
+		const locationUpdated = new Date(updatedAt).toLocaleDateString(
 		'en-GB'
 	);
 
@@ -103,22 +124,9 @@ export default function LocationPage({
 									{address ? address : 'No address available'}
 								</p>
 								<p className={styles.locationTextLabel}>Website: </p>
-								{website ? (
-									<Link
-										href={website}
-										target="_blank"
-										className={styles.locationText}>
-										{website}
-									</Link>
-								) : (
-									<p className={styles.locationText}>
-										No website available
-									</p>
-								)}
+								{websitePresent}
 								<p className={styles.locationTextLabel}>Phone: </p>
-								<p className={styles.locationText}>
-									{phone ? phone : 'No phone available'}
-								</p>
+								{phonePresent}
 							</div>
 						</div>
 						<div className={styles.locationSummary}>

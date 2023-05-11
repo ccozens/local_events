@@ -1,13 +1,13 @@
-import { Event, Location } from '@prismatypes';
+import EventForm from '@/components/forms/EventForm';
 import styles from '@/styles/Form.module.css';
 import moreStyles from '@/styles/Custom.module.css';
-import prisma from '@prismaclient';
-import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
-import EventForm from '@/components/forms/EventForm';
+import prisma from '@prismaclient';
+import { GetStaticProps } from 'next';
+import { Event, Location } from '@prismatypes';
 
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {

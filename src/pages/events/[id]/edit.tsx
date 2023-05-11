@@ -1,12 +1,11 @@
 import EventForm from '@/components/forms/EventForm';
-import styles from '@/styles/Form.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import { useEventStore } from '@/store/eventStore';
 import { SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import prisma from '@prismaclient';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import { Event, Location } from '@prismatypes';
 
 
@@ -20,6 +19,15 @@ export const getStaticProps: GetStaticProps = async () => {
 	};
 };
 
+export const getStaticPaths: GetStaticPaths = async () => {
+	const events = await prisma.event.findMany({
+	});
+	const paths = events.map((event) => ({
+		params: { id: event.id.toString() },
+	}));
+	return { paths, fallback: 'blocking' // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
+	 };
+};
 type Locations = Location[];
 
 export default function Edit(props: { locations: Locations }) {
@@ -65,8 +73,7 @@ export default function Edit(props: { locations: Locations }) {
 	};
 
 	return (
-		<div className={styles.form}>
-			<h1>Editing {eventData.name}</h1>
+		<div >
 			{showForm && (
 				<EventForm
 					eventData={eventData}

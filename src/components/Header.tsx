@@ -17,22 +17,27 @@ export default function Header() {
 
 	if (pathname === '/') {
 		title = `Welcome to Family Events`;
-	}
-	if (pathname === '/events') {
+	} else if (
+		pathname.includes('/edit') &&
+		pathname.includes('/events')
+	) {
+		title = 'Edit event';
+	} else if (pathname === '/events') {
 		title = navList[1].title;
 	} else if (pathname.startsWith('/events')) {
 		title = 'Events';
-	}
-	if (pathname === `/events/*`) {
+	} else if (pathname === `/events/*`) {
 		title = navList[1].title;
-	}
-	if (pathname.startsWith('/locations')) {
+	} else if (
+		pathname.includes('/location') &&
+		pathname.includes('/events')
+	) {
+		title = 'Edit location';
+	} else if (pathname.startsWith('/locations')) {
 		title = navList[2].title;
-	}
-	if (pathname === '/about') {
+	} else if (pathname === '/about') {
 		title = navList[3].title;
-	}
-	if (pathname === '/contact') {
+	} else if (pathname === '/contact') {
 		title = navList[4].title.split(' ')[0];
 	}
 

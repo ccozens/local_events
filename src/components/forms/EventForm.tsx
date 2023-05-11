@@ -87,7 +87,7 @@ export default function EventForm(props: {
 				<input
 					className={styles.input}
 					type="number"
-					placeholder="Maximun age"
+					placeholder="Maximum age"
 					{...register('maxAge', {
 						valueAsNumber: true,
 						required: '⚠ Please enter a maximum age.',
@@ -111,12 +111,8 @@ export default function EventForm(props: {
 						);
 					})}
 				</select>
-				<p className={styles.error}>{errors.locationId?.message}</p>
-				<p className={styles.helper}>
-					{' '}
-					Location not listed? {''}
 					<Link href="/locations">Add new location</Link>
-				</p>
+				<p className={styles.error}>{errors.locationId?.message}</p>
 				<label htmlFor="website" className={styles.label}>
 					Website:
 				</label>
@@ -170,7 +166,7 @@ export default function EventForm(props: {
 				<p className={styles.error}>{errors.endTime?.message}</p>
 				<div className={styles.alignCheckbox}>
 					<label htmlFor="termTime" className={styles.label}>
-						Is the event term time only?
+						Term time only?
 					</label>
 					<input
 						className={styles.checkbox}

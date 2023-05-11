@@ -9,10 +9,9 @@ import { useEventStore } from '@/store/eventStore';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import Modal from '@/components/confirmation/Modal';
+import Link from 'next/link';
 
-export const getStaticProps: GetStaticProps = async (
-	context
-) => {
+export const getStaticProps: GetStaticProps = async (context) => {
 	const eventId = context.params?.id;
 	const event = await prisma.event.findUnique({
 		where: { id: Number(eventId) },
@@ -27,13 +26,14 @@ export const getStaticProps: GetStaticProps = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const events = await prisma.event.findMany({
-	});
+	const events = await prisma.event.findMany({});
 	const paths = events.map((event) => ({
 		params: { id: event.id.toString() },
 	}));
-	return { paths, fallback: 'blocking' // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
-	 };
+	return {
+		paths,
+		fallback: 'blocking', // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
+	};
 };
 
 export default function EventPage({
@@ -57,18 +57,50 @@ export default function EventPage({
 	const eventUpdated = new Date(updatedAt).toLocaleDateString(
 		'en-GB'
 	);
+	const websitePresent = website ? (
+		<Link
+			className={`${styles.eventText} ${styles.eventLink}`}
+			href={website}
+			target="_blank"
+			rel="noreferrer">
+			{website}
+		</Link>
+	) : (
+		<p className={styles.eventText}>unknown</p>
+	);
+	const emailPresent = email ? (
+		<Link
+			className={`${styles.eventText} ${styles.eventLink}`}
+			href={`mailto:${email}`}>
+			{email}
+		</Link>
+	) : (
+		<p className={styles.eventText}>unknown</p>
+	);
+	const phonePresent = phone ? (
+		<Link
+			className={`${styles.eventText} ${styles.eventLink}`}
+			href={`tel:${phone}`}>
+			{phone}
+		</Link>
+	) : (
+		<p className={styles.eventText}>unknown</p>
+	);
 
 	// location is a linked table and accessed via the nested prisma query above
 	const location: Location = event.location;
 	const locationName = location.name;
-	const locationLatLng = { lat: location.lat, lng: location.lng } as google.maps.LatLngLiteral;
+	const locationLatLng = {
+		lat: location.lat,
+		lng: location.lng,
+	} as google.maps.LatLngLiteral;
 
 	// state flag for delete message
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
 	const [showEvent, setShowEvent] = useState<boolean>(true);
 	const [showModal, setShowModal] = useState<boolean>(false);
-    const toggleModal = () => setShowModal(!showModal);
+	const toggleModal = () => setShowModal(!showModal);
 
 	// store event details in zustand store and push to edit event page
 	const editEvent = (event: EventWithLocation) => {
@@ -125,27 +157,23 @@ export default function EventPage({
 									{cost ? `£${cost}` : 'Free'}
 								</p>
 								<p className={styles.eventText}>Website: </p>
-								<p className={styles.eventText}>
-									{website ? `${website}` : ''}
-								</p>
+								{websitePresent}
 								<p className={styles.eventText}>Email: </p>
-								<p className={styles.eventText}>
-									{email ? `${email}` : ''}
-								</p>
+								{emailPresent}
 								<p className={styles.eventText}>Phone: </p>
-								<p className={styles.eventText}>
-									{phone ? `${phone}` : ''}
-								</p>
+								{phonePresent}
 							</div>
 						</div>
 						<div className={styles.eventSummary}>
 							<h3 className={styles.eventHead}>
-								Venue:
-								{'  '} 
+								Venue: <br />
 								{locationName}
 							</h3>
 							<div className={styles.mapContainer}>
-								<EventMap name={location.name} latlng={locationLatLng} />
+								<EventMap
+									name={location.name}
+									latlng={locationLatLng}
+								/>
 							</div>
 						</div>
 					</div>

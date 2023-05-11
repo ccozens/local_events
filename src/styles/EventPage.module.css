@@ -32,7 +32,11 @@
 }
 .eventText {
 	line-height: 1.5rem;
-	font-size: 1.3rem;
+}
+.eventLink {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .eventFooter {
@@ -88,9 +92,9 @@
 }
 
 @media (min-width: 1200px) {
-	.eventContainer, .eventFooter {
+	.eventContainer,
+	.eventFooter {
 		max-width: 1200px;
 		margin: 0 auto;
 	}
-
 }
