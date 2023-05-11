@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import styles from '@/styles/Home.module.css';
 import type { ReactElement } from 'react';
 import prisma from '@prismaclient';
@@ -31,6 +31,16 @@ export const getStaticProps: GetStaticProps = async () => {
 		props: { events: JSON.parse(JSON.stringify(events)) },
 		revalidate: 10,
 	};
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const events = await prisma.event.findMany({
+	});
+	const paths = events.map((event) => ({
+		params: { id: event.id.toString() },
+	}));
+	return { paths, fallback: 'blocking' // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
+	 };
 };
 
 export default function Home(props: {

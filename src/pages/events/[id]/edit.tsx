@@ -6,18 +6,9 @@ import { SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import prisma from '@prismaclient';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticProps } from 'next';
 import { Event, Location } from '@prismatypes';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-	const paths = Array.from({ length: 20 }, (_, i) => ({
-		params: { id: (i + 1).toString() },
-	}));
-	return {
-		paths: paths,
-		fallback: false,
-	};
-};
 
 export const getStaticProps: GetStaticProps = async () => {
 	const locations = await prisma.location.findMany({});
