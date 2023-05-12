@@ -7,10 +7,13 @@ import {
 
 interface EventMapsProps {
 	name: string;
-	latlng: google.maps.LatLngLiteral
+	// latlng: google.maps.LatLngLiteral
+	lat: number;
+	lng: number;
 }
 
-function EventMap({ latlng, name }: EventMapsProps) {
+// function EventMap({ latlng, name }: EventMapsProps) {
+function EventMap({ lat, lng, name }: EventMapsProps) {
 
 	const localGoogleMapsApiKey =
 		process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
@@ -21,6 +24,7 @@ function EventMap({ latlng, name }: EventMapsProps) {
 		libraries: ['places']
 	});
 	
+	const latlng = { lat: lat, lng: lng } as google.maps.LatLngLiteral;
 
 	// open google maps window if short click (ie not id user panning around by click and drag)
 	const [clickTime, setClickTime] = React.useState(0);

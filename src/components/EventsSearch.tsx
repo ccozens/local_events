@@ -22,8 +22,6 @@ export default function EventsSearch({
 			return (
 				!inputValue ||
 				event.toLowerCase().includes(lowerCaseInputValue)
-				// ||
-				// location.toLowerCase().includes(lowerCaseInputValue)
 			);
 		};
 	}

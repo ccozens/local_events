@@ -10,9 +10,7 @@ import { useState, ReactNode } from 'react';
 import Link from 'next/link';
 import Modal from '@/components/confirmation/Modal';
 
-export const getStaticProps: GetStaticProps = async (
-	context
-) => {
+export const getStaticProps: GetStaticProps = async (context) => {
 	const locationId = context.params?.id;
 	const location = await prisma.location.findUnique({
 		where: { id: Number(locationId) },
@@ -24,58 +22,55 @@ export const getStaticProps: GetStaticProps = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const events = await prisma.location.findMany({
-	});
+	const events = await prisma.location.findMany({});
 	const paths = events.map((event) => ({
 		params: { id: event.id.toString() },
 	}));
-	return { paths, fallback: 'blocking' // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
-	 };
+	return {
+		paths,
+		fallback: 'blocking', // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
+	};
 };
-
-
 
 export default function LocationPage({
 	location,
 }: {
 	location: Location;
 }) {
-	const { name, address, website, phone, updatedAt, lat, lng } =
+	const { name, address, website, phone, updatedAt } =
 		location;
-		const websitePresent = website ? (
-			<Link
-				className={`${styles.locationText} ${styles.locationLink}`}
-				href={website}
-				target="_blank"
-				rel="noreferrer">
-				{website}
-			</Link>
-		) : (
-			<p className={styles.locationText}>unknown</p>
-		);
-		const phonePresent = phone ? (
-			<Link
-				className={`${styles.locationText} ${styles.locationLink}`}
-				href={`tel:${phone}`}>
-				{phone}
-			</Link>
-		) : (
-			<p className={styles.locationText}>unknown</p>
-		);
-
-		const locationUpdated = new Date(updatedAt).toLocaleDateString(
-		'en-GB'
+	const websitePresent = website ? (
+		<Link
+			className={`${styles.locationText} ${styles.locationLink}`}
+			href={website}
+			target="_blank"
+			rel="noreferrer">
+			{website}
+		</Link>
+	) : (
+		<p className={styles.locationText}>unknown</p>
+	);
+	const phonePresent = phone ? (
+		<Link
+			className={`${styles.locationText} ${styles.locationLink}`}
+			href={`tel:${phone}`}>
+			{phone}
+		</Link>
+	) : (
+		<p className={styles.locationText}>unknown</p>
 	);
 
-	const latlng = { lat: lat, lng: lng } as google.maps.LatLngLiteral;
+	const locationUpdated = new Date(updatedAt).toLocaleDateString(
+		'en-GB'
+	);
 
 	// state flag for delete message
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
 	const [showLocation, setShowLocation] = useState<boolean>(true);
 	const [showModal, setShowModal] = useState<boolean>(false);
-    const toggleModal = () => setShowModal(!showModal);
-    
+	const toggleModal = () => setShowModal(!showModal);
+
 	// store location details in zustand store and push to edit location page
 	const editLocation = (location: Location) => {
 		// update location store with location details
@@ -117,8 +112,8 @@ export default function LocationPage({
 				<div className={styles.location}>
 					<div className={styles.locationContainer}>
 						<div className={styles.locationSummary}>
-								<div className={styles.locationTitle}>{name}</div>
-							<div >
+							<div className={styles.locationTitle}>{name}</div>
+							<div>
 								<p className={styles.locationTextLabel}>Address: </p>
 								<p className={styles.locationText}>
 									{address ? address : 'No address available'}
@@ -131,7 +126,11 @@ export default function LocationPage({
 						</div>
 						<div className={styles.locationSummary}>
 							<div className={styles.mapContainer}>
-								<EventMap name={name} latlng={latlng} />
+								<EventMap
+									name={name}
+									lat={location.lat = 52.63367}
+									lng={location.lng = -1.13222}
+								/>
 							</div>
 						</div>
 					</div>

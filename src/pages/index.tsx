@@ -44,7 +44,6 @@ export default function Home(props: {
 	const eventNames = eventList.map((event) => {
 		return event.name;
 	});
-	const [items, setItems] = useState(eventNames);
 
 	// show event card for the selected event when item is selected from combobox
 	const [selectedEvent, setSelectedEvent] = useState<string>('');
@@ -88,6 +87,7 @@ export default function Home(props: {
 				)
 			)
 		);
+
 	const heading =
 		clickedDay === 'All'
 			? `${clickedDay} events`

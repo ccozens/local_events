@@ -1,5 +1,4 @@
 import LocationEditForm from '@/components/forms/LocationEditForm';
-import styles from '@/styles/Form.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import { useLocationStore } from '@/store/locationStore';
 import { SubmitHandler } from 'react-hook-form';

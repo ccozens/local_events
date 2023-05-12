@@ -90,10 +90,10 @@ export default function EventPage({
 	// location is a linked table and accessed via the nested prisma query above
 	const location: Location = event.location;
 	const locationName = location.name;
-	const locationLatLng = {
-		lat: location.lat,
-		lng: location.lng,
-	} as google.maps.LatLngLiteral;
+	// const locationLatLng = {
+	// 	lat: location.lat,
+	// 	lng: location.lng,
+	// } as google.maps.LatLngLiteral;
 
 	// state flag for delete message
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');
@@ -172,7 +172,8 @@ export default function EventPage({
 							<div className={styles.mapContainer}>
 								<EventMap
 									name={location.name}
-									latlng={locationLatLng}
+									lat={location.lat =52.63367}
+									lng={location.lng =-1.13222}
 								/>
 							</div>
 						</div>
