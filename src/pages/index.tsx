@@ -8,6 +8,7 @@ import DaysOfWeekGrid from '@/components/DaysOfWeekGrid';
 import { useDayStore } from '@/store/dayStore';
 import EventsSearch from '@/components/EventsSearch';
 import { useState } from 'react';
+import { currentDayName, tomorrowDayName } from '@/functions/days';
 
 export const getStaticProps: GetStaticProps = async () => {
 	const events = await prisma.event.findMany({
@@ -34,16 +35,10 @@ export const getStaticProps: GetStaticProps = async () => {
 		revalidate: 10,
 	};
 };
-
 export default function Home(props: {
 	events: EventWithLocation[];
 }): ReactElement {
 	const eventList = props.events;
-
-	// get list of event names and set as items for the combobox
-	const eventNames = eventList.map((event) => {
-		return event.name;
-	});
 
 	// show event card for the selected event when item is selected from combobox
 	const [selectedEvent, setSelectedEvent] = useState<string>('');
@@ -63,11 +58,20 @@ export default function Home(props: {
 
 	// clickedDay is the day that the user clicked on the DaysOfWeekGrid, propogated via zustand
 	const clickedDay = useDayStore((day) => day.day);
+	// today and tomorrow
+	const today = currentDayName();
+	const tomorrow = tomorrowDayName();
 	// filter eventList by day
 	const eventListFiltered = (day: string): EventWithLocation[] =>
 		eventList.filter((event) => {
 			if (day === 'All' || day === 'all') {
 				return event;
+			}
+			if (day === 'today' || day === 'Today') {
+				return event.day.includes(today);
+			}
+			if (day === 'tomorrow' || day === 'Tomorrow') {
+				return event.day.includes(tomorrow);
 			}
 			const eventsOnDay = event.day.includes(day);
 			if (eventsOnDay) {
@@ -88,10 +92,18 @@ export default function Home(props: {
 			)
 		);
 
+	// days of week heading
 	const heading =
-		clickedDay === 'All'
+		clickedDay === 'today' || clickedDay === 'Today'
+			? `Today's events`
+			: clickedDay === 'tomorrow' || clickedDay === 'Tomorrow'
+			? `Tomorrow's events`
+			: clickedDay === 'All' || clickedDay === 'all'
 			? `${clickedDay} events`
 			: `Events on ${clickedDay}s`;
+
+	console.log(today);
+	console.log(clickedDay);
 
 	return (
 		<div>

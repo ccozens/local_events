@@ -1,22 +1,28 @@
-import { daysOfWeekGrid } from '@/components/DaysOfWeekMap';
+import {
+	optionsGrid,
+	daysOfWeekGrid,
+} from '@/components/DaysOfWeekMap';
 
-
-export default function DaysOfWeekGrid( ) {
-	/* day grid styling */
-	const dayGrid = {
+export default function DaysOfWeekGrid() {
+	// options grid styling
+	const optionsGridStyling = {
 		display: 'grid',
-		gridTemplateColumns: 'repeat(8, 1fr)',
-        margin: '1rem auto',
-        gap: '0.1rem',
+		gridTemplateColumns: 'repeat(3, 1fr)',
+		margin: '1rem auto 0.5rem',
+		gap: '0.1rem',
 	};
-
-
+	// day grid styling
+	const daysOfWeekGridStyling = {
+		display: 'grid',
+		gridTemplateColumns: 'repeat(7, 1fr)',
+		margin: '0.5rem auto 1rem',
+		gap: '0.1rem',
+	};
 
 	return (
 		<div>
-			<div style={dayGrid}>
-				{daysOfWeekGrid}
-			</div>
+			<div style={optionsGridStyling}>{optionsGrid}</div>
+			<div style={daysOfWeekGridStyling}>{daysOfWeekGrid}</div>
 		</div>
 	);
 }
