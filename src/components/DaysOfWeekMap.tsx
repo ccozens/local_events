@@ -49,9 +49,9 @@ export const daysOfWeekGrid = daysOfWeek.map((day, index) => {
 });
 
 
-const options = ['All', 'Today', 'Tomorrow'];
+const dayOptions = ['All', 'Today', 'Tomorrow'];
 
-export const optionsGrid = options.map((option, index) => {
+export const dayOptionsGrid = dayOptions.map((option, index) => {
 	return (
 		<button
 			style={dayLink}

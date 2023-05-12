@@ -1,11 +1,11 @@
 import {
-	optionsGrid,
+	dayOptionsGrid,
 	daysOfWeekGrid,
 } from '@/components/DaysOfWeekMap';
 
 export default function DaysOfWeekGrid() {
 	// options grid styling
-	const optionsGridStyling = {
+	const dayOptionsGridStyling = {
 		display: 'grid',
 		gridTemplateColumns: 'repeat(3, 1fr)',
 		margin: '1rem auto 0.5rem',
@@ -21,7 +21,7 @@ export default function DaysOfWeekGrid() {
 
 	return (
 		<div>
-			<div style={optionsGridStyling}>{optionsGrid}</div>
+			<div style={dayOptionsGridStyling}>{dayOptionsGrid}</div>
 			<div style={daysOfWeekGridStyling}>{daysOfWeekGrid}</div>
 		</div>
 	);
