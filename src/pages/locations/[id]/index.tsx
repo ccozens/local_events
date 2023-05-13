@@ -4,7 +4,7 @@ import { Location } from '@prismatypes';
 import styles from '@/styles/LocationPage.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import EventMap from '@/components/EventMap';
-import { useLocationStore } from '@/store/locationStore';
+import { useLocationStore } from '@/stores/locationStore';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import Link from 'next/link';
@@ -37,8 +37,7 @@ export default function LocationPage({
 }: {
 	location: Location;
 }) {
-	const { name, address, website, phone, updatedAt } =
-		location;
+	const { name, address, website, phone, updatedAt } = location;
 	const websitePresent = website ? (
 		<Link
 			className={`${styles.locationText} ${styles.locationLink}`}
@@ -128,8 +127,8 @@ export default function LocationPage({
 							<div className={styles.mapContainer}>
 								<EventMap
 									name={name}
-									lat={location.lat = 52.63367}
-									lng={location.lng = -1.13222}
+									lat={(location.lat = 52.63367)}
+									lng={(location.lng = -1.13222)}
 								/>
 							</div>
 						</div>

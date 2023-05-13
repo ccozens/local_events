@@ -1,6 +1,6 @@
 import LocationEditForm from '@/components/forms/LocationEditForm';
 import moreStyles from '@/styles/Custom.module.css';
-import { useLocationStore } from '@/store/locationStore';
+import { useLocationStore } from '@/stores/locationStore';
 import { SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
@@ -19,13 +19,14 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const events = await prisma.event.findMany({
-	});
+	const events = await prisma.event.findMany({});
 	const paths = events.map((event) => ({
 		params: { id: event.id.toString() },
 	}));
-	return { paths, fallback: 'blocking' // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
-	 };
+	return {
+		paths,
+		fallback: 'blocking', // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
+	};
 };
 
 export default function Edit() {

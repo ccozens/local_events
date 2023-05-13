@@ -5,7 +5,7 @@ import prisma from '@prismaclient';
 import EventCard from '@/components/EventCard';
 import type { EventWithLocation } from '@/types/EventWithLocation';
 import DaysOfWeekGrid from '@/components/DaysOfWeekGrid';
-import { useDayStore } from '@/store/dayStore';
+import { useDayStore } from '@/stores/dayStore';
 import EventsSearch from '@/components/EventsSearch';
 import { useState } from 'react';
 import { currentDayName, tomorrowDayName } from '@/functions/days';
@@ -102,9 +102,6 @@ export default function Home(props: {
 			? `${clickedDay} events`
 			: `Events on ${clickedDay}s`;
 
-	console.log(today);
-	console.log(clickedDay);
-
 	return (
 		<div>
 			<main className={styles.main}>
@@ -115,7 +112,6 @@ export default function Home(props: {
 					/>
 					{showSelectedEvent}
 					<h1>{heading}</h1>
-
 					<DaysOfWeekGrid />
 					<div className={styles.eventsGrid}>{showEvents}</div>
 				</div>

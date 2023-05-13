@@ -1,4 +1,4 @@
-import { useDayStore } from '@/store/dayStore';
+import { useDayStore } from '@/stores/dayStore';
 
 const daysOfWeek = [
 	'Monday',
@@ -11,11 +11,11 @@ const daysOfWeek = [
 ];
 
 export const DaysOfWeekElements = daysOfWeek.map((day, index) => {
-		return (
-			<option key={index} value={day}>
-				{day}
-			</option>
-		);
+	return (
+		<option key={index} value={day}>
+			{day}
+		</option>
+	);
 });
 
 const dayLink = {
@@ -47,7 +47,6 @@ export const daysOfWeekGrid = daysOfWeek.map((day, index) => {
 		</button>
 	);
 });
-
 
 const dayOptions = ['All', 'Today', 'Tomorrow'];
 

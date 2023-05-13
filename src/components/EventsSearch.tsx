@@ -55,7 +55,7 @@ export default function EventsSearch({
 					{isOpen &&
 						items.map((item, index) => (
 							<li
-								className={styles.suggestion}
+								className={styles.sugggestion}
 								key={`${item}${index}`}
 								{...getItemProps({ item, index })}
 								onClick={() => {handleSelect(item)}}

@@ -5,72 +5,88 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Location {
-  id Int @id @default(autoincrement())
-  name String @unique @db.VarChar(100)
-  address String? @db.VarChar(255)
-  website String? @db.VarChar(255)
-  phone String? @db.VarChar(20)
-  lat Float?
-  lng Float?
+  id            Int             @id @default(autoincrement())
+  name          String          @unique @db.VarChar(100)
+  address       String?         @db.VarChar(255)
+  website       String?         @db.VarChar(255)
+  phone         String?         @db.VarChar(20)
+  lat           Float?
+  lng           Float?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
   // a location may have many events, so many to one relation
-  events Event[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  events        Event[]
+  EventGroup    EventGroup[]
+  EventLocation EventLocation[]
 }
 
 model Event {
-  id Int @id @default(autoincrement())
-  eventId Int @unique @default(autoincrement()) // foreign key to event id
-  name String @db.VarChar(100)
-  description String? 
-  cost Int
-  minAge Int
-  maxAge Int
+  id            Int             @id @default(autoincrement())
+  eventId       Int             @unique @default(autoincrement()) // foreign key to event id
+  name          String          @db.VarChar(100)
+  description   String?
+  cost          Int
+  minAge        Int
+  maxAge        Int
+  day           String[]
+  startTime     String
+  endTime       String
+  termTime      Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  website       String?         @db.VarChar(255)
+  phone         String?         @db.VarChar(20)
+  email         String?         @db.VarChar(100)
   // one event has one location, so one to many relation
-  location Location @relation(fields: [locationId], references: [id])
-  locationId Int // foreign key to location id
-  day String[]
-  startTime String
-  endTime String
-  termTime Boolean @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  website String? @db.VarChar(255)
-  phone String? @db.VarChar(20)
-  email String? @db.VarChar(100)
+  location      Location        @relation(fields: [locationId], references: [id])
+  locationId    Int // foreign key to location id
+  // one event has one event group, so one to many relation
+  EventGroup    EventGroup?     @relation(fields: [eventGroupId], references: [id])
+  eventGroupId  Int?
+  EventLocation EventLocation[]
 }
 
-
-
-enum Day {
-  Sunday
-  Monday
-  Tuesday
-  Wednesday
-  Thursday
-  Friday
-  Saturday
+// EventGroup model to use Event as individual event instances and store all instances in group
+model EventGroup {
+  id           Int      @id @default(autoincrement())
+  eventGroupId Int      @unique @default(autoincrement()) // foreign key to event id
+  name         String   @db.VarChar(100)
+  description  String?
+  cost         Int
+  minAge       Int
+  maxAge       Int
+  day          String[]
+  startTime    String
+  endTime      String
+  termTime     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  website      String?  @db.VarChar(255)
+  phone        String?  @db.VarChar(20)
+  email        String?  @db.VarChar(100)
+  // one event has one location, so one to many relation
+  location     Location @relation(fields: [locationId], references: [id])
+  locationId   Int // foreign key to location id
+  // one event group has many events, so one to many relation
+  events       Event[]
 }
 
-
-
-// model Organizer {
-//   id Int @id @default(autoincrement())
-//   organizerId Int @unique
-//   name String @db.VarChar(100)
-//   email String @db.VarChar(100)
-//   phoneNumber String? @db.VarChar(20)
-//   events Event[]
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
+// pivot table between Event and Location
+model EventLocation {
+  id         Int      @id @default(autoincrement())
+  eventId    Int // foreign key to event
+  locationId Int // foreign key to location
+  event      Event    @relation(fields: [eventId], references: [id])
+  location   Location @relation(fields: [locationId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
 
 // model User {
 //   id        Int      @id @default(autoincrement())

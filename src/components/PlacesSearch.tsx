@@ -6,7 +6,7 @@ import usePlacesAutocomplete, {
 import { useJsApiLoader } from '@react-google-maps/api';
 import styles from '@/styles/Locations.module.css';
 import type { LocationForForm } from '@/types/LocationForForm';
-import { useLocationForFormStore } from '@/store/locationForFormStore';
+import { useLocationForFormStore } from '@/stores/locationForFormStore';
 import Link from 'next/link';
 interface PlacesAutocompleteProps {
 	setSelected: (location: LocationForForm) => void;

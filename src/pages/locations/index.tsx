@@ -7,7 +7,7 @@ import { GetStaticProps } from 'next';
 import prisma from '@prismaclient';
 import LocationForm from '@/components/forms/LocationForm';
 import Link from 'next/link';
-import { useLocationForFormStore } from '@/store/locationForFormStore';
+import { useLocationForFormStore } from '@/stores/locationForFormStore';
 import type { LocationForForm } from '@/types/LocationForForm';
 
 // list locations
@@ -52,7 +52,6 @@ export default function Locations(props: { locations: Locations }) {
 			// show user success message for 5 seconds
 			setTimeout(() => {
 				setSuccessMessage('');
-
 			}, 5000);
 			// reset store using reset function
 			useLocationForFormStore.getState().reset();
@@ -70,13 +69,13 @@ export default function Locations(props: { locations: Locations }) {
 			};
 		}
 	};
-	
+
 	// fire off the submitNewLocation function when the button is clicked
 	const onClick = async (
 		event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-		) => {
-			event.preventDefault();
-			// define timer to clear success/error messages
+	) => {
+		event.preventDefault();
+		// define timer to clear success/error messages
 
 		// send data to API
 		const response = await submitNewLocation(data);

@@ -5,7 +5,7 @@ import styles from '@/styles/EventPage.module.css';
 import moreStyles from '@/styles/Custom.module.css';
 import EventMap from '@/components/EventMap';
 import type { EventWithLocation } from '@/types/EventWithLocation';
-import { useEventStore } from '@/store/eventStore';
+import { useEventStore } from '@/stores/eventStore';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import Modal from '@/components/confirmation/Modal';
@@ -172,8 +172,8 @@ export default function EventPage({
 							<div className={styles.mapContainer}>
 								<EventMap
 									name={location.name}
-									lat={location.lat =52.63367}
-									lng={location.lng =-1.13222}
+									lat={(location.lat = 52.63367)}
+									lng={(location.lng = -1.13222)}
 								/>
 							</div>
 						</div>

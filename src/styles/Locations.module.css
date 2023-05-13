@@ -25,7 +25,7 @@
 
 .suggestion {
 	list-style-type: none;
-	background-color: hsla(265, 80%, 35%, 0.2);
+	background-color: hsla(273, 56%, 50%, 1);
 	border-radius: 5px;
 	border: 1px solid hsla(45, 84%, 75%, 0.5);
 	margin: 5px -5px;
