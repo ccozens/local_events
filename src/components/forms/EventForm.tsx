@@ -2,7 +2,7 @@ import { Event, Location } from '@prismatypes';
 import styles from '@/styles/Form.module.css';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { DaysOfWeekOptions } from '@/components/DaysOfWeekMap';
+import { DaysOfWeekElements } from '@/components/DaysOfWeekMap';
 
 type Locations = Location[];
 
@@ -50,7 +50,7 @@ export default function EventForm(props: {
 					Day:
 				</label>
 				<select className={styles.input} {...register('day')}>
-					{DaysOfWeekOptions}
+					{DaysOfWeekElements}
 				</select>
 				<p className={styles.error}>{errors.day?.message}</p>
 				<label htmlFor="cost" className={styles.label}>
