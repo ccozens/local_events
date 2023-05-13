@@ -7,10 +7,13 @@ interface LocationState {
 }
 
 const mockLocation: Location = {
-	id: 1,
+	id: 1, 
 	name: 'test location',
 	address: 'test address',
 	website: 'test website',
+	phone: '',
+	lat: null,
+	lng: null,
 	createdAt: new Date(),
 	updatedAt: new Date(),
 };
