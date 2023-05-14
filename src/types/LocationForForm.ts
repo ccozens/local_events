@@ -1,11 +1,7 @@
-export interface LocationForForm {
+import { Location } from '@prismatypes';
+
+export type LocationForForm = Omit<Location, 'id' | 'createdAt' | 'updatedAt'> & {
 	id?: number | null;
-	name?: string;
-	address?: string;
-	website?: string;
-	phone?: string;
 	createdAt?: string | null;
 	updatedAt?: string | null;
-	lat?: number | null;
-	lng?: number | null;
-}
+};

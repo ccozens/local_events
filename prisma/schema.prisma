@@ -22,8 +22,6 @@ model Location {
   updatedAt     DateTime        @updatedAt
   // a location may have many events, so many to one relation
   events        Event[]
-  EventGroup    EventGroup[]
-  EventLocation EventLocation[]
 }
 
 model Event {
@@ -32,8 +30,11 @@ model Event {
   name          String          @db.VarChar(100)
   description   String?
   cost          Int
-  minAge        Int
-  maxAge        Int
+  donation      Boolean         @default(false)
+  minAgeMonths        Int @default(0)
+  minAgeYears        Int
+  maxAgeMonths        Int @default(0)
+  maxAgeYears        Int
   day           String[]
   startTime     String
   endTime       String
@@ -46,61 +47,5 @@ model Event {
   // one event has one location, so one to many relation
   location      Location        @relation(fields: [locationId], references: [id])
   locationId    Int // foreign key to location id
-  // one event has one event group, so one to many relation
-  EventGroup    EventGroup?     @relation(fields: [eventGroupId], references: [id])
-  eventGroupId  Int?
-  EventLocation EventLocation[]
 }
 
-// EventGroup model to use Event as individual event instances and store all instances in group
-model EventGroup {
-  id           Int      @id @default(autoincrement())
-  eventGroupId Int      @unique @default(autoincrement()) // foreign key to event id
-  name         String   @db.VarChar(100)
-  description  String?
-  cost         Int
-  minAge       Int
-  maxAge       Int
-  day          String[]
-  startTime    String
-  endTime      String
-  termTime     Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  website      String?  @db.VarChar(255)
-  phone        String?  @db.VarChar(20)
-  email        String?  @db.VarChar(100)
-  // one event has one location, so one to many relation
-  location     Location @relation(fields: [locationId], references: [id])
-  locationId   Int // foreign key to location id
-  // one event group has many events, so one to many relation
-  events       Event[]
-}
-
-// pivot table between Event and Location
-model EventLocation {
-  id         Int      @id @default(autoincrement())
-  eventId    Int // foreign key to event
-  locationId Int // foreign key to location
-  event      Event    @relation(fields: [eventId], references: [id])
-  location   Location @relation(fields: [locationId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-}
-
-// model User {
-//   id        Int      @id @default(autoincrement())
-//   userId    Int      @unique // foreign key to user id
-//   createdAt DateTime @default(now())
-//   email     String   @unique
-//   userName  String   @unique
-//   name      String
-//   role      Role     @default(USER)
-//   locationsCreated Location[]
-//   eventsCreated    Event[]
-// }
-
-// enum Role {
-//   USER
-//   ADMIN
-// }
