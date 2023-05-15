@@ -126,16 +126,19 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-size: 1rem;
+		max-width: 250px;
 	}
 	.locationButton {
 		max-width: 50%;
+	}
+	.alignCheckbox > label {
+		font-size: 1rem;
 	}
 
 	.input,
 	.submit,
 	.label,
-	.age > label {
+	.age > label,{
 		font-size: 1.2rem;
 	}
 	.age > input {
@@ -146,13 +149,13 @@
 		justify-content: center;
 		gap: 10px;
 	}
+	.form {
+		max-width: 600px;
+	}
 }
 
 @media screen and (min-width: 1024px) {
 	.caveats {
-		max-width: 65%;
-	}
-	.form {
-		max-width: 50%;
+		max-width: 750px;
 	}
 }

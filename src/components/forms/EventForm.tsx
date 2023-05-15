@@ -240,7 +240,7 @@ export default function EventForm(props: {
 					</div>
 					<div className={styles.alignCheckbox}>
 						<label htmlFor="bookingRequired" className={styles.label}>
-							Booking required?
+							Is booking required?
 						</label>
 						<input
 							className={styles.checkbox}
