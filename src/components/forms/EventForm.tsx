@@ -144,11 +144,11 @@ export default function EventForm(props: {
 					/>
 				</div>
 				<label htmlFor="location" className={styles.label}>
-					Choose location or <Link href="/locations/" className={styles.contactLink}>
-					add a new location
-				</Link>
+					Choose location or{' '}
+					<Link href="/locations/" className={styles.contactLink}>
+						add a new location
+					</Link>
 				</label>
-				
 
 				<select
 					className={styles.input}
@@ -187,30 +187,37 @@ export default function EventForm(props: {
 					placeholder="Organiser's email address (optional)"
 					{...register('email')}
 				/>
-				<label htmlFor="startTime" className={styles.label}>
-					Start time:
-				</label>
-				<input
-					className={styles.input}
-					placeholder="Event start time (24 hour)"
-					type="time"
-					{...register('startTime', {
-						required: '⚠ Please enter event start time',
-					})}
-				/>
-				<p className={styles.error}>{errors.startTime?.message}</p>
-				<label htmlFor="endTime" className={styles.label}>
-					End time:
-				</label>
-				<input
-					className={styles.input}
-					placeholder="Event end time (24 hour)"
-					type="time"
-					{...register('endTime', {
-						required: '⚠ Please enter event start time',
-					})}
-				/>
-				<p className={styles.error}>{errors.endTime?.message}</p>
+				<div className={styles.time}>
+					<div className={styles.time}>
+						<label htmlFor="startTime" className={styles.label}>
+							Start time (24 hour):
+						</label>
+						<input
+							className={styles.input}
+							placeholder="Event start time (24 hour)"
+							type="time"
+							{...register('startTime', {
+								required: '⚠ Please enter event start time',
+							})}
+						/>
+						<p className={styles.error}>
+							{errors.startTime?.message}
+						</p>
+					</div>
+					<div className={styles.time}>
+						<label htmlFor="endTime" className={styles.label}>
+							End time (24 hour):
+						</label>
+						<input
+							className={styles.input}
+							type="time"
+							{...register('endTime', {
+								required: '⚠ Please enter event start time',
+							})}
+						/>
+						<p className={styles.error}>{errors.endTime?.message}</p>
+					</div>
+				</div>
 				<div className={styles.alignCheckbox}>
 					<label htmlFor="termTime" className={styles.label}>
 						Term time only?

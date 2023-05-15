@@ -34,6 +34,7 @@
 .age {
 	display: flex;
 	justify-content: center;
+	margin-bottom: 10px;
 }
 
 .age > input,
@@ -133,8 +134,16 @@
 	.locationButton {
 		max-width: 50%;
 	}
-	.input, .submit {
-		font-size: 1.5rem;
+	.input, .submit, .label, .age > label {
+		font-size: 1.2rem;
+	}
+	.age > input {
+		max-width: 50px;
+	}
+	.time {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
 	}
 }
 
