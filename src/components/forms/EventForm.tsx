@@ -1,7 +1,7 @@
 import { Event, Location } from '@prismatypes';
 import styles from '@/styles/Form.module.css';
 import Link from 'next/link';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { DaysOfWeekElements } from '@/components/DaysOfWeekMap';
 
 type Locations = Location[];
@@ -14,9 +14,20 @@ export default function EventForm(props: {
 	const {
 		register,
 		handleSubmit,
+		control,
 		formState: { errors },
 	} = useForm<Event>({
-		defaultValues: props.eventData,
+		defaultValues: props.eventData || {
+			minAgeMonths: 0,
+			minAgeYears: 0,
+			maxAgeMonths: 0,
+			donation: false,
+			cost: 0,
+			familyGroup: false,
+			siblingDiscount: false,
+			bookingRequired: false,
+			termTime: false,
+		},
 	});
 
 	const locationsDropdown = props.locations.map((location, index) => {
@@ -164,7 +175,29 @@ export default function EventForm(props: {
 					placeholder="Organiser's email address (optional)"
 					{...register('email')}
 				/>
-				<input
+				<Controller
+					name="cost"
+					control={control}
+					rules={{required: '⚠ Please enter the cost, or 0 if free.'}}
+					render={({ field, fieldState }) => (
+						<div>
+						<label htmlFor='cost' className={styles.label}>
+							Cost:
+							</label>
+							<input
+								className={styles.input}
+								type="number"
+								placeholder="Cost (enter 0 if free)"
+								{...field}
+								step="0.01"
+								value={field.value}
+								onChange={(e) => field.onChange(Number(e.target.value))}
+								/>
+								</div>
+						)}
+					/>
+
+{/* 				<input
 					className={styles.input}
 					type="number"
 					placeholder="Cost (enter 0 if free)"
@@ -172,7 +205,7 @@ export default function EventForm(props: {
 						valueAsNumber: true,
 						required: '⚠ Please enter the cost, or 0 if free.',
 					})}
-				/>
+				/> */}
 				<div className={styles.checkboxGroup}>
 					<div className={styles.alignCheckbox}>
 						<label htmlFor="donation" className={styles.label}>

@@ -11,8 +11,13 @@ export default async function handler(
 		name,
 		description,
 		cost,
-		minAge,
-		maxAge,
+		donation,
+		familyGroup,
+		siblingDiscount,
+		minAgeMonths,
+		maxAgeMonths,
+		minAgeYears,
+		maxAgeYears,
 		locationId,
 		day,
 		startTime,
@@ -20,29 +25,39 @@ export default async function handler(
 		termTime,
 		website,
 		phone,
+		bookingRequired,
 		email,
 	} = req.body;
+
+	const data = {
+		name: name,
+		description: description,
+		cost: cost,
+		donation: donation,
+		familyGroup: familyGroup,
+		siblingDiscount: siblingDiscount,
+		minAgeMonths: minAgeMonths,
+		maxAgeMonths: maxAgeMonths,
+		minAgeYears: minAgeYears,
+		maxAgeYears: maxAgeYears,
+		day: day,
+		location: {
+			connect: { id: locationId },
+		},
+		startTime: startTime,
+		endTime: endTime,
+		termTime: termTime,
+		website: website,
+		bookingRequired: bookingRequired,
+		phone: phone,
+		email: email,
+	};
+
 	if (req.method === 'POST')
 		try {
 			// send data to prisma
 			await prisma.event.create({
-				data: {
-					name: name,
-					description: description,
-					cost: cost,
-					minAge: minAge,
-					maxAge: maxAge,
-					day: day,
-					location: {
-						connect: { id: locationId },
-					},
-					startTime: startTime,
-					endTime: endTime,
-					termTime: termTime,
-					website: website,
-					phone: phone,
-					email: email,
-				},
+				data: data,
 			});
 			// set status 200 and return success message
 			res.status(200).json({ message: 'Event created' });
@@ -56,23 +71,7 @@ export default async function handler(
 			where: {
 				id: Number(req.body.id),
 			},
-			data: {
-				name: name,
-				description: description,
-				cost: cost,
-				minAge: minAge,
-				maxAge: maxAge,
-				day: day,
-				location: {
-					connect: { id: locationId },
-				},
-				startTime: startTime,
-				endTime: endTime,
-				termTime: termTime,
-				website: website,
-				phone: phone,
-				email: email,
-			},
+			data: data,
 		});
 		res.status(200).json({ message: 'Event updated' });
 	}

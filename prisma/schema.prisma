@@ -29,7 +29,7 @@ model Event {
   eventId       Int             @unique @default(autoincrement()) // foreign key to event id
   name          String          @db.VarChar(100)
   description   String?
-  cost          Int
+  cost          Float
   donation      Boolean         @default(false)
   familyGroup      Boolean         @default(false)
   siblingDiscount      Boolean         @default(false)
