@@ -10,6 +10,7 @@ import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import Modal from '@/components/confirmation/Modal';
 import Link from 'next/link';
+import { ageRangeCalc } from '@/functions/ageRangeCalc';
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const eventId = context.params?.id;
@@ -45,18 +46,27 @@ export default function EventPage({
 		name,
 		description,
 		cost,
+		donation,
+		familyGroup,
+		siblingDiscount,
 		termTime,
-		minAge,
-		maxAge,
+		minAgeMonths,
+		maxAgeMonths,
+		minAgeYears,
+		maxAgeYears,
 		email,
 		phone,
+		bookingRequired,
 		website,
 		updatedAt,
 	} = event;
-	const ageRange = `${minAge} - ${maxAge}`;
+	const ageRange = ageRangeCalc(minAgeMonths, maxAgeMonths, minAgeYears, maxAgeYears);
 	const eventUpdated = new Date(updatedAt).toLocaleDateString(
 		'en-GB'
 	);
+
+							
+	const termTimeTernary = termTime ? 'Term time only' : 'Runs all year';
 	const websitePresent = website ? (
 		<Link
 			className={`${styles.eventText} ${styles.eventLink}`}
@@ -87,13 +97,29 @@ export default function EventPage({
 		<p className={styles.eventText}>unknown</p>
 	);
 
+	const bookingRequiredPresent = bookingRequired ? (
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>Booking required</p>
+	) : (
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>No booking required</p>
+	);
+
+	const donationPresent = donation ? (
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>This is a suggested donation</p>
+	) : null;
+
+	const familyGroupPresent = familyGroup ? (
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>Cost is for a family group</p>
+	) : null;
+
+	const siblingDiscountPresent = siblingDiscount ? (
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>Sibling discount available</p>
+	) : null;
+
+
+
 	// location is a linked table and accessed via the nested prisma query above
 	const location: Location = event.location;
 	const locationName = location.name;
-	// const locationLatLng = {
-	// 	lat: location.lat,
-	// 	lng: location.lng,
-	// } as google.maps.LatLngLiteral;
 
 	// state flag for delete message
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');
@@ -146,7 +172,7 @@ export default function EventPage({
 								<h2 className={styles.eventTitle}>{name}</h2>
 								<p className={styles.eventText}>{description}</p>
 								<p className={styles.eventText}>
-									{termTime ? 'Term time only' : 'Runs all year'}
+									{termTimeTernary}
 								</p>
 							</div>
 							<div className={styles.eventGrid}>
@@ -156,6 +182,11 @@ export default function EventPage({
 								<p className={styles.eventText}>
 									{cost ? `£${cost}` : 'Free'}
 								</p>
+
+								{donationPresent}
+								{siblingDiscountPresent}
+								{familyGroupPresent}
+								{bookingRequiredPresent}
 								<p className={styles.eventText}>Website: </p>
 								{websitePresent}
 								<p className={styles.eventText}>Email: </p>
