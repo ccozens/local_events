@@ -21,7 +21,7 @@ export const DaysOfWeekElements = daysOfWeek.map((day, index) => {
 const dayLink = {
 	cursor: 'pointer',
 	color: 'hsla(45, 84%, 75%, 1)',
-	backgroundColor: 'hsla(273, 56%, 50%, 1)',
+	backgroundColor: 'hsla(263, 80%, 34%, 1)',
 	border: '1px solid hsla(45, 84%, 75%, 1)',
 	borderRadius: '5px',
 	padding: '0.5rem',

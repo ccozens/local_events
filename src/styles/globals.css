@@ -1,7 +1,6 @@
 :root {
-	--text-normal: hsla(45, 94%, 55%, 1);
-	--background-start: hsla(265, 80%, 35%, 1);
-	--background-end: hsla(263, 46%, 35%, 1);
+	--text-normal: hsla(45, 94%, 66%, 1);
+	--background: hsla(265, 80%, 24%, 1);
 }
 
 * {
@@ -14,19 +13,31 @@ html,
 body {
 	max-width: 100vw;
 	overflow-x: hidden;
+	display: flex;
+	flex-direction: column;
 }
 
 body {
 	color: var(--text-normal);
-	background: linear-gradient(
-		var(--background-start) 0%,
-		var(--background-end) 100%
-	);
+	background: var(--background);
 	letter-spacing: 0.01em;
 }
 
+main {
+	width: 90vw;
+	max-width: 1500px;
+	min-height: calc(100vh - 120px - 50px - 10vh);
+}
+
 a {
-	color: inherit;
+	color: hsla(45, 84%, 75%, 1);
 	text-decoration: none;
+	font-weight: 600;
+}
+a:hover {
+	color: hsla(45, 84%, 65%, 1);
+}
+a:active {
+	color: hsla(45, 84%, 55%, 1);
 }
 

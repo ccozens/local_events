@@ -7,15 +7,12 @@
 - royal purple #4f3081 hsla(263, 46%, 35%, 1.0)
 - sea green #8be3b6
 
-	--text-normal: hsla(45, 94%, 55%, 1);
-	--background-start: hsla(265, 80%, 35%, 1);
-	--background-end: hsla(263, 46%, 35%, 1);
-
+  --text-normal: hsla(45, 94%, 66%, 1);
+  --background-start: hsla(265, 80%, 24%, 1);
+  --background-end: hsla(263, 46%, 35%, 1);
 
 head background: hsla(263, 95%, 35%, 1);
-navButton = background: hsla(45, 94%, 55%, 1); (ie text-normal)
-
-
+navButton = background: hsla(45, 94%, 66%, 1); (ie text-normal)
 
 hsla(15, 100%, 60%, 1) - This is a bright yellow color that will contrast nicely with your current colors and help the menu icon stand out.
 

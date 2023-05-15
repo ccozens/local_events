@@ -12,8 +12,15 @@ interface Children {
 
 export default function Layout({ children }: Children) {
 	const title = 'Weekly Events';
+	const styles = {
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'center'
+	} as const;
+
 	return (
-		<div>
+		<div style={styles}>
 			<Head>
 				<title>{title}</title>
 				<meta

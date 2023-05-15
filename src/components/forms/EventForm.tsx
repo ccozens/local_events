@@ -133,7 +133,7 @@ export default function EventForm(props: {
 				</div>
 				<label htmlFor="location" className={styles.label}>
 					Choose location or{' '}
-					<Link href="/locations/" className={styles.contactLink}>
+					<Link href="/locations/">
 						add a new location
 					</Link>
 				</label>

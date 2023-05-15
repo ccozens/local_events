@@ -5,6 +5,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	flex-shrink: 0;
 }
 
 .head > h1 {
@@ -17,19 +18,11 @@
 	width: 100vw;
 	min-height: 50px;
 	margin: 0 10px;
-}
-
-.contactLink {
-	color: hsla(45, 84%, 75%, 1);
-	text-decoration: none;
-	font-weight: 600;
-}
-
-.contactLink:hover {
-	color: hsla(45, 84%, 65%, 1);
-}
-.contactLink:active {
-	color: hsla(45, 84%, 55%, 1);
+	padding: 0 1rem;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /* mobile first hide navButton and show at screen min-width 1250px */
@@ -47,8 +40,8 @@
 	}
 	.navItem {
 		padding: 0.5rem 1rem;
-		background: hsla(45, 94%, 55%, 1);
-		color: hsla(265, 80%, 35%, 1);
+		background: hsla(45, 94%, 66%, 1);
+		color: hsla(265, 80%, 24%, 1);
 		font-weight: bold;
 		font-size: 1.2rem;
 		border-radius: 5px;
@@ -56,7 +49,7 @@
 		box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.4);
 	}
 	.navItem > a {
-		color: hsla(265, 80%, 35%, 1);
+		color: hsla(265, 80%, 24%, 1);
 		font-weight: bold;
 	}
 	.navItem:hover {
@@ -74,11 +67,11 @@
 @media (max-width: 1250px) {
 	.navButton {
 		display: block;
-		background: hsla(45, 94%, 55%, 1);
+		background: hsla(45, 94%, 66%, 1);
 		padding: 1rem;
 		border-radius: 5px;
 		margin: 1rem;
-		color: hsla(265, 80%, 35%, 1);
+		color: hsla(265, 80%, 24%, 1);
 		font-weight: bold;
 		font-size: 1.2rem;
 		line-height: 0.7rem;
@@ -119,7 +112,7 @@
 		border-radius: 5px;
 	}
 	.navItemActive > a {
-		color: hsla(265, 80%, 35%, 1);
+		color: hsla(265, 80%, 24%, 1);
 		font-weight: bold;
 	}
 	.navItemActive:hover {

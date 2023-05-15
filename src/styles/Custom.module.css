@@ -1,5 +1,6 @@
-.successMessage, .errorMessage {
-	background-color: hsla(273, 56%, 50%, 1);
+.successMessage,
+.errorMessage {
+	background-color: hsla(263, 80%, 34%, 1);
 	border: 1px solid hsla(45, 84%, 75%, 1);
 	margin: 2rem auto;
 	border-radius: 5px;
