@@ -31,6 +31,26 @@
 	border-radius: 5px;
 }
 
+.age {
+	display: flex;
+	justify-content: center;
+}
+
+.age > input,
+.age > label 
+{
+	margin: 2px 5px;
+}
+
+.age > label {
+	font-size: 1 rem;
+}
+
+.age > input {
+	padding: 0 5px;
+}
+
+
 .form {
 	padding: 2rem;
 	max-width: 70%;
@@ -75,6 +95,7 @@
 .form > a:hover::before {
 	content: "👉";
 }
+
 
 .submit {
 	margin: 0 auto;
