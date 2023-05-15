@@ -16,7 +16,7 @@ export default function Header() {
 	const pathname = usePathname();
 
 	if (pathname === '/') {
-		title = `Welcome to Family Events`;
+		title = `Welcome to Weekly Events`;
 	} else if (
 		pathname.includes('/edit') &&
 		pathname.includes('/events')

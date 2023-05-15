@@ -11,7 +11,7 @@ interface Children {
 }
 
 export default function Layout({ children }: Children) {
-	const title = 'Family Events';
+	const title = 'Weekly Events';
 	return (
 		<div>
 			<Head>
