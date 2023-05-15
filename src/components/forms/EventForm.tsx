@@ -64,31 +64,8 @@ export default function EventForm(props: {
 				<label htmlFor="cost" className={styles.label}>
 					Cost:
 				</label>
-				<input
-					className={styles.input}
-					type="number"
-					placeholder="Cost (enter 0 if free)"
-					{...register('cost', {
-						valueAsNumber: true,
-						required: '⚠ Please enter the cost, or 0 if free.',
-					})}
-				/>
-				<div className={styles.alignCheckbox}>
-					<label htmlFor="donation" className={styles.label}>
-						Is this a donation?
-					</label>
-					<input
-						className={styles.checkbox}
-						type="checkbox"
-						{...register('donation')}
-					/>
-				</div>
-				<p className={styles.error}>{errors.cost?.message}</p>
 
-				<p className={styles.error}>{errors.termTime?.message}</p>
-				<p className={`${styles.label} ${styles.headLabel}`}>
-					Minimum age
-				</p>
+				<p className={styles.label}>Minimum age</p>
 				<div className={styles.age}>
 					<label htmlFor="minAgeYears">Years:</label>
 					<input
@@ -187,6 +164,58 @@ export default function EventForm(props: {
 					placeholder="Organiser's email address (optional)"
 					{...register('email')}
 				/>
+				<input
+					className={styles.input}
+					type="number"
+					placeholder="Cost (enter 0 if free)"
+					{...register('cost', {
+						valueAsNumber: true,
+						required: '⚠ Please enter the cost, or 0 if free.',
+					})}
+				/>
+				<div className={styles.checkboxGroup}>
+					<div className={styles.alignCheckbox}>
+						<label htmlFor="donation" className={styles.label}>
+							Is this a donation?
+						</label>
+						<input
+							className={styles.checkbox}
+							type="checkbox"
+							{...register('donation')}
+						/>
+					</div>
+					<div className={styles.alignCheckbox}>
+						<label htmlFor="familyGroup" className={styles.label}>
+							Is this for a family group?
+						</label>
+						<input
+							className={styles.checkbox}
+							type="checkbox"
+							{...register('familyGroup')}
+						/>
+					</div>
+					<div className={styles.alignCheckbox}>
+						<label htmlFor="donation" className={styles.label}>
+							Is there a sibling discount?
+						</label>
+						<input
+							className={styles.checkbox}
+							type="checkbox"
+							{...register('donation')}
+						/>
+						<p className={styles.error}>{errors.cost?.message}</p>
+					</div>
+					<div className={styles.alignCheckbox}>
+						<label htmlFor="bookingRequired" className={styles.label}>
+							Booking required?
+						</label>
+						<input
+							className={styles.checkbox}
+							type="checkbox"
+							{...register('bookingRequired')}
+						/>
+					</div>
+				</div>
 				<div className={styles.time}>
 					<div className={styles.time}>
 						<label htmlFor="startTime" className={styles.label}>
@@ -218,27 +247,19 @@ export default function EventForm(props: {
 						<p className={styles.error}>{errors.endTime?.message}</p>
 					</div>
 				</div>
-				<div className={styles.alignCheckbox}>
-					<label htmlFor="termTime" className={styles.label}>
-						Term time only?
-					</label>
-					<input
-						className={styles.checkbox}
-						type="checkbox"
-						{...register('termTime')}
-					/>
+				<div className={styles.checkboxGroup}>
+					<div className={styles.alignCheckbox}>
+						<label htmlFor="termTime" className={styles.label}>
+							Term time only?
+						</label>
+						<input
+							className={styles.checkbox}
+							type="checkbox"
+							{...register('termTime')}
+						/>
+					</div>
 				</div>
 
-				<div className={styles.alignCheckbox}>
-					<label htmlFor="bookingRequired" className={styles.label}>
-						Booking required?
-					</label>
-					<input
-						className={styles.checkbox}
-						type="checkbox"
-						{...register('bookingRequired')}
-					/>
-				</div>
 				<input
 					className={`${styles.input} ${styles.submit}`}
 					type="submit"

@@ -38,8 +38,7 @@
 }
 
 .age > input,
-.age > label 
-{
+.age > label {
 	margin: 2px 5px;
 }
 
@@ -50,7 +49,6 @@
 .age > input {
 	padding: 0 5px;
 }
-
 
 .form {
 	padding: 2rem;
@@ -64,7 +62,7 @@
 .message {
 	height: 20rem;
 	width: 100%;
-}  
+}
 
 .input {
 	display: block;
@@ -81,7 +79,7 @@
 	background-color: hsla(45, 84%, 65%, 1);
 }
 
-.form > a {	
+.form > a {
 	display: block;
 	margin-top: -10px;
 	margin-bottom: 10px;
@@ -94,9 +92,8 @@
 }
 
 .form > a:hover::before {
-	content: "👉";
+	content: '👉';
 }
-
 
 .submit {
 	margin: 0 auto;
@@ -116,25 +113,43 @@
 	transform: translateY(4px);
 }
 
-.checkbox {
-	display: inline-block;
-	margin: 1rem;
+.alignCheckbox > label {
+	font-size: 0.8rem;
 }
 
-.locationButton  {
+.checkboxGroup {
+	margin-top: -10px;
+	margin-bottom: 10px;
+}
+
+.alignCheckbox {
+		display: flex;
+		
+}
+.checkbox {
+	margin-left: auto;
+}
+
+.locationButton {
 	max-width: 70%;
 }
+
 
 @media screen and (min-width: 768px) {
 	.alignCheckbox {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		font-size: 1rem;
 	}
 	.locationButton {
 		max-width: 50%;
 	}
-	.input, .submit, .label, .age > label {
+
+	.input,
+	.submit,
+	.label,
+	.age > label {
 		font-size: 1.2rem;
 	}
 	.age > input {

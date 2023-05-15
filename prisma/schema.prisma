@@ -31,6 +31,8 @@ model Event {
   description   String?
   cost          Int
   donation      Boolean         @default(false)
+  familyGroup      Boolean         @default(false)
+  siblingDiscount      Boolean         @default(false)
   minAgeMonths        Int @default(0)
   minAgeYears        Int
   maxAgeMonths        Int @default(0)
