@@ -16,7 +16,15 @@ export default function EventForm(props: {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<Event>({
-		defaultValues: props.eventData
+		defaultValues: props.eventData,
+	});
+
+	const locationsDropdown = props.locations.map((location, index) => {
+		return (
+			<option key={index} value={location.id}>
+				{location.name}
+			</option>
+		);
 	});
 
 	const onSubmit = props.handleSubmitForm;
@@ -65,7 +73,7 @@ export default function EventForm(props: {
 						required: '⚠ Please enter the cost, or 0 if free.',
 					})}
 				/>
-								<div className={styles.alignCheckbox}>
+				<div className={styles.alignCheckbox}>
 					<label htmlFor="donation" className={styles.label}>
 						Is this a donation?
 					</label>
@@ -78,79 +86,79 @@ export default function EventForm(props: {
 				<p className={styles.error}>{errors.cost?.message}</p>
 
 				<p className={styles.error}>{errors.termTime?.message}</p>
-				<p className={`${styles.label} ${styles.headLabel}`}>Minimum age</p>
+				<p className={`${styles.label} ${styles.headLabel}`}>
+					Minimum age
+				</p>
 				<div className={styles.age}>
-				<label htmlFor="minAgeYears" >
-					Years:
-				</label>
-				<input
-					className={styles.input}
-					type="number"
-					placeholder="0"
-					{...register('minAgeYears', {
-						valueAsNumber: true,
-						required: '⚠ Please enter a minimum number of years old.',
-					})}
-				/>
-				<p className={styles.error}>{errors.minAgeYears?.message}</p>
-				<label htmlFor="minAgeMonths">
-					Months:
-				</label>
-				<input
-					className={styles.input}
-					type="number"
-					placeholder="0"
-					{...register('minAgeMonths', {
-						valueAsNumber: true,
-					})}
-				/>
-				<p className={styles.error}>{errors.minAgeMonths?.message}</p>
-					</div>
-					<p className={styles.label}>Maximum age</p>
-					<div className={styles.age}>
-				<label htmlFor="maxAgeYears" >
-					Years:
-				</label>
-				<input
-					className={styles.input}
-					type="number"
-					placeholder="0"
-					{...register('maxAgeYears', {
-						valueAsNumber: true,
-						required: '⚠ Please enter a maximum number of years old.',
-					})}
-				/>
-				<p className={styles.error}>{errors.maxAgeYears?.message}</p>
-				<label htmlFor="maxAgeMonths" >
-					Months:
-				</label>
-				<input
-					className={styles.input}
-					type="number"
-					placeholder="0"
-					{...register('maxAgeMonths', {
-						valueAsNumber: true,
-					})}
-				/>
+					<label htmlFor="minAgeYears">Years:</label>
+					<input
+						className={styles.input}
+						type="number"
+						placeholder="0"
+						{...register('minAgeYears', {
+							valueAsNumber: true,
+							required:
+								'⚠ Please enter a minimum number of years old.',
+						})}
+					/>
+					<p className={styles.error}>
+						{errors.minAgeYears?.message}
+					</p>
+					<label htmlFor="minAgeMonths">Months:</label>
+					<input
+						className={styles.input}
+						type="number"
+						placeholder="0"
+						{...register('minAgeMonths', {
+							valueAsNumber: true,
+						})}
+					/>
+					<p className={styles.error}>
+						{errors.minAgeMonths?.message}
+					</p>
+				</div>
+				<p className={styles.label}>Maximum age</p>
+				<div className={styles.age}>
+					<label htmlFor="maxAgeYears">Years:</label>
+					<input
+						className={styles.input}
+						type="number"
+						placeholder="0"
+						{...register('maxAgeYears', {
+							valueAsNumber: true,
+							required:
+								'⚠ Please enter a maximum number of years old.',
+						})}
+					/>
+					<p className={styles.error}>
+						{errors.maxAgeYears?.message}
+					</p>
+					<label htmlFor="maxAgeMonths">Months:</label>
+					<input
+						className={styles.input}
+						type="number"
+						placeholder="0"
+						{...register('maxAgeMonths', {
+							valueAsNumber: true,
+						})}
+					/>
 				</div>
 				<label htmlFor="location" className={styles.label}>
-					Location:
+					Choose location or <Link href="/locations/" className={styles.contactLink}>
+					add a new location
+				</Link>
 				</label>
+				
+
 				<select
 					className={styles.input}
 					{...register('locationId', {
 						required: '⚠ Please choose at least one location.',
 						valueAsNumber: true,
 					})}>
-					{props.locations.map((location, index) => {
-						return (
-							<option key={index} value={location.id}>
-								{location.name}
-							</option>
-						);
-					})}
+					{locationsDropdown}
 				</select>
-					<Link href="/locations">Add new location</Link>
+
 				<p className={styles.error}>{errors.locationId?.message}</p>
 				<label htmlFor="website" className={styles.label}>
 					Website:
@@ -213,7 +221,7 @@ export default function EventForm(props: {
 						{...register('termTime')}
 					/>
 				</div>
-	
+
 				<div className={styles.alignCheckbox}>
 					<label htmlFor="bookingRequired" className={styles.label}>
 						Booking required?
