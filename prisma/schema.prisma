@@ -43,6 +43,7 @@ model Event {
   updatedAt     DateTime        @updatedAt
   website       String?         @db.VarChar(255)
   phone         String?         @db.VarChar(20)
+  bookingRequired Boolean      @default(false)
   email         String?         @db.VarChar(100)
   // one event has one location, so one to many relation
   location      Location        @relation(fields: [locationId], references: [id])
