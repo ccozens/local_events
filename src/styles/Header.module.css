@@ -11,6 +11,27 @@
 	padding: 1rem;
 }
 
+.footer {
+	font-size: 0.8rem;
+	background: hsla(263, 95%, 35%, 1);
+	width: 100vw;
+	min-height: 50px;
+	margin: 0 10px;
+}
+
+.contactLink {
+	color: hsla(45, 84%, 75%, 1);
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.contactLink:hover {
+	color: hsla(45, 84%, 65%, 1);
+}
+.contactLink:active {
+	color: hsla(45, 84%, 55%, 1);
+}
+
 /* mobile first hide navButton and show at screen min-width 1250px */
 @media (min-width: 1250px) {
 	.navButton {

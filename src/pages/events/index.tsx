@@ -87,7 +87,7 @@ export default function Events(props: { locations: Locations }) {
 						These all simplify data processing and make the database
 						more user friendly. Please{' '}
 						<span className={styles.contactLink}>
-							<Link href="/about">get in touch</Link>
+							<Link href="/contact">get in touch</Link>
 						</span>{' '}
 						if you&apos;d like more features (eg, set specific dates
 						for events) and I&apos;ll know there&apos;s interest to
