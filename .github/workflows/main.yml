@@ -1,0 +1,33 @@
+name: Build and Test vitest coverage
+
+# Controls when the action will run.
+on:
+# Controls when the action will run.
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  buildAndTest:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+# Controls when the action will run.
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v3
+    
+    - name: Install dependencies
+      run: npm i
+
+    - name: Build
+      run: npm run build
+
+    - name: Test
+      run: npm run coverage
+      
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      
+      
