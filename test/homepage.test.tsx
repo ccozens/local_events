@@ -10,16 +10,20 @@ import React from 'react';
 import EventCard from '../src/components/EventCard';
 import { mockEvent } from './mockData/mockEvent';
 
-describe('Homepage testing', () => {
-	test('EventCard renders', () => {
-		render(<EventCard event={mockEvent} />);
-		const mockEventName: string = mockEvent.name;
-		const mockEventLocation: string = mockEvent.location.name;
-		screen.logTestingPlaygroundURL();
-		// tests
-		expect(screen.getByText(mockEventName)).toBeInTheDocument();
-		expect(
-			screen.getByText(new RegExp(`venue${mockEventLocation}`, 'i'))
-		).toBeInTheDocument();
-	});
+
+describe ('Homepage testing', () => {
+
+
+
+    test ('EventCard renders', () => {  
+    
+        render(<EventCard event={mockEvent}/>);
+        const mockEventName: string = mockEvent.name;
+        const mockEventLocation: string = mockEvent.location.name;
+        screen.logTestingPlaygroundURL();
+        // tests 
+        expect(screen.getByText(mockEventName)).toBeInTheDocument();
+        // expect(screen.getByText(mockEventLocation)).toBeInTheDocument();   
+        expect(screen.getByText(new RegExp(`venue:${mockEventLocation}`, 'i')));
+     });
 });
