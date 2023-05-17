@@ -5,14 +5,24 @@ import React from 'react';
 
 // import modules to test
 // import home module from pages/index.tsx
-// import Home from '@/pages/index';
+import Home from '../src/pages/index';
 // import { getStaticPaths } from '@/pages/index';
 import EventCard from '../src/components/EventCard';
-import { mockEvent } from './mockData/mockEvent';
+import { mockEvent, mockEvents } from './mockData/mockEvent';
 
 
 describe ('Homepage testing', () => {
 
+    test('daysOfWeekGrid renders', () => {
+        render(<Home events={mockEvents} />);
+        expect(screen.getByText('Monday')).toBeInTheDocument();
+        expect(screen.getByText('Tuesday')).toBeInTheDocument();
+        expect(screen.getByText('Wednesday')).toBeInTheDocument();
+        expect(screen.getByText('Thursday')).toBeInTheDocument();
+        expect(screen.getByText('Friday')).toBeInTheDocument();
+        expect(screen.getByText('Saturday')).toBeInTheDocument();
+        expect(screen.getByText('Sunday')).toBeInTheDocument();
+    });
 
 
     test ('EventCard renders', () => {  
