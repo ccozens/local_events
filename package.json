@@ -12,6 +12,7 @@
 		"ts-lint": "tsc --noEmit --incremental --watch",
 		"ts-lint-commit-hook": "tsc --noEmit --incremental",
 		"test": "vitest",
+		"coverage": "vitest run --coverage",
 		"prepare": "husky install"
 	},
 	"dependencies": {

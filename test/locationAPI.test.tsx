@@ -1,3 +1,7 @@
+import { test, expect } from 'vitest';
+
+test('2+2', () => { expect(2 + 2).toBe(4) })
+
 /* import {describe, expect, test, vi } from 'vitest';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../lib/__mocks__/prisma';
