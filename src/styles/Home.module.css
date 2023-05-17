@@ -27,6 +27,10 @@
   .eventsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .main {
+    width: 70vw;
+    margin: 0 auto;
+  }
 }
 
 @media (min-width: 850px) {

@@ -1,6 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@prismaclient';
+import { Location } from '@prisma/client';
+
 
 export default async function handler(
 	req: NextApiRequest,
@@ -8,7 +10,7 @@ export default async function handler(
 ) {
 	// get submitted data from request body
 	const { id, name, address, website, phone, lat, lng} =
-		req.body;
+		req.body as Location;
 	if (req.method === 'POST') 
 	try {
 		await prisma.location.create({

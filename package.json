@@ -39,16 +39,21 @@
 		"swagger-ui-react": "^4.18.3",
 		"typescript": "5.0.4",
 		"use-places-autocomplete": "^4.0.0",
+		"vite-tsconfig-paths": "^4.2.0",
 		"zustand": "^4.3.7"
 	},
 	"devDependencies": {
+		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^14.0.0",
+		"@testing-library/user-event": "^14.4.3",
 		"@types/google.maps": "^3.52.6",
 		"@types/nodemailer": "^6.4.7",
 		"@vitejs/plugin-react": "^3.1.0",
 		"husky": "^8.0.0",
 		"jsdom": "^21.1.1",
+		"msw": "^1.2.1",
 		"prisma": "^4.14.0",
-		"vitest": "^0.30.1"
+		"vitest": "^0.31.0",
+		"vitest-mock-extended": "^1.1.3"
 	}
 }
