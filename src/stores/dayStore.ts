@@ -6,6 +6,6 @@ interface DayState {
 }
 
 export const useDayStore = create<DayState>((set) => ({
-	day: 'tomorrow',
+	day: 'All',
 	setDay: (day) => set({ day }),
 }));

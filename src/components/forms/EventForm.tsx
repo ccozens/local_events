@@ -16,6 +16,7 @@ export default function EventForm(props: {
 		handleSubmit,
 		control,
 		formState: { errors },
+		setError,
 	} = useForm<Event>({
 		defaultValues: props.eventData || {
 			minAgeMonths: 0,
@@ -99,6 +100,7 @@ export default function EventForm(props: {
 						placeholder="0"
 						{...register('minAgeMonths', {
 							valueAsNumber: true,
+							max: 11,
 						})}
 					/>
 					<p className={styles.error}>
@@ -115,12 +117,9 @@ export default function EventForm(props: {
 						{...register('maxAgeYears', {
 							valueAsNumber: true,
 							required:
-								'⚠ Please enter a maximum number of years old.',
+								'⚠ Please enter a maximum years old.',
 						})}
 					/>
-					<p className={styles.error}>
-						{errors.maxAgeYears?.message}
-					</p>
 					<label htmlFor="maxAgeMonths">Months:</label>
 					<input
 						className={styles.input}
@@ -128,9 +127,13 @@ export default function EventForm(props: {
 						placeholder="0"
 						{...register('maxAgeMonths', {
 							valueAsNumber: true,
+							max: 11,
 						})}
 					/>
 				</div>
+						<p className={styles.error}>
+							{errors.maxAgeYears?.message}
+						</p>
 				<label htmlFor="location" className={styles.label}>
 					Choose location or{' '}
 					<Link href="/locations/">

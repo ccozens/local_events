@@ -1,7 +1,7 @@
+import { fetchEvents } from '@/functions/fetchEvents';
 import { GetStaticProps } from 'next';
 import styles from '@/styles/Home.module.css';
 import type { ReactElement } from 'react';
-import prisma from '@prismaclient';
 import EventCard from '@/components/EventCard';
 import type { EventWithLocation } from '@/types/EventWithLocation';
 import DaysOfWeekGrid from '@/components/DaysOfWeekGrid';
@@ -9,43 +9,22 @@ import { useDayStore } from '@/stores/dayStore';
 import EventsSearch from '@/components/EventsSearch';
 import { useState } from 'react';
 import { currentDayName, tomorrowDayName } from '@/functions/days';
+import EventOptionToggles from '@/components/EventOptionToggles';
+// import { eventListFiltered } from '@/functions/eventListFiltered';
 
-export const getStaticProps: GetStaticProps = async () => {
-	const events = await prisma.event.findMany({
-		// sort by day, start time, name
-		orderBy: [
-			{
-				// this will sort alphabeitcally, but want to sort by day of week. Amend when have implemented day of week. Maybe https://fymmot.github.io/inclusive-dates/
-				day: 'asc',
-			},
-			{
-				startTime: 'asc',
-			},
-			{
-				name: 'asc',
-			},
-		],
-		// include linked location
-		include: {
-			location: true,
-		},
-	});
-	return {
-		props: { events: JSON.parse(JSON.stringify(events)) },
-		revalidate: 10,
-	};
-};
+export const getStaticProps: GetStaticProps = fetchEvents;
+
 export default function Home(props: {
 	events: EventWithLocation[];
 }): ReactElement {
 	const eventList = props.events;
 
+	// search implementation
 	// show event card for the selected event when item is selected from combobox
 	const [selectedEvent, setSelectedEvent] = useState<string>('');
 	const handleSelect = (eventName: string) => {
 		setSelectedEvent(eventName);
 	};
-
 	// find the event that matches the selected event
 	const foundEvent = eventList.find(
 		(event) => event.name === selectedEvent
@@ -56,13 +35,8 @@ export default function Home(props: {
 			<EventCard event={foundEvent} />
 		) : null;
 
-	// clickedDay is the day that the user clicked on the DaysOfWeekGrid, propogated via zustand
-	const clickedDay = useDayStore((day) => day.day);
-	// today and tomorrow
-	const today = currentDayName();
-	const tomorrow = tomorrowDayName();
-	// filter eventList by day
-	const eventListFiltered = (day: string): EventWithLocation[] =>
+
+		const eventListFiltered = (day: string): EventWithLocation[] =>
 		eventList.filter((event) => {
 			if (day === 'All' || day === 'all') {
 				return event;
@@ -79,17 +53,51 @@ export default function Home(props: {
 			}
 		});
 
-	const showEvents =
-		eventListFiltered(clickedDay).length === 0 ? (
+
+	// select by day implementation
+	// clickedDay is the day that the user clicked on the DaysOfWeekGrid, propogated via zustand
+	const clickedDay = useDayStore((day) => day.day);
+	// today and tomorrow
+	const today = currentDayName();
+	const tomorrow = tomorrowDayName();
+
+
+		const filteredEvents: EventWithLocation[] = eventListFiltered(clickedDay);
+
+	// filter eventList by free events
+	const showFreeEvents = () => {
+		const freeEvents = eventList.filter((event) => event.cost === 0);
+		return freeEvents;
+	};
+
+	// filter eventList by no booking required events
+	const showNoBookingRequiredEvents = () => {
+		const noBookingRequiredEvents = eventList.filter(
+			(event) => event.bookingRequired === false
+		);
+		return noBookingRequiredEvents;
+	};
+
+	// filter eventList by age range
+	const [minAge, setMinAge] = useState<number>(0);
+	const [maxAge, setMaxAge] = useState<number>(99);
+	const showByAgeRange = () => {
+		const ageRange = eventList.filter(
+			(event) =>
+				event.minAgeYears === minAge && event.maxAgeYears === maxAge
+		);
+		return ageRange;
+	};
+
+	const showEvents = (eventsToChoose: EventWithLocation[]) =>
+		eventsToChoose.length === 0 ? (
 			<p>No events listed for {clickedDay}</p>
 		) : (
-			eventListFiltered(clickedDay).map(
-				(event: EventWithLocation) => (
-					<div key={event.id}>
-						<EventCard event={event} />
-					</div>
-				)
-			)
+			eventsToChoose.map((event: EventWithLocation) => (
+				<div key={event.id}>
+					<EventCard event={event} />
+				</div>
+			))
 		);
 
 	// days of week heading
@@ -111,9 +119,17 @@ export default function Home(props: {
 						handleSelect={handleSelect}
 					/>
 					{showSelectedEvent}
-					<h1>{heading}</h1>
 					<DaysOfWeekGrid />
-					<div className={styles.eventsGrid}>{showEvents}</div>
+					<h1>{heading}</h1>
+					<EventOptionToggles
+						showFreeEvents={showFreeEvents}
+						showNoBookingRequiredEvents={showNoBookingRequiredEvents}
+						setMinAge={setMinAge}
+						setMaxAge={setMaxAge}
+					/>
+					<div className={styles.eventsGrid}>
+						{showEvents(filteredEvents)}
+					</div>
 				</div>
 			</main>
 		</div>

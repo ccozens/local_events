@@ -5,29 +5,11 @@ import { SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import { Location } from '@prismatypes';
-import prisma from '@prismaclient';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetStaticProps } from 'next';
+import { fetchLocations } from '@/functions/fetchLocations';
 
-export const getStaticProps: GetStaticProps = async () => {
-	const locations = await prisma.location.findMany({});
-	return {
-		props: {
-			locations: JSON.parse(JSON.stringify(locations)),
-		},
-		revalidate: 10,
-	};
-};
+export const getStaticProps: GetStaticProps = fetchLocations;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-	const events = await prisma.event.findMany({});
-	const paths = events.map((event) => ({
-		params: { id: event.id.toString() },
-	}));
-	return {
-		paths,
-		fallback: 'blocking', // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
-	};
-};
 
 export default function Edit() {
 	const locationData = useLocationStore((state) => state.location);

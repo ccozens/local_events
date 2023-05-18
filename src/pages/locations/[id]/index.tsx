@@ -9,6 +9,7 @@ import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import Link from 'next/link';
 import Modal from '@/components/confirmation/Modal';
+import { fetchLocationPaths } from '@/functions/fetchLocationPaths';
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const locationId = context.params?.id;
@@ -21,16 +22,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	};
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-	const events = await prisma.location.findMany({});
-	const paths = events.map((event) => ({
-		params: { id: event.id.toString() },
-	}));
-	return {
-		paths,
-		fallback: 'blocking', // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
-	};
-};
+export const getStaticPaths: GetStaticPaths = fetchLocationPaths;
 
 export default function LocationPage({
 	location,

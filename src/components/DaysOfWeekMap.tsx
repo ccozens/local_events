@@ -1,4 +1,5 @@
 import { useDayStore } from '@/stores/dayStore';
+import styles from '@/styles/Custom.module.css';
 
 const daysOfWeek = [
 	'Monday',
@@ -18,15 +19,7 @@ export const DaysOfWeekElements = daysOfWeek.map((day, index) => {
 	);
 });
 
-const dayLink = {
-	cursor: 'pointer',
-	color: 'hsla(45, 84%, 75%, 1)',
-	backgroundColor: 'hsla(263, 80%, 34%, 1)',
-	border: '1px solid hsla(45, 84%, 75%, 1)',
-	borderRadius: '5px',
-	padding: '0.5rem',
-	textAlign: 'center' as 'center',
-};
+
 
 const dayClickHandler = (
 	event: React.MouseEvent<HTMLButtonElement>
@@ -36,10 +29,11 @@ const dayClickHandler = (
 	useDayStore.setState({ day: day });
 };
 
+
 export const daysOfWeekGrid = daysOfWeek.map((day, index) => {
 	return (
 		<button
-			style={dayLink}
+			className={styles.optionButton}
 			key={index}
 			data-day={day}
 			onClick={dayClickHandler}>
@@ -53,7 +47,7 @@ const dayOptions = ['All', 'Today', 'Tomorrow'];
 export const dayOptionsGrid = dayOptions.map((option, index) => {
 	return (
 		<button
-			style={dayLink}
+			className={styles.optionButton}
 			key={index}
 			data-day={option}
 			onClick={dayClickHandler}>

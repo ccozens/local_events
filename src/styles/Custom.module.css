@@ -16,8 +16,85 @@
 	border: 1px solid hsla(0, 100%, 75%, 1);
 }
 
+/* options grid styling */
+
+.optionsGrid {
+	display: grid;
+	margin: 0.5rem auto;
+	gap: 0.1rem;
+}
+.dayOptionsGrid {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+/* day grid styling */
+.daysOfWeekGrid {
+	grid-template-columns: repeat(7, 1fr);
+}
+
+
+.eventOptions {
+	grid-template-columns: 1fr 3fr 2fr;
+	place-items:
+}
+
+.optionButton {
+	cursor: pointer;
+	color: hsla(45, 84%, 75%, 1);
+	background-color: hsla(263, 80%, 34%, 1);
+	border: 1px solid hsla(45, 84%, 75%, 1);
+	border-radius: 5px;
+	padding: 0.2rem 0.5rem;
+	text-align: center;
+}
+.optionButton:hover {
+	background-color: hsla(263, 80%, 44%, 1);
+}
+
+.optionButtonActive {
+	background-color: hsla(263, 80%, 54%, 1);
+	color: hsla(60, 80%, 90%, 1);
+}
+.ageRange {
+	display: flex;
+	color: hsla(45, 84%, 75%, 1);
+	background-color: hsla(263, 80%, 34%, 1);
+	border: 1px solid hsla(45, 84%, 75%, 1);
+	border-radius: 5px;
+	padding: 0.2rem 0.5rem;
+	justify-content: space-evenly;
+	font-size: 0.8rem;
+	}
+.ageRange > p {
+	margin: auto 0;
+}
+.optionInput {
+	border-radius: 5px;
+	background-color: hsla(45, 84%, 75%, 1);
+	font-size: 0.8rem;
+	text-align: center;
+	max-width: 24px;
+}
+.optionInput::placeholder {
+	text-align: center;
+	font-size: 0.6rem;
+}
+
 @media screen and (min-width: 1024px) {
 	.successMessage {
 		max-width: 50%;
+	}
+	.optionButton, .ageRange {
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+	.ageRange {
+		gap: 1rem;
+	}
+	.optionInput {
+		max-width: 50px;
+	}
+	.optionInput::placeholder {
+		font-size: 1rem;
 	}
 }

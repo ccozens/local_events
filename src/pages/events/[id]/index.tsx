@@ -11,6 +11,9 @@ import { useState, ReactNode } from 'react';
 import Modal from '@/components/confirmation/Modal';
 import Link from 'next/link';
 import { ageRangeCalc } from '@/functions/ageRangeCalc';
+import { fetchEventPaths } from '@/functions/fetchEventPaths';
+
+export const getStaticPaths: GetStaticPaths = fetchEventPaths;
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const eventId = context.params?.id;
@@ -26,16 +29,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	};
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-	const events = await prisma.event.findMany({});
-	const paths = events.map((event) => ({
-		params: { id: event.id.toString() },
-	}));
-	return {
-		paths,
-		fallback: 'blocking', // pre-render at build. {fallback: 'blocking'} server-renders pages on demand if path doesn't exist
-	};
-};
 
 export default function EventPage({
 	event,
