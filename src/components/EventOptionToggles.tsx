@@ -1,10 +1,9 @@
 import styles from '@/styles/Custom.module.css';
-import type { EventWithLocation } from '@/types/EventWithLocation';
 interface EventOptionTogglesProps {
 	setFreeEventsOnly: (freeEventsOnly: boolean) => void;
 	freeEventsOnly: boolean;
-    setNoBookingRequired: (noBookingRequired: boolean) => void;
-	noBookingRequired: boolean;
+    setNoBookingRequiredOnly: (noBookingRequiredOnly: boolean) => void;
+	noBookingRequiredOnly: boolean;
 	setMinAge: (minAge: number) => void;
     setMaxAge: (maxAge: number) => void;
     setTermOnly: (termOnly: boolean) => void;
@@ -13,7 +12,7 @@ interface EventOptionTogglesProps {
 
 
 export default function EventOptionToggles(props: EventOptionTogglesProps) {
-    const { freeEventsOnly, setFreeEventsOnly, noBookingRequired, setNoBookingRequired, setMinAge, setMaxAge, termOnly, setTermOnly } = props;
+    const { freeEventsOnly, setFreeEventsOnly, noBookingRequiredOnly, setNoBookingRequiredOnly, setMinAge, setMaxAge, termOnly, setTermOnly } = props;
 
     const minAgeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMinAge(Number(e.target.value));
@@ -26,14 +25,14 @@ export default function EventOptionToggles(props: EventOptionTogglesProps) {
 		setFreeEventsOnly(!freeEventsOnly);
 	};
 	const toggleBookingRequiredEvents = () => {
-		setNoBookingRequired(!noBookingRequired);
+		setNoBookingRequiredOnly(!noBookingRequiredOnly);
 	};
 	const toggleTermTimeEvents = () => {
 		setTermOnly(!termOnly);
 	};
 
 	const freeOrAll = freeEventsOnly ? 'All events' : 'Free events only';
-	const noBookingOrAll = noBookingRequired ? 'All events' : 'No booking required';
+	const noBookingOrAll = noBookingRequiredOnly ? 'All events' : 'No booking required';
 	const termOrAll = termOnly ? 'All events' : 'Term time only';
 
 	return (

@@ -12,7 +12,7 @@ import EventOptionToggles from '@/components/EventOptionToggles';
 import { eventListFiltered } from '@/functions/eventListFiltered';
 import { showFreeEvents } from '@/functions/showFreeEvents';
 import { showNoBookingRequiredEvents } from '@/functions/showNoBookingRequiredEvents';
-import { toggleTermTimeEvents } from '@/functions/toggleTermTimeEvents';
+import { showTermTimeEvents } from '@/functions/showTermTimeEvents';
 import { showByAgeRange } from '@/functions/showByAgeRange';
 
 export const getStaticProps: GetStaticProps = fetchEvents;
@@ -50,25 +50,13 @@ export default function Home(props: {
 	const [freeEventsOnly, setFreeEventsOnly] =
 		useState<boolean>(false);
 	// track no booking required toggle
-	const [noBookingRequired, setNoBookingRequired] =
+	const [noBookingRequiredOnly, setNoBookingRequiredOnly] =
 		useState<boolean>(false);
 	// track age range input
 	const [minAge, setMinAge] = useState<number>(0);
 	const [maxAge, setMaxAge] = useState<number>(99);
 	// track term state
 	const [termOnly, setTermOnly] = useState<boolean>(false);
-
-	const freeEvents = showFreeEvents(filteredEvents);
-	const noBookingEvents = showNoBookingRequiredEvents(filteredEvents);
-	const ageRangeEvents = showByAgeRange(
-		filteredEvents,
-		minAge,
-		maxAge
-	);
-	const termTimeEventToggle = toggleTermTimeEvents(
-		termOnly,
-		filteredEvents
-	);
 
 	const showEvents = (eventsToChoose: EventWithLocation[]) =>
 		eventsToChoose.length === 0 ? (
@@ -91,6 +79,26 @@ export default function Home(props: {
 			? `${clickedDay} events`
 			: `Events on ${clickedDay}s`;
 
+	// flow is: eventsList is all events
+	// then filteredEvents is eventsList filtered by day
+	// call showFreeEvents on filteredEvents if freeEventsOnly is true
+	// call showNoBookingRequiredEvents on filteredEvents if noBookingRequiredOnly is true
+	// call showByAgeRange on filteredEvents if minAge and maxAge are not 0 and 99 respectively
+	// call toggleTermTimeEvents on filteredEvents if termOnly is true
+	// then set chosenEvents to the result of the above
+
+	const chosenEvents = showByAgeRange(
+		showTermTimeEvents(
+			showNoBookingRequiredEvents(
+				showFreeEvents(filteredEvents, freeEventsOnly),
+				noBookingRequiredOnly
+			),
+			termOnly
+		),
+		minAge,
+		maxAge
+	);
+
 	return (
 		<div>
 			<main className={styles.main}>
@@ -101,21 +109,19 @@ export default function Home(props: {
 					/>
 					{showSelectedEvent}
 					<DaysOfWeekGrid />
-					<h1>{heading}</h1>
+					<h2>{heading}</h2>
 					<EventOptionToggles
 						freeEventsOnly={freeEventsOnly}
 						setFreeEventsOnly={setFreeEventsOnly}
-						noBookingRequired={noBookingRequired}
-						setNoBookingRequired={
-							setNoBookingRequired
-						}
+						noBookingRequiredOnly={noBookingRequiredOnly}
+						setNoBookingRequiredOnly={setNoBookingRequiredOnly}
 						setMinAge={setMinAge}
 						setMaxAge={setMaxAge}
-						termOnly={termOnly}	
+						termOnly={termOnly}
 						setTermOnly={setTermOnly}
 					/>
 					<div className={styles.eventsGrid}>
-						{showEvents(filteredEvents)}
+						{showEvents(chosenEvents)}
 					</div>
 				</div>
 			</main>

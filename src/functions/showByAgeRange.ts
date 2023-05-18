@@ -1,5 +1,6 @@
 import type { EventWithLocation } from '@/types/EventWithLocation';
 
+// filter eventList by age range
 export const showByAgeRange = (
 	events: EventWithLocation[],
 	minAge: number,
@@ -7,7 +8,7 @@ export const showByAgeRange = (
 ) => {
 	const ageRangeEvents = events.filter(
 		(event) =>
-			event.minAgeYears === minAge && event.maxAgeYears === maxAge
+			event.minAgeYears >= minAge && event.maxAgeYears <= maxAge
 	);
 	return ageRangeEvents;
 };
