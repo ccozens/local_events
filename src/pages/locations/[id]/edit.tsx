@@ -7,9 +7,11 @@ import { useState, ReactNode } from 'react';
 import { Location } from '@prismatypes';
 import { GetStaticProps } from 'next';
 import { fetchLocations } from '@/functions/fetchLocations';
+import { fetchLocationPaths } from '@/functions/fetchLocationPaths';
 
 export const getStaticProps: GetStaticProps = fetchLocations;
 
+export const getStaticPaths = fetchLocationPaths;
 
 export default function Edit() {
 	const locationData = useLocationStore((state) => state.location);
