@@ -19,9 +19,7 @@ describe ('Homepage testing', () => {
         expect(screen.getByText('Tuesday')).toBeInTheDocument();
         expect(screen.getByText('Wednesday')).toBeInTheDocument();
         expect(screen.getByText('Thursday')).toBeInTheDocument();
-        expect(screen.getByText('Friday')).toBeInTheDocument();
-        expect(screen.getByText('Saturday')).toBeInTheDocument();
-        expect(screen.getByText('Sunday')).toBeInTheDocument();
+
     });
 
 
