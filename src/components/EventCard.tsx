@@ -36,9 +36,8 @@ export default function EventCard({
 					<p>{endTime}</p>
 					<p>Length: </p>
 					<p>{displayedDuration}</p>
-					<p>
-						Venue: <p>{location.name}</p>
-					</p>
+					<p>Venue: </p>
+					<p>{location.name}</p>
 				</div>
 			</div>
 		</div>

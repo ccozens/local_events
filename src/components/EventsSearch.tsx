@@ -1,5 +1,5 @@
 import { useCombobox } from 'downshift';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '@/styles/Locations.module.css';
 import { EventWithLocation } from '@/types/EventWithLocation';
 
@@ -13,7 +13,7 @@ export default function EventsSearch({
 	handleSelect,
 }: EventsSearchProps) {
 	const eventNames = eventList.map((event) => {
-		return event.name ;
+		return event.name;
 	});
 
 	function getNamesFilter(inputValue?: string) {
@@ -28,6 +28,10 @@ export default function EventsSearch({
 
 	function ComboBox() {
 		const [items, setItems] = useState(eventNames);
+		useEffect(() => {
+			setItems(eventNames);
+		}, []);
+
 		const { isOpen, getMenuProps, getInputProps, getItemProps } =
 			useCombobox({
 				onInputValueChange({ inputValue }) {
@@ -58,8 +62,9 @@ export default function EventsSearch({
 								className={styles.sugggestion}
 								key={`${item}${index}`}
 								{...getItemProps({ item, index })}
-								onClick={() => {handleSelect(item)}}
-								>
+								onClick={() => {
+									handleSelect(item);
+								}}>
 								<span>{item}</span>
 							</li>
 						))}
