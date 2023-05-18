@@ -15,8 +15,7 @@ export default function EventForm(props: {
 		register,
 		handleSubmit,
 		control,
-		formState: { errors },
-		watch
+		formState: { errors }
 	} = useForm<Event>({
 		defaultValues: props.eventData || {
 			minAgeMonths: 0,
@@ -40,8 +39,6 @@ export default function EventForm(props: {
 	});
 
 	const onSubmit = props.handleSubmitForm;
-	const watchedFormData = watch(); // watch all form fields
-console.log(watchedFormData); // console log the form data
 
 
 	return (
