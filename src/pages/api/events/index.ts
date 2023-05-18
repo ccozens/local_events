@@ -62,8 +62,10 @@ export default async function handler(
 			// set status 200 and return success message
 			res.status(200).json({ message: 'Event created' });
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({ error: 'Failed to create event' });
+			let message:string = '';
+			if (error instanceof Error) {message = error.message;}
+			else message = String(error);
+			res.status(500).json({ error: `Failed to create event: ${message}` });
 		}
 	// update handler
 	if (req.method === 'PUT') {

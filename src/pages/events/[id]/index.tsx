@@ -57,9 +57,9 @@ export default function EventPage({
 	const eventUpdated = new Date(updatedAt).toLocaleDateString(
 		'en-GB'
 	);
-
 							
 	const termTimeTernary = termTime ? 'Term time only' : 'Runs all year';
+
 	const websitePresent = website ? (
 		<Link
 			className={`${styles.eventText} ${styles.eventLink}`}

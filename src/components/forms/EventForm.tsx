@@ -16,7 +16,7 @@ export default function EventForm(props: {
 		handleSubmit,
 		control,
 		formState: { errors },
-		setError,
+		watch
 	} = useForm<Event>({
 		defaultValues: props.eventData || {
 			minAgeMonths: 0,
@@ -40,6 +40,9 @@ export default function EventForm(props: {
 	});
 
 	const onSubmit = props.handleSubmitForm;
+	const watchedFormData = watch(); // watch all form fields
+console.log(watchedFormData); // console log the form data
+
 
 	return (
 		<div>
@@ -199,16 +202,7 @@ export default function EventForm(props: {
 								</div>
 						)}
 					/>
-
-{/* 				<input
-					className={styles.input}
-					type="number"
-					placeholder="Cost (enter 0 if free)"
-					{...register('cost', {
-						valueAsNumber: true,
-						required: '⚠ Please enter the cost, or 0 if free.',
-					})}
-				/> */}
+				<p className={styles.error}>{errors.cost?.message}</p>
 				<div className={styles.checkboxGroup}>
 					<div className={styles.alignCheckbox}>
 						<label htmlFor="donation" className={styles.label}>
@@ -231,13 +225,13 @@ export default function EventForm(props: {
 						/>
 					</div>
 					<div className={styles.alignCheckbox}>
-						<label htmlFor="donation" className={styles.label}>
+						<label htmlFor="siblingDiscount" className={styles.label}>
 							Is there a sibling discount?
 						</label>
 						<input
 							className={styles.checkbox}
 							type="checkbox"
-							{...register('donation')}
+							{...register('siblingDiscount')}
 						/>
 						<p className={styles.error}>{errors.cost?.message}</p>
 					</div>
