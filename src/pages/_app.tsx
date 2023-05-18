@@ -5,6 +5,7 @@ import { ReactElement, ReactNode } from 'react';
 import Layout from '@/components/Layout';
 import { Inter } from 'next/font/google';
 import { clarity } from 'react-microsoft-clarity';
+import { useEffect } from 'react';
 
 type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 	getLayout?: (page: ReactElement) => ReactNode;
@@ -22,7 +23,9 @@ export default function App({
 	Component,
 	pageProps,
 }: AppPropsWithLayout) {
-	clarity.init(process.env.NEXT_PUBLIC_CLARITY_ID || '');
+	useEffect(() => {
+		clarity.init(process.env.NEXT_PUBLIC_CLARITY_ID || '');
+	}, []);
 
 	return (
 		<div className={inter.className}>
