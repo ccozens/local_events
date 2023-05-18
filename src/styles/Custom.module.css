@@ -34,8 +34,7 @@
 
 
 .eventOptions {
-	grid-template-columns: 1fr 3fr 2fr;
-	place-items:
+	grid-template-columns: repeat(3, 1fr);
 }
 
 .optionButton {
@@ -64,7 +63,12 @@
 	padding: 0.2rem 0.5rem;
 	justify-content: space-evenly;
 	font-size: 0.8rem;
+	grid-column: 1 / 4;
 	}
+.option {
+	display: flex;
+	align-items: center;
+}
 .ageRange > p {
 	margin: auto 0;
 }
@@ -74,6 +78,7 @@
 	font-size: 0.8rem;
 	text-align: center;
 	max-width: 24px;
+	margin: 0 0.5rem;
 }
 .optionInput::placeholder {
 	text-align: center;

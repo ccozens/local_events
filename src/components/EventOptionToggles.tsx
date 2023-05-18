@@ -1,34 +1,55 @@
 import styles from '@/styles/Custom.module.css';
-
+import type { EventWithLocation } from '@/types/EventWithLocation';
 interface EventOptionTogglesProps {
-    showFreeEvents: () => void;
-    showNoBookingRequiredEvents: () => void;
-    setMinAge: (minAge: number) => void;
+	setFreeEventsOnly: (freeEventsOnly: boolean) => void;
+	freeEventsOnly: boolean;
+    setNoBookingRequired: (noBookingRequired: boolean) => void;
+	noBookingRequired: boolean;
+	setMinAge: (minAge: number) => void;
     setMaxAge: (maxAge: number) => void;
+    setTermOnly: (termOnly: boolean) => void;
+	termOnly: boolean;
 };
 
 
 export default function EventOptionToggles(props: EventOptionTogglesProps) {
-    const { showFreeEvents, showNoBookingRequiredEvents, setMinAge, setMaxAge } = props;
+    const { freeEventsOnly, setFreeEventsOnly, noBookingRequired, setNoBookingRequired, setMinAge, setMaxAge, termOnly, setTermOnly } = props;
 
     const minAgeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMinAge(Number(e.target.value));
     };
     const maxAgeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMaxAge(Number(e.target.value));
-    };
-
+    };		
     
+	const toggleFree = () => {
+		setFreeEventsOnly(!freeEventsOnly);
+	};
+	const toggleBookingRequiredEvents = () => {
+		setNoBookingRequired(!noBookingRequired);
+	};
+	const toggleTermTimeEvents = () => {
+		setTermOnly(!termOnly);
+	};
+
+	const freeOrAll = freeEventsOnly ? 'All events' : 'Free events only';
+	const noBookingOrAll = noBookingRequired ? 'All events' : 'No booking required';
+	const termOrAll = termOnly ? 'All events' : 'Term time only';
+
 	return (
 		<div className={`${styles.eventOptions} ${styles.optionsGrid}`}>
-			<button className={styles.optionButton} onClick={showFreeEvents}>Free</button>
-			<button className={styles.optionButton} onClick={showNoBookingRequiredEvents}>
-				No booking required
+			<button className={styles.optionButton} onClick={toggleFree}>{freeOrAll}</button>
+			<button className={styles.optionButton} onClick={toggleBookingRequiredEvents}>
+				{noBookingOrAll}
+			</button>
+			<button className={styles.optionButton} onClick={toggleTermTimeEvents}>
+				{termOrAll}
 			</button>
 			<div className={styles.ageRange}>
-				<p>Age</p> 
+				<p>Age range |</p> 
 				<div className={styles.option}>
 					<label htmlFor="minAge"></label>
+					Min years
 					<input
 						className={styles.optionInput}
 						type="number"
@@ -36,6 +57,7 @@ export default function EventOptionToggles(props: EventOptionTogglesProps) {
                         onChange={minAgeHandler}
 					/>
 					<label htmlFor="maxAge"></label>
+					Max years
 					<input
 						className={styles.optionInput}
 						type="number"

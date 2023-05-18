@@ -8,9 +8,12 @@ import DaysOfWeekGrid from '@/components/DaysOfWeekGrid';
 import { useDayStore } from '@/stores/dayStore';
 import EventsSearch from '@/components/EventsSearch';
 import { useState } from 'react';
-import { currentDayName, tomorrowDayName } from '@/functions/days';
 import EventOptionToggles from '@/components/EventOptionToggles';
-// import { eventListFiltered } from '@/functions/eventListFiltered';
+import { eventListFiltered } from '@/functions/eventListFiltered';
+import { showFreeEvents } from '@/functions/showFreeEvents';
+import { showNoBookingRequiredEvents } from '@/functions/showNoBookingRequiredEvents';
+import { toggleTermTimeEvents } from '@/functions/toggleTermTimeEvents';
+import { showByAgeRange } from '@/functions/showByAgeRange';
 
 export const getStaticProps: GetStaticProps = fetchEvents;
 
@@ -35,59 +38,37 @@ export default function Home(props: {
 			<EventCard event={foundEvent} />
 		) : null;
 
-
-		const eventListFiltered = (day: string): EventWithLocation[] =>
-		eventList.filter((event) => {
-			if (day === 'All' || day === 'all') {
-				return event;
-			}
-			if (day === 'today' || day === 'Today') {
-				return event.day.includes(today);
-			}
-			if (day === 'tomorrow' || day === 'Tomorrow') {
-				return event.day.includes(tomorrow);
-			}
-			const eventsOnDay = event.day.includes(day);
-			if (eventsOnDay) {
-				return event;
-			}
-		});
-
-
 	// select by day implementation
 	// clickedDay is the day that the user clicked on the DaysOfWeekGrid, propogated via zustand
 	const clickedDay = useDayStore((day) => day.day);
-	// today and tomorrow
-	const today = currentDayName();
-	const tomorrow = tomorrowDayName();
 
-
-		const filteredEvents: EventWithLocation[] = eventListFiltered(clickedDay);
-
-	// filter eventList by free events
-	const showFreeEvents = () => {
-		const freeEvents = eventList.filter((event) => event.cost === 0);
-		return freeEvents;
-	};
-
-	// filter eventList by no booking required events
-	const showNoBookingRequiredEvents = () => {
-		const noBookingRequiredEvents = eventList.filter(
-			(event) => event.bookingRequired === false
-		);
-		return noBookingRequiredEvents;
-	};
-
-	// filter eventList by age range
+	const filteredEvents: EventWithLocation[] = eventListFiltered(
+		clickedDay,
+		eventList
+	);
+	// track free event toggle
+	const [freeEventsOnly, setFreeEventsOnly] =
+		useState<boolean>(false);
+	// track no booking required toggle
+	const [noBookingRequired, setNoBookingRequired] =
+		useState<boolean>(false);
+	// track age range input
 	const [minAge, setMinAge] = useState<number>(0);
 	const [maxAge, setMaxAge] = useState<number>(99);
-	const showByAgeRange = () => {
-		const ageRange = eventList.filter(
-			(event) =>
-				event.minAgeYears === minAge && event.maxAgeYears === maxAge
-		);
-		return ageRange;
-	};
+	// track term state
+	const [termOnly, setTermOnly] = useState<boolean>(false);
+
+	const freeEvents = showFreeEvents(filteredEvents);
+	const noBookingEvents = showNoBookingRequiredEvents(filteredEvents);
+	const ageRangeEvents = showByAgeRange(
+		filteredEvents,
+		minAge,
+		maxAge
+	);
+	const termTimeEventToggle = toggleTermTimeEvents(
+		termOnly,
+		filteredEvents
+	);
 
 	const showEvents = (eventsToChoose: EventWithLocation[]) =>
 		eventsToChoose.length === 0 ? (
@@ -122,10 +103,16 @@ export default function Home(props: {
 					<DaysOfWeekGrid />
 					<h1>{heading}</h1>
 					<EventOptionToggles
-						showFreeEvents={showFreeEvents}
-						showNoBookingRequiredEvents={showNoBookingRequiredEvents}
+						freeEventsOnly={freeEventsOnly}
+						setFreeEventsOnly={setFreeEventsOnly}
+						noBookingRequired={noBookingRequired}
+						setNoBookingRequired={
+							setNoBookingRequired
+						}
 						setMinAge={setMinAge}
 						setMaxAge={setMaxAge}
+						termOnly={termOnly}	
+						setTermOnly={setTermOnly}
 					/>
 					<div className={styles.eventsGrid}>
 						{showEvents(filteredEvents)}
