@@ -7,8 +7,10 @@ import { useState, ReactNode } from 'react';
 import { GetStaticProps } from 'next';
 import { Event, Location } from '@prismatypes';
 import { fetchLocations } from '@/functions/fetchLocations';
+import { fetchLocationPaths } from '@/functions/fetchLocationPaths';
 
 export const getStaticProps: GetStaticProps = fetchLocations;
+export const getStaticPaths = fetchLocationPaths;
 
 type Locations = Location[];
 
