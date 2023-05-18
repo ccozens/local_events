@@ -33,7 +33,7 @@ export default function EventOptionToggles(props: EventOptionTogglesProps) {
 
 	const freeOrAll = freeEventsOnly ? 'All events' : 'Free events only';
 	const noBookingOrAll = noBookingRequiredOnly ? 'All events' : 'No booking required';
-	const termOrAll = termOnly ? 'All events' : 'Term time only';
+	const termOrAll = termOnly ? 'All year' : 'Term time only';
 
 	return (
 		<div className={`${styles.eventOptions} ${styles.optionsGrid}`}>

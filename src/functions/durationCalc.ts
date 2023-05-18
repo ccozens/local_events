@@ -1,6 +1,6 @@
 // from chatGPT
 
-export default function getTimeDuration(
+export function durationCalc(
 	start: string,
 	end: string
 ): { hours: number; minutes: number } {
