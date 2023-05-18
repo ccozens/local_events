@@ -26,6 +26,6 @@
 		"next-env.d.ts",
 		"src/**/*",
 		"prisma/seed.ts"
-	],
-	"exclude": ["node_modules"]
+, "vitest/mocks"	],
+	"exclude": ["node_modules", "vitest"]
 }
