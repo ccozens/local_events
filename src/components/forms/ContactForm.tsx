@@ -15,7 +15,9 @@ export default function Contact(props: {
 
 	return (
 		<div>
-			<form className={`${styles.form} ${styles.contact}`} onSubmit={handleSubmit(onSubmit)}>
+			<form
+				className={`${styles.form} ${styles.contact}`}
+				onSubmit={handleSubmit(onSubmit)}>
 				<label htmlFor="name">Name:</label>
 				<input
 					className={`${styles.input} ${styles.contactInput}`}
@@ -30,8 +32,8 @@ export default function Contact(props: {
 				)}
 				<label htmlFor="email">Email:</label>
 				<input
+					type="email"
 					className={`${styles.input} ${styles.contactInput}`}
-					type="text"
 					placeholder="Please enter your email address"
 					{...register('email', {
 						required: '⚠ Please enter your email address.',
@@ -41,9 +43,8 @@ export default function Contact(props: {
 					<p className={styles.error}>{errors.email.message}</p>
 				)}
 				<label htmlFor="message">Message:</label>
-				<input
+				<textarea
 					className={`${styles.input} ${styles.message}`}
-					type="text"
 					placeholder="Enter message here"
 					{...register('message', {
 						required:
