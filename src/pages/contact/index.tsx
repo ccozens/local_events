@@ -31,10 +31,11 @@ export default function Contact () {
 				status: 'success',
 			};
 		} else {
-			console.error(response.statusText);
+			const errorData = await response.json();
+			
 			setErrorMessage(
 				<p className={moreStyles.successMessage}>
-					Failed to send messge: {response.statusText}
+					Failed to send message: {errorData.error}
 				</p>
 			);
 		}

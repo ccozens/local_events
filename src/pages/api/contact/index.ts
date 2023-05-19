@@ -25,6 +25,6 @@ export default async function handler(
 			} else message = String(error);
 			res
 				.status(500)
-				.json({ error: `Failed to create event: ${message}` });
+				.json({ error: message });
 		}
 }

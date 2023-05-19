@@ -23,8 +23,9 @@ export default function App({
 	Component,
 	pageProps,
 }: AppPropsWithLayout) {
+
 	useEffect(() => {
-		clarity.init(process.env.NEXT_PUBLIC_CLARITY_ID || '');
+	clarity.init(process.env.NEXT_PUBLIC_CLARITY_ID || '');
 	}, []);
 
 	return (
