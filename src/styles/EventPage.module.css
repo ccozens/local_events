@@ -6,7 +6,7 @@
 .eventSummary {
 	background-color: hsla(263, 80%, 34%, 1);
 	border: 1px solid hsla(45, 84%, 75%, 1);
-	border-radius: 5px;
+
 	padding: 1rem;
 	max-width: 500px;
 	width: 80vw;
@@ -60,7 +60,6 @@
 	text-align: center;
 }
 .footerButtons {
-	border-radius: 5px;
 	border: 1px solid hsla(45, 84%, 75%, 1);
 	background-color: hsla(273, 56%, 40%, 1);
 	cursor: pointer;

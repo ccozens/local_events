@@ -7,15 +7,6 @@
   flex: 1;
 }
 
-
-/* hero styling */
-.hero {
-  width: 100vw;
-  height: 10vh;
-  border: 1px solid red;
-}
-
-
 /* events grid styling */
 .eventsGrid {
   display: grid;

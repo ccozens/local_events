@@ -3,7 +3,7 @@
 	background-color: hsla(263, 80%, 34%, 1);
 	border: 1px solid hsla(45, 84%, 75%, 1);
 	margin: 2rem auto;
-	border-radius: 5px;
+
 	max-width: 70%;
 	text-align: center;
 	padding: 1rem;
@@ -32,7 +32,6 @@
 	grid-template-columns: repeat(7, 1fr);
 }
 
-
 .eventOptions {
 	grid-template-columns: repeat(3, 1fr);
 }
@@ -42,7 +41,7 @@
 	color: hsla(45, 84%, 75%, 1);
 	background-color: hsla(263, 80%, 34%, 1);
 	border: 1px solid hsla(45, 84%, 75%, 1);
-	border-radius: 5px;
+
 	padding: 0.2rem 0.5rem;
 	text-align: center;
 }
@@ -59,12 +58,12 @@
 	color: hsla(45, 84%, 75%, 1);
 	background-color: hsla(263, 80%, 34%, 1);
 	border: 1px solid hsla(45, 84%, 75%, 1);
-	border-radius: 5px;
+
 	padding: 0.2rem 0.5rem;
 	justify-content: space-evenly;
 	font-size: 0.8rem;
 	grid-column: 1 / 4;
-	}
+}
 .option {
 	display: flex;
 	align-items: center;
@@ -73,7 +72,6 @@
 	margin: auto 0;
 }
 .optionInput {
-	border-radius: 5px;
 	background-color: hsla(45, 84%, 75%, 1);
 	font-size: 0.8rem;
 	text-align: center;
@@ -89,7 +87,8 @@
 	.successMessage {
 		max-width: 50%;
 	}
-	.optionButton, .ageRange {
+	.optionButton,
+	.ageRange {
 		font-size: 1.5rem;
 		font-weight: 600;
 	}

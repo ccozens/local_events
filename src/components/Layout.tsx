@@ -58,14 +58,14 @@ export default function Layout({ children }: Children) {
 				<meta name="theme-color" content="#fff4c3" />
 			</Head>
 			<Header />
-			<section className="styles.hero">
-				<div className="styles.heroContent"></div>
+			<section >
 				<Image
 					src={pic}
 					alt="children playing with parachute in sunshine"
 					style={{
 						maxWidth: '100%',
 						height: 'auto',
+						borderRadius:"0",
 					}}
 					priority={true}
 				/>

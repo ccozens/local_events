@@ -16,7 +16,6 @@
 	background-color: hsla(263, 80%, 34%, 1);
 	border: 1px solid hsla(45, 84%, 75%, 1);
 	margin: 2rem auto;
-	border-radius: 5px;
 }
 
 .age {
@@ -55,7 +54,7 @@
 .input {
 	display: block;
 	width: 100%;
-	border-radius: 5px;
+
 	background-color: hsla(45, 84%, 75%, 1);
 	padding: 10px 15px;
 	margin-bottom: 10px;
@@ -138,7 +137,7 @@
 	.input,
 	.submit,
 	.label,
-	.age > label,{
+	.age > label {
 		font-size: 1.2rem;
 	}
 	.age > input {
