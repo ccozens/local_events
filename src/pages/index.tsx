@@ -7,7 +7,7 @@ import type { EventWithLocation } from '@/types/EventWithLocation';
 import DaysOfWeekGrid from '@/components/DaysOfWeekGrid';
 import { useDayStore } from '@/stores/dayStore';
 import EventsSearch from '@/components/EventsSearch';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import EventOptionToggles from '@/components/EventOptionToggles';
 import { eventListFiltered } from '@/functions/eventListFiltered';
 import { showFreeEvents } from '@/functions/showFreeEvents';
@@ -99,6 +99,29 @@ export default function Home(props: {
 		maxAge
 	);
 
+	// show event filters on click
+	const toggleEventFilters = () => {
+		setShowEventFilters(!showEventFilters);
+	};
+
+	const [showEventFilters, setShowEventFilters] =
+		useState<boolean>(false);
+	const eventFilters = showEventFilters ? (
+		<div className={styles.eventFilters}>
+			<EventOptionToggles
+				freeEventsOnly={freeEventsOnly}
+				setFreeEventsOnly={setFreeEventsOnly}
+				noBookingRequiredOnly={noBookingRequiredOnly}
+				setNoBookingRequiredOnly={setNoBookingRequiredOnly}
+				setMinAge={setMinAge}
+				setMaxAge={setMaxAge}
+				hideTermOnly={hideTermOnly}
+				setHideTermOnly={setHideTermOnly}
+			/>
+		</div>
+	) : null;
+
+
 	return (
 		<div>
 			<main className={styles.main}>
@@ -109,17 +132,15 @@ export default function Home(props: {
 					/>
 					{showSelectedEvent}
 					<DaysOfWeekGrid />
-					<h2>{heading}</h2>
-					<EventOptionToggles
-						freeEventsOnly={freeEventsOnly}
-						setFreeEventsOnly={setFreeEventsOnly}
-						noBookingRequiredOnly={noBookingRequiredOnly}
-						setNoBookingRequiredOnly={setNoBookingRequiredOnly}
-						setMinAge={setMinAge}
-						setMaxAge={setMaxAge}
-						hideTermOnly={hideTermOnly}
-						setHideTermOnly={setHideTermOnly}
-					/>
+					<div className={styles.eventHeadAndFilters}>
+						<h2>{heading}</h2>
+						<span
+							className="material-symbols-outlined"
+							onClick={toggleEventFilters}>
+							filter_list
+						</span>
+					</div>
+					{eventFilters}
 					<div className={styles.eventsGrid}>
 						{showEvents(chosenEvents)}
 					</div>

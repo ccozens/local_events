@@ -7,6 +7,12 @@
   flex: 1;
 }
 
+.eventHeadAndFilters {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
 /* events grid styling */
 .eventsGrid {
   display: grid;

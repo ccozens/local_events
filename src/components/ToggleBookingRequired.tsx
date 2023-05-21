@@ -15,7 +15,7 @@ export default function ToggleBookedRequired(
 	};
 
 	const buttonText = noBookingRequiredOnly
-		? 'Booking required events hidden'
+		? 'Hiding events that require booking'
 		: 'Hide events that require booking';
 
 	return (

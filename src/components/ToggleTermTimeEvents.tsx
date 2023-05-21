@@ -15,7 +15,7 @@ export default function ToggleTermTimeEvents(
 	};
 
 	const buttonText = hideTermOnly
-		? 'Term only events hidden'
+		? 'Hiding term only events'
 		: 'Hide term only events';
 
 	return (
