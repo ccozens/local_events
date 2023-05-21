@@ -43,7 +43,6 @@ export default function NavBar(props: navBarProps) {
 					() => navBar?.classList.remove(styles.navBarActive),
 					50
 				);
-				// itemRef.classList.toggle(styles.navItemActive);
 			});
 		});
 	};

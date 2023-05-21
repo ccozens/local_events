@@ -1,4 +1,3 @@
-import styles from '@/styles/Header.module.css';
 import NavBar from './Navbar';
 import { usePathname } from 'next/navigation';
 
