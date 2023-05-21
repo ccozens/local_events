@@ -2,7 +2,7 @@ import styles from '@/styles/Header.module.css';
 import Link from 'next/link';
 export default function Footer() {
 	return (
-		<div className={styles.footer}>
+		<footer>
 			<p>
 				Please note this is a community-maintained website and I
 				cannot be held responsible for the accuracy of the information
@@ -12,6 +12,6 @@ export default function Footer() {
 				</Link>{' '}
 				or edit the event yourself.
 			</p>
-		</div>
+		</footer>
 	);
 }

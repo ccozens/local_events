@@ -42,9 +42,9 @@ export default function Header() {
 	}
 
 	return (
-		<div className={styles.head}>
+		<header>
 			<h1> {title} </h1>
 			<NavBar navList={navList} />
-		</div>
+		</header>
 	);
 }

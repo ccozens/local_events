@@ -1,30 +1,3 @@
-.head {
-	background: hsla(263, 95%, 35%, 1);
-	width: 100vw;
-	min-height: 50px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	flex-shrink: 0;
-}
-
-.head > h1 {
-	padding: 1rem;
-}
-
-.footer {
-	font-size: 0.8rem;
-	background: hsla(263, 95%, 35%, 1);
-	width: 100vw;
-	min-height: 50px;
-	margin: 0 10px;
-	padding: 0 1rem;
-	flex-shrink: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
 /* mobile first hide navButton and show at screen min-width 1250px */
 @media (min-width: 1250px) {
 	.navButton {
@@ -128,9 +101,6 @@
 
 /* reduce header font size below 1400px */
 @media (max-width: 1400px) {
-	.head > h1 {
-		font-size: 2rem;
-	}
 	.navItem {
 		font-size: 1rem;
 	}
