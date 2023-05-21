@@ -10,7 +10,7 @@ export default function EventCard({
 }: {
 	event: EventWithLocation;
 }) {
-	const { name, description, day, startTime, endTime } = event;
+	const { name, description, day, startTime } = event;
 	const location: Location = event.location;
 
 	const displayedDescription = descriptionToDisplay(description);
