@@ -7,7 +7,7 @@ import type { EventWithLocation } from '@/types/EventWithLocation';
 import DaysOfWeekGrid from '@/components/DaysOfWeekGrid';
 import { useDayStore } from '@/stores/dayStore';
 import EventsSearch from '@/components/EventsSearch';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import EventOptionToggles from '@/components/EventOptionToggles';
 import { eventListFiltered } from '@/functions/eventListFiltered';
 import { showFreeEvents } from '@/functions/showFreeEvents';
@@ -53,8 +53,8 @@ export default function Home(props: {
 	const [noBookingRequiredOnly, setNoBookingRequiredOnly] =
 		useState<boolean>(false);
 	// track age range input
-	const [minAge, setMinAge] = useState<number>(0);
-	const [maxAge, setMaxAge] = useState<number>(99);
+	const [minAge, setMinAge] = useState<number>(99);
+	const [maxAge, setMaxAge] = useState<number>(0);
 	// track term state
 	const [hideTermOnly, setHideTermOnly] = useState<boolean>(false);
 

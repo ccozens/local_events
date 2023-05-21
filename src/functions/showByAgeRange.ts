@@ -8,7 +8,7 @@ export const showByAgeRange = (
 ) => {
 	const ageRangeEvents = events.filter(
 		(event) =>
-			event.minAgeYears >= minAge && event.maxAgeYears <= maxAge
+			minAge >= event.minAgeYears && maxAge <= event.maxAgeYears
 	);
 	return ageRangeEvents;
 };
