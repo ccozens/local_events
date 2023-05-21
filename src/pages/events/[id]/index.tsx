@@ -12,6 +12,8 @@ import Modal from '@/components/confirmation/Modal';
 import Link from 'next/link';
 import { ageRangeCalc } from '@/functions/ageRangeCalc';
 import { fetchEventPaths } from '@/functions/fetchEventPaths';
+import { durationCalc } from '@/functions/durationCalc';
+import { durationDisplay } from '@/functions/durationDisplay';
 
 export const getStaticPaths: GetStaticPaths = fetchEventPaths;
 
@@ -48,6 +50,8 @@ export default function EventPage({
 		maxAgeYears,
 		email,
 		phone,
+		startTime,
+		endTime,
 		bookingRequired,
 		website,
 		updatedAt,
@@ -128,6 +132,10 @@ export default function EventPage({
 	const location: Location = event.location;
 	const locationName = location.name;
 
+	// times
+	const duration = durationCalc(startTime, endTime);
+	const displayedDuration = durationDisplay(duration);
+
 	// state flag for delete message
 	const [deleteMessage, setDeleteMessage] = useState<ReactNode>('');
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
@@ -183,6 +191,14 @@ export default function EventPage({
 							<div className={styles.eventGrid}>
 								<p className={styles.eventText}>Age range: </p>
 								<p className={styles.eventText}>{ageRange}</p>
+								<p className={styles.eventText}>Start time:</p>
+								<p className={styles.eventText}>{startTime}</p>
+								<p className={styles.eventText}>End time: </p>
+								<p className={styles.eventText}>{endTime}</p>
+								<p className={styles.eventText}>Duration: </p>
+								<p className={styles.eventText}>
+									{displayedDuration}
+								</p>
 								<p className={styles.eventText}>Cost: </p>
 								<p className={styles.eventText}>
 									{cost ? `£${cost}` : 'Free'}
