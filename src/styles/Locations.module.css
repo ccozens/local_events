@@ -26,7 +26,6 @@
 .suggestion {
 	list-style-type: none;
 	background-color: hsla(263, 80%, 34%, 1);
-
 	border: 1px solid hsla(45, 84%, 75%, 0.5);
 	margin: 5px -5px;
 	padding: 3px;
@@ -34,12 +33,12 @@
 }
 
 .suggestion:hover {
-	background-color: hsla(265, 80%, 35%, 0.5);
+	background-color: hsla(265, 80%, 55%, 1);
 	cursor: pointer;
 }
 
 .suggestion:active {
-	background-color: hsla(265, 80%, 35%, 0.8);
+	background-color: hsla(265, 80%, 75%, 0.8);
 }
 
 .suggestionLink {

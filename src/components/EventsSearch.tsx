@@ -43,6 +43,18 @@ export default function EventsSearch({
 				},
 			});
 
+		const itemsMap = items.map((item, index) => (
+			<li
+				className={styles.suggestion}
+				key={`${item}${index}`}
+				{...getItemProps({ item, index })}
+				onClick={() => {
+					handleSelect(item);
+				}}>
+				<span>{item}</span>
+			</li>
+		));
+
 		return (
 			<div>
 				<div>
@@ -55,20 +67,7 @@ export default function EventsSearch({
 						/>
 					</div>
 				</div>
-				<ul {...getMenuProps()}>
-					{isOpen &&
-						items.map((item, index) => (
-							<li
-								className={styles.sugggestion}
-								key={`${item}${index}`}
-								{...getItemProps({ item, index })}
-								onClick={() => {
-									handleSelect(item);
-								}}>
-								<span>{item}</span>
-							</li>
-						))}
-				</ul>
+				<ul {...getMenuProps()}>{isOpen && itemsMap}</ul>
 			</div>
 		);
 	}
