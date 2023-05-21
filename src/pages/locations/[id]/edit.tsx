@@ -38,21 +38,13 @@ export default function Edit() {
 				</p>
 			),
 				setShowForm(false);
-			return {
-				status: 'success',
-				message: 'Location updated successfully',
-			};
 		} else {
-			console.error(response.statusText);
+			const errorData = await response.json();
 			setErrorMessage(
 				<p className={moreStyles.errorMessage}>
-					Failed to update location: {response.statusText}.
+					Failed to update location: {errorData.error}.
 				</p>
 			);
-			return {
-				status: 'error',
-				message: 'Something went wrong. Please try again later.',
-			};
 		}
 	};
 

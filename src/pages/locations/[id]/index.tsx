@@ -88,10 +88,10 @@ export default function LocationPage({
 			),
 				setShowLocation(false);
 		} else {
-			console.error(response.statusText);
+			const errorData = await response.json();
 			setErrorMessage(
 				<p className={moreStyles.successMessage}>
-					Failed to delete location: {response.statusText}
+					Failed to delete location: {errorData.error}
 				</p>
 			);
 		}

@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@prismaclient';
+import { getErrorMessage } from '@/functions/getErrorMessage';
 
 export default async function handler(
 	req: NextApiRequest,
@@ -62,19 +63,22 @@ export default async function handler(
 			// set status 200 and return success message
 			res.status(200).json({ message: 'Event created' });
 		} catch (error) {
-			let message:string = '';
-			if (error instanceof Error) {message = error.message;}
-			else message = String(error);
-			res.status(500).json({ error: `Failed to create event: ${message}` });
+			const message = getErrorMessage(error);
+			res.status(500).json({ error: message });
 		}
 	// update handler
 	if (req.method === 'PUT') {
-		await prisma.event.update({
-			where: {
-				id: Number(req.body.id),
-			},
-			data: data,
-		});
-		res.status(200).json({ message: 'Event updated' });
+		try {
+			await prisma.event.update({
+				where: {
+					id: Number(req.body.id),
+				},
+				data: data,
+			});
+			res.status(200).json({ message: 'Event updated' });
+		} catch (error) {
+			const message = getErrorMessage(error);
+			res.status(500).json({ error: message });
+		}
 	}
 }

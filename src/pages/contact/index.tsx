@@ -5,9 +5,8 @@ import { useState } from 'react';
 import { ReactNode } from 'react';
 import { ContactMessage } from '@/types/ContactMessage';
 
-
-export default function Contact () {
-    const [successMessage, setSuccessMessage] = useState<ReactNode>('');
+export default function Contact() {
+	const [successMessage, setSuccessMessage] = useState<ReactNode>('');
 	const [showForm, setShowForm] = useState<boolean>(true);
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
 
@@ -32,7 +31,7 @@ export default function Contact () {
 			};
 		} else {
 			const errorData = await response.json();
-			
+
 			setErrorMessage(
 				<p className={moreStyles.successMessage}>
 					Failed to send message: {errorData.error}
@@ -40,12 +39,12 @@ export default function Contact () {
 			);
 		}
 	};
-    
-    return (
-        <div>
-            {showForm && <ContactForm handleSubmitForm={onSubmit}/>}
-            {successMessage}
-            {errorMessage}
-        </div>
-    )
+
+	return (
+		<div>
+			{showForm && <ContactForm handleSubmitForm={onSubmit} />}
+			{successMessage}
+			{errorMessage}
+		</div>
+	);
 }

@@ -43,10 +43,10 @@ export default function Edit(props: { locations: Locations }) {
 				status: 'success',
 			};
 		} else {
-			console.error(response.statusText);
+			const errorData = await response.json();
 			setErrorMessage(
 				<p className={moreStyles.successMessage}>
-					Failed to create event: {response.statusText}
+					Failed to create event: {errorData.error}
 				</p>
 			);
 			// send error status and message to the frontend

@@ -60,7 +60,7 @@ export default function Locations(props: { locations: Locations }) {
 				status: 'success',
 			};
 		} else {
-			console.error(response.statusText);
+			const errorData = await response.json();
 			setTimeout(() => {
 				setError('');
 			}, 5000);

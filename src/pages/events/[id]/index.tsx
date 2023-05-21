@@ -29,7 +29,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	};
 };
 
-
 export default function EventPage({
 	event,
 }: {
@@ -53,12 +52,19 @@ export default function EventPage({
 		website,
 		updatedAt,
 	} = event;
-	const ageRange = ageRangeCalc(minAgeMonths, maxAgeMonths, minAgeYears, maxAgeYears);
+	const ageRange = ageRangeCalc(
+		minAgeMonths,
+		maxAgeMonths,
+		minAgeYears,
+		maxAgeYears
+	);
 	const eventUpdated = new Date(updatedAt).toLocaleDateString(
 		'en-GB'
 	);
-							
-	const termTimeTernary = termTime ? 'Term time only' : 'Runs all year';
+
+	const termTimeTernary = termTime
+		? 'Term time only'
+		: 'Runs all year';
 
 	const websitePresent = website ? (
 		<Link
@@ -91,24 +97,32 @@ export default function EventPage({
 	);
 
 	const bookingRequiredPresent = bookingRequired ? (
-		<p className={`${styles.eventText} ${styles.eventSpan}`}>Booking required</p>
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>
+			Booking required
+		</p>
 	) : (
-		<p className={`${styles.eventText} ${styles.eventSpan}`}>No booking required</p>
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>
+			No booking required
+		</p>
 	);
 
 	const donationPresent = donation ? (
-		<p className={`${styles.eventText} ${styles.eventSpan}`}>This is a suggested donation</p>
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>
+			This is a suggested donation
+		</p>
 	) : null;
 
 	const familyGroupPresent = familyGroup ? (
-		<p className={`${styles.eventText} ${styles.eventSpan}`}>Cost is for a family group</p>
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>
+			Cost is for a family group
+		</p>
 	) : null;
 
 	const siblingDiscountPresent = siblingDiscount ? (
-		<p className={`${styles.eventText} ${styles.eventSpan}`}>Sibling discount available</p>
+		<p className={`${styles.eventText} ${styles.eventSpan}`}>
+			Sibling discount available
+		</p>
 	) : null;
-
-
 
 	// location is a linked table and accessed via the nested prisma query above
 	const location: Location = event.location;
@@ -147,10 +161,10 @@ export default function EventPage({
 			),
 				setShowEvent(false);
 		} else {
-			console.error(response.statusText);
+			const errorData = await response.json();
 			setErrorMessage(
 				<p className={moreStyles.successMessage}>
-					Failed to delete event: {response.statusText}
+					Failed to delete event: {errorData.error}
 				</p>
 			);
 		}
@@ -164,9 +178,7 @@ export default function EventPage({
 							<div className={styles.eventHead}>
 								<h2 className={styles.eventTitle}>{name}</h2>
 								<p className={styles.eventText}>{description}</p>
-								<p className={styles.eventText}>
-									{termTimeTernary}
-								</p>
+								<p className={styles.eventText}>{termTimeTernary}</p>
 							</div>
 							<div className={styles.eventGrid}>
 								<p className={styles.eventText}>Age range: </p>
