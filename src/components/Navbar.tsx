@@ -13,13 +13,26 @@ export default function NavBar(props: navBarProps) {
 	const navBarRef = useRef<HTMLUListElement>(null);
 	const navItemRef = useRef<HTMLLIElement>(null);
 
+	// navItemClick handler so clicking anywhere in li element will trigger navigation
+	const navItemClick = (event: React.MouseEvent) => {
+		const isTextSelected = window.getSelection()?.toString();
+		if (isTextSelected) return;
+		const navItem = event.currentTarget;
+		const link = navItem.querySelector('a');
+		if (link) link.click();
+	};
+
 	// map navList to create navItems
 	const navItemsMapped = (
 		<ul className={styles.navBar} ref={navBarRef}>
 			{navList.map((item, index) => {
 				return (
 					// note ref assigned to each li element
-					<li key={index} className={styles.navItem} ref={navItemRef}>
+					<li
+						key={index}
+						className={styles.navItem}
+						ref={navItemRef}
+						onClick={navItemClick}>
 						<Link href={item.link}>{item.title}</Link>
 					</li>
 				);
