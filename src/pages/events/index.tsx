@@ -62,29 +62,27 @@ export default function Events(props: { locations: Locations }) {
 			{showForm && (
 				<div className={styles.caveats}>
 					<h3>Thanks for adding an event!</h3>
-					<p>A few caveats before you do:</p>
+					<p>A quick note before you do:</p>
 					<ul>
 						<li>
-							This form can only accept 1 event at a time - if your
-							event has multiple days, or multiple times, please enter
-							indivudally and the database will store as a single
-							event.
+							Please check that your event isn&apos;t already listed
+							(there&apos;s an event search on the{' '}
+							<Link href="/">homepage</Link>), and each event has an
+							edit button.
 						</li>
 						<li>
-							The only date format you can enter is a day - I set this
-							up thinking of events that run every week.
+							Its called weekly events, and currently that&apos;s all
+							it supports. If your event has multiple days, or
+							multiple times, they need entering separately.
 						</li>
 					</ul>
+
 					<p>
-						{' '}
-						These all simplify data processing and make the database
-						more user friendly. Please{' '}
+						Please{' '}
 						<span>
 							<Link href="/contact">get in touch</Link>
 						</span>{' '}
-						if you&apos;d like more features (eg, set specific dates
-						for events) and I&apos;ll know there&apos;s interest to
-						work on them.
+						if you&apos;d like more features.
 					</p>
 				</div>
 			)}
