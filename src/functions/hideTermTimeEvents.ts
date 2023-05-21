@@ -1,9 +1,12 @@
 import type { EventWithLocation } from '@/types/EventWithLocation';
 
 // filter eventList by term only
-export const showTermTimeEvents = (events: EventWithLocation[], termOnly: boolean) => {
+export const hideTermTimeEvents = (
+	events: EventWithLocation[],
+	termOnly: boolean
+) => {
 	const termTimeEvents = events.filter(
-		(event) => event.termTime === true
+		(event) => event.termTime === false
 	);
 	return termOnly ? termTimeEvents : events;
 };

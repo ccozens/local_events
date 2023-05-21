@@ -12,7 +12,7 @@ import EventOptionToggles from '@/components/EventOptionToggles';
 import { eventListFiltered } from '@/functions/eventListFiltered';
 import { showFreeEvents } from '@/functions/showFreeEvents';
 import { showNoBookingRequiredEvents } from '@/functions/showNoBookingRequiredEvents';
-import { showTermTimeEvents } from '@/functions/showTermTimeEvents';
+import { hideTermTimeEvents } from '@/functions/hideTermTimeEvents';
 import { showByAgeRange } from '@/functions/showByAgeRange';
 
 export const getStaticProps: GetStaticProps = fetchEvents;
@@ -56,7 +56,7 @@ export default function Home(props: {
 	const [minAge, setMinAge] = useState<number>(0);
 	const [maxAge, setMaxAge] = useState<number>(99);
 	// track term state
-	const [termOnly, setTermOnly] = useState<boolean>(false);
+	const [hideTermOnly, setHideTermOnly] = useState<boolean>(false);
 
 	const showEvents = (eventsToChoose: EventWithLocation[]) =>
 		eventsToChoose.length === 0 ? (
@@ -84,16 +84,16 @@ export default function Home(props: {
 	// call showFreeEvents on filteredEvents if freeEventsOnly is true
 	// call showNoBookingRequiredEvents on filteredEvents if noBookingRequiredOnly is true
 	// call showByAgeRange on filteredEvents if minAge and maxAge are not 0 and 99 respectively
-	// call toggleTermTimeEvents on filteredEvents if termOnly is true
+	// call toggleTermTimeEvents on filteredEvents if hideTermOnly is true
 	// then set chosenEvents to the result of the above
 
 	const chosenEvents = showByAgeRange(
-		showTermTimeEvents(
+		hideTermTimeEvents(
 			showNoBookingRequiredEvents(
 				showFreeEvents(filteredEvents, freeEventsOnly),
 				noBookingRequiredOnly
 			),
-			termOnly
+			hideTermOnly
 		),
 		minAge,
 		maxAge
@@ -117,8 +117,8 @@ export default function Home(props: {
 						setNoBookingRequiredOnly={setNoBookingRequiredOnly}
 						setMinAge={setMinAge}
 						setMaxAge={setMaxAge}
-						termOnly={termOnly}
-						setTermOnly={setTermOnly}
+						hideTermOnly={hideTermOnly}
+						setHideTermOnly={setHideTermOnly}
 					/>
 					<div className={styles.eventsGrid}>
 						{showEvents(chosenEvents)}
