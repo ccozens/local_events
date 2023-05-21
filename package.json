@@ -25,6 +25,7 @@
     "downshift": "^7.6.0",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
+    "googleapis": "^118.0.0",
     "next": "13.3.0",
     "next-swagger-doc": "^0.3.6",
     "nodemailer": "^6.9.1",
