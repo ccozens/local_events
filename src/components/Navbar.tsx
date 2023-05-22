@@ -1,6 +1,6 @@
 import styles from '@/styles/Header.module.css';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 interface navBarProps {
 	navList: { title: string; link: string }[];
@@ -8,6 +8,9 @@ interface navBarProps {
 
 export default function NavBar(props: navBarProps) {
 	const { navList } = props;
+
+	// useState to toggle menu icon
+	const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
 	// useRef to access DOM elements
 	const navBarRef = useRef<HTMLUListElement>(null);
@@ -41,6 +44,7 @@ export default function NavBar(props: navBarProps) {
 	);
 
 	const navButtonClickHandler = () => {
+		setMenuOpen(!menuOpen);
 		// navBar styles
 		const navBar = navBarRef.current;
 		navBar?.classList.toggle(styles.navBarActive);
@@ -60,6 +64,8 @@ export default function NavBar(props: navBarProps) {
 		});
 	};
 
+	const menuIcon = menuOpen ? 'menu_open' : 'menu';
+
 	return (
 		<div className={styles.navContainer}>
 			<button
@@ -72,7 +78,7 @@ export default function NavBar(props: navBarProps) {
 						lineHeight: '1.5rem',
 					}}
 					className="material-symbols-outlined">
-					menu
+					{menuIcon}
 				</span>
 				<p>Menu</p>
 			</button>

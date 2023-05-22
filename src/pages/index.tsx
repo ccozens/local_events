@@ -121,6 +121,7 @@ export default function Home(props: {
 		</div>
 	) : null;
 
+	const filterIcon = showEventFilters ?  'keyboard_double_arrow_up' : 'filter_list';
 
 	return (
 		<div>
@@ -137,7 +138,7 @@ export default function Home(props: {
 						<span
 							className="material-symbols-outlined"
 							onClick={toggleEventFilters}>
-							filter_list
+							{filterIcon}
 						</span>
 					</div>
 					{eventFilters}
