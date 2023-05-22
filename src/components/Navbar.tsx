@@ -72,6 +72,7 @@ export default function NavBar(props: navBarProps) {
 				className={styles.navButton}
 				onClick={navButtonClickHandler}>
 				<span
+					tabIndex={0}
 					style={{
 						fontSize: '2.5rem',
 						fontWeight: 'bold',

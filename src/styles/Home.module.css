@@ -13,6 +13,10 @@
   padding: 1rem;
 }
 
+.filterText {
+  align-self: center;
+}
+
 /* events grid styling */
 .eventsGrid {
   display: grid;
