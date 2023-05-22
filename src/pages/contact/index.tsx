@@ -1,3 +1,4 @@
+// contact page
 import ContactForm from '@/components/forms/ContactForm';
 import moreStyles from '@/styles/Custom.module.css';
 import { SubmitHandler } from 'react-hook-form';

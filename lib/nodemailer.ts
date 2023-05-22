@@ -1,3 +1,4 @@
+// nodemailer.ts
 import nodemailer, { TransportOptions } from 'nodemailer';
 import { google } from 'googleapis';
 
@@ -15,17 +16,18 @@ interface CustomTransportOptions extends TransportOptions {
 
 const OAuth2 = google.auth.OAuth2;
 
-const createTransporter = async () => {
+export const createTransporter = async () => {
+	// create OAuth2 client to get access token
 	const oauth2Client = new OAuth2(
 		process.env.GMAIL_CLIENT_ID,
 		process.env.GMAIL_CLIENT_SECRET,
 		'https://developers.google.com/oauthplayground'
 	);
-
+	// set refresh token
 	oauth2Client.setCredentials({
 		refresh_token: process.env.GMAIL_REFRESH_TOKEN,
 	});
-
+	// get access token
 	const accessToken = await new Promise((resolve, reject) => {
 		oauth2Client.getAccessToken((err, token) => {
 			if (err) {
@@ -35,6 +37,7 @@ const createTransporter = async () => {
 		});
 	});
 
+	// create transporter object with smtp server details
 	const transporter = nodemailer.createTransport({
 		service: 'gmail',
 		auth: {
@@ -50,40 +53,3 @@ const createTransporter = async () => {
 	return transporter;
 };
 
-interface MailOptions {
-	from: string | undefined;
-	to: string | undefined;
-	subject?: string;
-	text?: string;
-}
-
-export const mailOptions: MailOptions = {
-	from: process.env.GMAIL_USERNAME,
-	to: process.env.GMAIL_USERNAME,
-};
-
-export const sendEmail = async (mailOptions: MailOptions) => {
-	let emailTransporter = await createTransporter();
-	await emailTransporter.sendMail(mailOptions);
-};
-/* 
-
-const authOptions = {
-	type: 'OAuth2',
-	user: process.env.GMAIL_USERNAME,
-	clientId: process.env.GMAIL_CLIENT_ID,
-	clientSecret: process.env.GMAIL_CLIENT_SECRET,
-	refreshToken: process.env.GMAIL_REFRESH_TOKEN,
-};
-
-// create nodemailer transporter using gmail and auth options
-export const transporter = nodemailer.createTransport({
-	service: 'gmail',
-	auth: authOptions,
-} as CustomTransportOptions);
-
-export const mailOptions = {
-	from: process.env.GMAIL_USERNAME,
-	to: process.env.GMAIL_USERNAME,
-};
- */
