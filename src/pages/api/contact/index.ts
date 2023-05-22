@@ -7,7 +7,7 @@ import {
 } from '../../../../lib/sendEmail';
 import { getErrorMessage } from '@/functions/getErrorMessage';
 
-export default function handler(
+export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
@@ -20,7 +20,7 @@ export default function handler(
 	};
 
 	try {
-		sendEmail(mailOptions);
+		await sendEmail(mailOptions);
 		res.status(200).json({ success: true });
 	} catch (error) {
 		const message = getErrorMessage(error);
