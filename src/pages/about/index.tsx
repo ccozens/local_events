@@ -1,5 +1,5 @@
 // index.tsx
-import { blurb } from './blurb';
+import { blurb } from '../api/data/blurb';
 
 export default function About() {
 	interface Body {
