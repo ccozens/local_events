@@ -56,10 +56,10 @@ export default function NavBar(props: navBarProps) {
 			itemRef.classList.add(styles.navItemActive);
 			// remove active navBar and navItem styles after navItem clicked, with 50ms delay to allow for animation
 			itemRef.addEventListener('click', () => {
-				setTimeout(
-					() => navBar?.classList.remove(styles.navBarActive),
-					50
-				);
+				setTimeout(() => {
+					navBar?.classList.remove(styles.navBarActive),
+						setMenuOpen(false);
+				}, 50);
 			});
 		});
 	};

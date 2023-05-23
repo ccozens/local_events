@@ -139,7 +139,7 @@ export default function Home(props: {
 						<h2>{heading}</h2>
 						<span
 							tabIndex={0}
-							className="material-symbols-outlined"
+							className={`${`material-symbols-outlined`} ${styles.filterIcon}`}
 							onClick={toggleEventFilters}>
 							{filterIcon}
 						</span>

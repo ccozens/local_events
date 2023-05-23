@@ -2,7 +2,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {
 	sendEmail,
-	mailOptions,
 	MailOptions,
 } from '../../../../lib/sendEmail';
 import { getErrorMessage } from '@/functions/getErrorMessage';

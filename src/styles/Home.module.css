@@ -17,6 +17,17 @@
   align-self: center;
 }
 
+.filterIcon {
+  cursor: pointer;
+}
+
+.filterIcon:hover,
+.filterIcon:focus {
+  background-color: hsla(45, 94%, 66%, 1);
+  color: hsla(265, 80%, 24%, 1);
+  font-weight: bold;
+}
+
 /* events grid styling */
 .eventsGrid {
   display: grid;

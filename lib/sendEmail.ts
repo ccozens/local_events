@@ -1,4 +1,4 @@
-import { createTransporter } from "./nodemailer";
+import { createTransporter } from './nodemailer';
 
 export interface MailOptions {
 	from: string | undefined;
@@ -6,12 +6,6 @@ export interface MailOptions {
 	subject?: string;
 	text?: string;
 }
-
-export const mailOptions: MailOptions = {
-	from: process.env.GMAIL_USERNAME,
-	to: process.env.GMAIL_USERNAME,
-};
-
 
 export const sendEmail = async (mailOptions: MailOptions) => {
 	try {
