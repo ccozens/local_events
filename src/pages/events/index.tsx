@@ -8,6 +8,7 @@ import { useState, ReactNode } from 'react';
 import prisma from '@prismaclient';
 import { GetStaticProps } from 'next';
 import { Event, Location } from '@prismatypes';
+import { HoneyPot } from '@/components/forms/useHoneypot';
 
 // api call to get locations for dropdown
 export const getStaticProps: GetStaticProps = async () => {
@@ -27,7 +28,12 @@ export default function Events(props: { locations: Locations }) {
 	const [showForm, setShowForm] = useState<boolean>(true);
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
 
-	const onSubmit: SubmitHandler<Event> = async (data) => {
+	const onSubmit: SubmitHandler<Event & HoneyPot> = async (data) => {
+		if (data.honeyPot) {
+			return {
+				status: 'success',
+			};
+		}
 		const response = await fetch('/api/events', {
 			method: 'POST',
 			headers: {

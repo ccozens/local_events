@@ -12,6 +12,12 @@ export default function Contact() {
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
 
 	const onSubmit: SubmitHandler<ContactMessage> = async (data) => {
+		if (data.honeyPot) {
+			return {
+				status: 'success',
+			};
+		}
+
 		const response = await fetch('/api/contact', {
 			method: 'POST',
 			headers: {

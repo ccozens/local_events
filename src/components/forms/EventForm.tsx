@@ -3,6 +3,7 @@ import styles from '@/styles/Form.module.css';
 import Link from 'next/link';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { DaysOfWeekElements } from '@/components/DaysOfWeekMap';
+import { HoneyPot, useHoneyPot } from './useHoneypot';
 
 type Locations = Location[];
 
@@ -15,8 +16,8 @@ export default function EventForm(props: {
 		register,
 		handleSubmit,
 		control,
-		formState: { errors }
-	} = useForm<Event>({
+		formState: { errors },
+	} = useForm<Event & HoneyPot>({
 		defaultValues: props.eventData || {
 			minAgeMonths: 0,
 			minAgeYears: 0,
@@ -30,6 +31,8 @@ export default function EventForm(props: {
 		},
 	});
 
+	const { honeyPotField } = useHoneyPot();
+
 	const locationsDropdown = props.locations.map((location, index) => {
 		return (
 			<option key={index} value={location.id}>
@@ -40,10 +43,10 @@ export default function EventForm(props: {
 
 	const onSubmit = props.handleSubmitForm;
 
-
 	return (
 		<div>
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+				{honeyPotField}
 				<label htmlFor="name" className={styles.label}>
 					Event name:
 				</label>
@@ -116,8 +119,7 @@ export default function EventForm(props: {
 						placeholder="0"
 						{...register('maxAgeYears', {
 							valueAsNumber: true,
-							required:
-								'⚠ Please enter a maximum years old.',
+							required: '⚠ Please enter a maximum years old.',
 						})}
 					/>
 					<label htmlFor="maxAgeMonths">Months:</label>
@@ -131,14 +133,10 @@ export default function EventForm(props: {
 						})}
 					/>
 				</div>
-						<p className={styles.error}>
-							{errors.maxAgeYears?.message}
-						</p>
+				<p className={styles.error}>{errors.maxAgeYears?.message}</p>
 				<label htmlFor="location" className={styles.label}>
 					Choose location or{' '}
-					<Link href="/locations/">
-						add a new location
-					</Link>
+					<Link href="/locations/">add a new location</Link>
 				</label>
 
 				<select
@@ -181,11 +179,13 @@ export default function EventForm(props: {
 				<Controller
 					name="cost"
 					control={control}
-					rules={{required: '⚠ Please enter the cost, or 0 if free.'}}
+					rules={{
+						required: '⚠ Please enter the cost, or 0 if free.',
+					}}
 					render={({ field, fieldState }) => (
 						<div>
-						<label htmlFor='cost' className={styles.label}>
-							Cost:
+							<label htmlFor="cost" className={styles.label}>
+								Cost:
 							</label>
 							<input
 								className={styles.input}
@@ -194,11 +194,13 @@ export default function EventForm(props: {
 								{...field}
 								step="0.01"
 								value={field.value}
-								onChange={(e) => field.onChange(Number(e.target.value))}
-								/>
-								</div>
-						)}
-					/>
+								onChange={(e) =>
+									field.onChange(Number(e.target.value))
+								}
+							/>
+						</div>
+					)}
+				/>
 				<p className={styles.error}>{errors.cost?.message}</p>
 				<div className={styles.checkboxGroup}>
 					<div className={styles.alignCheckbox}>

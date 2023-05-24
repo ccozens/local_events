@@ -12,4 +12,5 @@ export type LocationForForm = Omit<
 	id?: number | null;
 	createdAt?: string | null;
 	updatedAt?: string | null;
+	honeyPot?: string;
 };

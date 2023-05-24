@@ -8,6 +8,7 @@ import { Location } from '@prismatypes';
 import { GetStaticProps } from 'next';
 import { fetchLocations } from '@/functions/fetchLocations';
 import { fetchLocationPaths } from '@/functions/fetchLocationPaths';
+import { HoneyPot } from '@/components/forms/useHoneypot';
 
 export const getStaticProps: GetStaticProps = fetchLocations;
 
@@ -19,7 +20,13 @@ export default function Edit() {
 	const [showForm, setShowForm] = useState<boolean>(true);
 	const [errorMessage, setErrorMessage] = useState<ReactNode>('');
 
-	const onSubmit: SubmitHandler<Location> = async (data) => {
+	const onSubmit: SubmitHandler<Location & HoneyPot> = async (data) => {
+		if (data.honeyPot) {
+			return {
+				status: 'success',
+			};
+		}
+
 		const response = await fetch('/api/locations', {
 			method: 'PUT',
 			headers: {

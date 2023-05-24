@@ -1,6 +1,7 @@
 import styles from '@/styles/Form.module.css';
 import { Location } from '@prismatypes';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useHoneyPot, HoneyPot } from './useHoneypot';
 
 export default function LocationEditForm(props: {
 	locationData?: Location;
@@ -10,15 +11,17 @@ export default function LocationEditForm(props: {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<Location>({
+	} = useForm<Location & HoneyPot>({
 		defaultValues: props.locationData,
 	});
 
+	const { honeyPotField } = useHoneyPot();
 	const onSubmit = props.handleSubmitForm;
 
 	return (
 		<div>
 			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+				{honeyPotField}
 				<label htmlFor="name">Location name:</label>
 				<input
 					className={styles.input}

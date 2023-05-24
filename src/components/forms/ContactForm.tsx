@@ -2,6 +2,7 @@
 import styles from '@/styles/Form.module.css';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ContactMessage } from '@/types/ContactMessage';
+import { useHoneyPot } from './useHoneypot';
 
 export default function Contact(props: {
 	handleSubmitForm: SubmitHandler<ContactMessage>;
@@ -12,6 +13,7 @@ export default function Contact(props: {
 		formState: { errors },
 	} = useForm<ContactMessage>();
 
+	const { honeyPotField } = useHoneyPot();
 	const onSubmit = props.handleSubmitForm;
 
 	return (
@@ -19,6 +21,7 @@ export default function Contact(props: {
 			<form
 				className={`${styles.form} ${styles.contact}`}
 				onSubmit={handleSubmit(onSubmit)}>
+				{honeyPotField}
 				<label htmlFor="name">Name:</label>
 				<input
 					className={`${styles.input} ${styles.contactInput}`}
