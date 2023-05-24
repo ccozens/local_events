@@ -5,14 +5,14 @@ import { SubmitHandler } from 'react-hook-form';
 import Router from 'next/router';
 import { useState, ReactNode } from 'react';
 import { Location } from '@prismatypes';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import { fetchLocations } from '@/functions/fetchLocations';
 import { fetchLocationPaths } from '@/functions/fetchLocationPaths';
 import { HoneyPot } from '@/components/forms/useHoneypot';
 
 export const getStaticProps: GetStaticProps = fetchLocations;
 
-export const getStaticPaths = fetchLocationPaths;
+export const getStaticPaths: GetStaticPaths = fetchLocationPaths;
 
 export default function Edit() {
 	const locationData = useLocationStore((state) => state.location);
