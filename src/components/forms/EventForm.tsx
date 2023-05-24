@@ -154,7 +154,7 @@ export default function EventForm(props: {
 				</label>
 				<input
 					className={styles.input}
-					type="url"
+					type="text"
 					placeholder="Event website (optional)"
 					{...register('website')}
 				/>

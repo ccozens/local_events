@@ -33,21 +33,28 @@ export default defineConfig({
 	/* Configure projects for major browsers */
 	projects: [
 		{
+			name: 'setup',
+			testMatch: '*/setup.spec.ts',
+		},
+		{
 			name: 'chromium',
 			use: { ...devices['Desktop Chrome'] },
-			testMatch: '*/desktop/*.spec.ts',
+			testMatch: ['*/desktop/*.spec.ts', '*/api/*.spec.ts'],
+			dependencies: ['setup'],
 		},
 		
 		{
 			name: 'firefox',
 			use: { ...devices['Desktop Firefox'] },
 			testMatch: '*/desktop/*.spec.ts',
+			dependencies: ['setup'],
 		},
 		
 		{
 			name: 'webkit',
 			use: { ...devices['Desktop Safari'] },
 			testMatch: '*/desktop/*.spec.ts',
+			dependencies: ['setup'],
 		},
 		
 		/* Test against mobile viewports. */
@@ -55,11 +62,13 @@ export default defineConfig({
 			name: 'Mobile Chrome',
 			use: { ...devices['Pixel 5'] },
 			testMatch: '*/mobile/*.spec.ts',
+			dependencies: ['setup'],
 		},
 		{
 			name: 'Mobile Safari',
 			use: { ...devices['iPhone 12'] },
 			testMatch: '*/mobile/*.spec.ts',
+			dependencies: ['setup'],
 		},
 
 		/* Test against branded browsers. */
